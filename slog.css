@@ -1,0 +1,731 @@
+@font-face
+{
+    font-family: Poppins;
+    src: url(fonti/Poppins/Poppins-Regular.ttf);
+}
+
+@font-face
+{
+    font-family: Poppins-Bold;
+    src: url(fonti/Poppins/Poppins-Bold.ttf);
+}
+
+@font-face
+{
+    font-family: Amatic;
+    src: url(fonti/amatic-bold.ttf);
+}
+
+html
+{
+    font-size: 0.625vw;
+}
+
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    font-weight: 500;
+}
+
+/*prva stran - index*/
+
+.zacetnastranindex
+{
+    height: 100vh;
+    background-image: url(slike/index/DSC08142-41.JPG);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 20%;
+}
+
+.temno
+{
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+header
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 1);
+    height: 7em;
+}
+
+header .logo
+{
+    margin-left: 1.5em;
+    margin-top: 0.5em;
+}
+
+header .logo img
+{
+    width: 10em;
+}
+
+header ul
+{
+    display: flex;
+    align-items: center;
+}
+
+header ul li
+{
+    margin-right: 2em;
+    list-style: none;
+    padding: 1.5em;
+}
+
+header ul li a
+{
+    position: relative;
+    font-size: 1.6em;
+    text-decoration: none;
+    color: #B4B436;
+    transition: all 1s;
+    padding-bottom: 0.2em;
+}
+
+header ul li:not(:last-child) a::after
+{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.1em;
+    background-color: #B4B436;
+}
+
+header ul li:not(:last-child) a:hover::after
+{
+    width: 100%;
+    transition: all 1s;
+}
+
+.search
+{
+    margin-right: 2em;
+    display: flex;
+    align-items: center;
+    background-color: #B4B436;
+    padding: 0.5em;
+    border-radius: 2em;
+    width: 18em;
+}
+
+.search input
+{
+    all: unset;
+    padding: 0.5em 1em;
+    border-radius: 2em;
+    font-size: 1.3em;
+    width: 100%;
+    color: white;
+}
+
+.search input::placeholder
+{
+    color: white;
+}
+
+.search button
+{
+    all: unset;
+    padding: 0.7em 0.7em;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;  
+}
+
+.search button:hover
+{
+    background-color: #DBBB92;
+}
+
+.gumbsearch i
+{
+    font-size: 1.3em;
+    color: white;
+}
+
+.nadozadjem
+{
+    padding-top: 22em;
+    text-align: center;
+}
+
+.nadozadjem h1
+{
+    font-family: Amatic, sans-serif;
+    color: #DBBB92;
+    text-align: center;
+    font-size: 10em;
+    letter-spacing: 0.2em;
+}
+
+.nadozadjem h2
+{
+    margin-top: 0.3em;
+    font-family: Amatic, sans-serif;
+    color: white;
+    text-align: center;
+    font-size: 3em;
+    letter-spacing: 0.3em;
+}
+
+.nadozadjem p
+{
+    line-height: 1.6;
+    margin-top: 8em;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+    font-size: 1.3em;
+}
+
+.nadozadjem p span
+{
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #DBBB92;
+}
+
+.nadozadjem .gumbnadozadjem
+{
+    margin-top: 5em;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition: all 1s ease;
+    animation: povecavazmanjsava 5s ease-in-out infinite;
+}
+
+@keyframes povecavazmanjsava
+{
+    0%, 100%
+    {
+        transform: scale(1);
+    }
+
+    50%
+    {
+        transform: scale(1.1);
+    }
+}
+
+.nadozadjem .gumbnadozadjem span
+{
+    font-size: 1.2em;
+}
+
+.nadozadjem .gumbnadozadjem:hover
+{
+    background-color: #DBBB92;
+}
+
+
+
+/*druga stran - index*/
+
+.drugastranindex
+{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.vsebina
+{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: 39em;
+    gap: 10em;
+}
+
+.vsebina .textdruga
+{
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    text-align: justify;
+    justify-content: space-between;
+}
+
+.vsebina .textdruga .texta
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.vsebina .textdruga h1 span
+{
+    font-family: Poppins-Bold;
+    font-size: 2em;
+    color: #B4B436;
+}
+
+.vsebina .textdruga h1
+{
+    font-family: Poppins-Bold;
+    font-size: 1.5em;
+}
+
+.naslov h1 span
+{
+    transition: color 1s ease;
+}
+
+.vsebina .textdruga p
+{
+    font-size: 1.3em;
+    margin-bottom: 1em;
+}   
+
+.vsebina .textdruga .texta .gumbveconas
+{
+    margin-top: 1.5em;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition: all 1s ease;
+    width: fit-content;
+}
+
+.vsebina .textdruga .texta .gumbveconas span
+{
+    font-size: 1.2em;
+}
+
+.vsebina .textdruga .texta .gumbveconas:hover
+{
+    background-color: #DBBB92;
+}
+
+.vsebina .slikadruga img
+{
+    border-radius: 20em;
+    width: 60em;
+}
+
+/*tretja stran - prvi del - index*/
+
+.tretjastranprviindex
+{
+    height: 20vh;
+}
+
+.tretjastranprviindex .naslovi
+{
+    margin-top: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3em;
+}
+
+.tretjastranprviindex .naslovi .naslov a
+{
+    margin-left: 1.1em;
+    margin-right: 0.4em;
+    font-family: Poppins-Bold;
+    color: black;
+    text-decoration: none;
+}
+
+.tretjastranprviindex .crta .ikone 
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #B4B436;
+    height: 2em;
+    border-radius: 1em;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tretjastranprviindex .crta .ikone .ikona a
+{
+    display: block;
+    padding: 2em 2.5em;
+    background-color: #DBBB92;
+    border-radius: 20em;
+    transition: all 1s ease;
+    color: black;
+}
+
+.tretjastranprviindex .crta .ikone .ikona a:hover
+{
+    scale: 1.1;
+}
+
+
+/*tretja stran - drugi del - index*/
+.tretjastrandrugiindex
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    background-image: url(slike/index/DSC08271-58.JPG);
+    background-size: cover;
+    background-position-y: -40em;
+    background-repeat: no-repeat;
+}
+
+.tretjastrandrugiindex .temno
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}
+
+.tretjastrandrugiindex .temno h1
+{
+    font-family: Poppins-Bold;
+    font-size: 3.5em;
+    color: white;
+    margin-bottom: 0.25em;
+}
+
+.tretjastrandrugiindex .temno p
+{
+    text-align: center;
+    font-size: 1.3em;
+    color: white;
+    max-width: 60%;
+}
+
+.temno p span
+{
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #DBBB92;
+}
+
+
+/*cetrta stran - index*/
+.cetrtastranindex
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+}
+
+.cetrtastranindex .text
+{
+    margin-top: 4em;
+    text-align: center;
+}
+
+.cetrtastranindex .text h1
+{
+    font-family: Poppins-Bold;
+    font-size: 3em;
+    color: #B4B436;
+}
+
+.cetrtastranindex .text p
+{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.3em;
+    max-width: 60%;
+    margin-bottom: 5em;
+}
+
+.cetrtastranindex .text p span
+{
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #DBBB92;
+}
+
+.cetrtastranindex .slike
+{
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 3em;
+    column-gap: 3em;
+}
+
+.cetrtastranindex .slike img
+{
+    width: 30em;
+    border-radius: 1em;
+    transition: all 1s;
+}
+
+.cetrtastranindex .slike .okvir
+{
+    border-radius: 1em;
+    overflow: hidden;
+    width: 30em;
+    max-height: 19em;
+}
+
+.cetrtastranindex .slike img:hover
+{
+    scale: 1.2;
+}
+
+.cetrtastranindex .gumb .gumbvec
+{
+    margin-top: 3em;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition: all 1s ease;
+    width: fit-content;
+}
+
+.cetrtastranindex .gumb .gumbvec span
+{
+    font-size: 1.2em;
+}
+
+.cetrtastranindex .gumb .gumbvec:hover
+{
+    background-color: #DBBB92;
+}
+
+
+/*prijava na novice - index*/
+.cetrti
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 1s ease;
+}
+
+.cetrti .text
+{
+    display: flex;
+    justify-content: left;
+    gap: 2em;
+    margin-bottom: 2em;
+}
+
+.cetrti i
+{
+    font-size: 2em;
+    color: #B4B436;
+}
+
+.cetrti p
+{
+    font-family: Poppins-Bold;
+    font-size: 1.2em;
+}
+
+.cetrti .emailform
+{
+    display: flex;
+    all: unset;
+    padding: 0.5em 1em;
+    border-radius: 2em;
+    font-size: 1.3em;
+    color: black;
+    border: solid 0.01em gray;
+    position: relative;
+}
+
+.cetrti .emailform input
+{
+    all: unset;
+    font-size: 0.8em;
+}
+
+.cetrti .emailform input::placeholder
+{
+    color: black;
+}
+
+.cetrti .emailform button
+{
+    all: unset;
+    color: black;
+    background-color: #B4B436;
+    padding: 0.7em 0.7em;
+    border-radius: 2em;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: all 1s;
+}
+
+.cetrti .emailform button:hover
+{
+    background-color: #DBBB92;
+}
+
+.loading
+{
+    width: 1em;
+    height: 1em;
+    border: 2px solid transparent;
+    border-top-color: gray;
+    border-radius: 50%;
+    animation: spin 0.5s linear infinite;
+    display: none;
+}
+
+@keyframes spin
+{
+    from
+    {
+        transform: rotate(0deg);
+    }
+    to
+    {
+        transform: rotate(360deg);
+    }
+}
+
+/*peta stran - drugi del - index*/
+
+footer
+{
+    display: flex;
+    justify-content: center;
+    padding: 5em;
+    gap: 10em;
+}
+
+footer h2
+{
+    font-family: Poppins-Bold;
+    margin-bottom: 0.75em;
+}
+
+footer ul li
+{
+    list-style: none;
+    font-size: 1.2em;
+}
+
+footer .tretji ul li a
+{
+    display: block;
+    color: black;
+    text-decoration: none;
+    transition: all 1s;
+}
+
+footer .drugi ul li a
+{
+    font-size: 1.8em;
+    color: #B4B436;
+    margin-right: 0.5em;
+    transition: all 1s;
+}
+
+footer .tretji ul li a:hover
+{
+    scale: 1.05;
+}
+
+footer .drugi ul li a:hover
+{
+    color: #DBBB92;
+}
+
+footer .logo img
+{
+    width: 5em;
+}
+
+
+/*peta stran - tretji del - index*/
+
+.petastrantretjiindex
+{
+    display: flex;
+    justify-content: center;
+    background-color: #B4B436;
+    gap: 5em;
+    padding: 1em;
+    color: white;
+}
+
+.petastrantretjiindex a
+{
+    color: white;
+    text-decoration: none;
+    transition: all 1s;
+}
+
+.petastrantretjiindex a:hover
+{
+    scale: 1.1;
+}
+
+/* Tukaj je za search bar scripta*/
+.search-results
+{
+    display: none;
+    position: fixed;
+    top: 7em;
+    right: 0;
+    background-color: white;
+    border-radius: 0em 0em 0em 1em;
+    width: 21em;
+    max-height: 18em;
+    overflow-y: auto;
+}
+
+.search-results p
+{
+    padding: 0.625em;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.search-results p:hover
+{
+    background-color: #B4B436;
+    color: white;
+}
+
+/* Tukaj je za search bar scripta*/
+
+
+
+
+
+
+
