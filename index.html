@@ -22,7 +22,14 @@
                 <div class="logo">
                     <a href=""><img src="slike/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
                 </div>
-                <nav>
+            
+                <div class="menutelefon" onclick="toggleMenu()">
+                    <div class="crtica"></div>
+                    <div class="crtica"></div>
+                    <div class="crtica"></div>
+                </div>
+            
+                <nav class="navmenu" id="navmenu">
                     <ul>
                         <li><a href="index.html">Domov</a></li>
                         <li><a href="onas.html">O nas</a></li>
@@ -35,9 +42,8 @@
                         </div>
                     </ul>
                 </nav>
-            </header>
-
-            <div id="search-results" class="search-results"></div>
+                <div class="search-results" id="search-results"></div>
+            </header>            
 
             <div class="nadozadjem">
                 <h1>URBAN JR.</h1>
@@ -75,10 +81,10 @@
         </div>
         <div class="crta">
             <div class="ikone">
-                <div class="ikona"><a href=""><i class="fa-solid fa-egg"></i></a></div>
-                <div class="ikona"><a href=""><i class="fa-solid fa-drumstick-bite"></i></a></div>
-                <div class="ikona"><a href=""><i class="fa-solid fa-glass-water"></i></a></div>
-                <div class="ikona"><a href=""><i class="fa-solid fa-seedling"></i></a></div>
+                <div class="ikona"><a href="trgovina.html"><i class="fa-solid fa-egg"></i></a></div>
+                <div class="ikona"><a href="trgovina.html"><i class="fa-solid fa-drumstick-bite"></i></a></div>
+                <div class="ikona"><a href="trgovina.html"><i class="fa-solid fa-glass-water"></i></a></div>
+                <div class="ikona"><a href="trgovina.html"><i class="fa-solid fa-seedling"></i></a></div>
             </div>
         </div>
     </div>
@@ -120,7 +126,6 @@
         </div>
     </div>
     
-    <!--test-->
     <!--
     <div class="petastranprviindex">
         <div class="text">
@@ -233,136 +238,119 @@
     -->
 
     <div class="petastrandrugiindex">
-        <footer>
-            <div class="stolpec prvi">
-                <div class="logo">
-                    <img src="slike/skupne/Logo/1Logo__URBAN JR_vertikalen.png" alt="Logotip">
+        <div class="poravnava">
+            <footer>
+                <div class="stolpec prvi">
+                    <div class="logo">
+                        <img src="slike/skupne/Logo/1Logo__URBAN JR_vertikalen.png" alt="Logotip">
+                    </div>
+                    <h2>SPLOŠNI PODATKI</h2>
+                    <ul>
+                        <li>URBAN JR | Dopolnilna dejavnost</li>
+                        <li>Dražgoše 18</li>
+                        <li>4228 Železniki</li>
+                    </ul>
                 </div>
-                <ul>
-                    <li>URBAN JR | Dopolnilna dejavnost</li>
-                    <li>Dražgoše 18</li>
-                    <li>4228 Železniki</li>
-                </ul>
-            </div>
-            <div class="stolpec drugi">
-                <h2>KONTAKT</h2>
-                <ul>
-                    <li>
-                        <a href="https://www.facebook.com/UrbanJr.Drazgose/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/urbanjr_drazgose/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJTNHtKbNcdTdHVgvscSqCsJQNjLgdjWmrgDhVJbMHmMbsWCHmxKxHJxKzqLvCZfNQlKtXB" target="_blank"><i class="fa-regular fa-envelope"></i></a>
-                    </li>
-                    <li>urbanjr.drazgose@gmail.com</li>
-                    <li>031 344 457 (Gorazd)</li>
-                </ul>
-            </div>
-            <div class="stolpec tretji">
-                <h2>PRAVNI PODATKI</h2>
-                <ul>
-                    <li><a href="">Podjetje in kontaktni podatki</a></li>
-                    <li><a href="">Politika zasebnosti</a></li>
-                    <li><a href="">Pogoji poslovanja</a></li>
-                </ul>
-            </div>
-            <div class="stolpec cetrti">
-                <div class="text">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    <p>Bodite obveščeni o novostih</p>
+                <div class="stolpec drugi">
+                    <h2>KONTAKTI</h2>
+                    <ul>
+                        <li>
+                            <a href="https://www.facebook.com/UrbanJr.Drazgose/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/urbanjr_drazgose/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJTNHtKbNcdTdHVgvscSqCsJQNjLgdjWmrgDhVJbMHmMbsWCHmxKxHJxKzqLvCZfNQlKtXB" target="_blank"><i class="fa-regular fa-envelope"></i></a>
+                        </li>
+                        <li>urbanjr.drazgose@gmail.com</li>
+                        <li>031 344 457 (Gorazd)</li>
+                    </ul>
                 </div>
-                <form action="" class="emailform">
-                    <input type="email" id="emailInput" placeholder="Vaš Email naslov" required
-                        pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
-                    <span id="emailStatus">
-                        <span class="loading"></span>
-                    </span>
-                    <button type="submit" id="submitButton">Prijavite se</button>
-                </form>
-            </div>
-        </footer>
-
+                <div class="stolpec tretji">
+                    <h2>PRAVNI PODATKI</h2>
+                    <ul>
+                        <li><a href="">Podjetje in kontaktni podatki</a></li>
+                        <li><a href="">Politika zasebnosti</a></li>
+                        <li><a href="">Pogoji poslovanja</a></li>
+                    </ul>
+                </div>
+                <div class="stolpec cetrti">
+                    <div class="text">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <p>Bodite obveščeni o novostih</p>
+                    </div>
+                    <form action="" class="emailform">
+                        <input type="email" id="emailInput" placeholder="Vaš Email naslov" required
+                            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
+                        <span id="emailStatus">
+                            <span class="loading"></span>
+                        </span>
+                        <button type="submit" id="submitButton">Prijavite se</button>
+                    </form>
+                </div>
+            </footer>
+        </div>
+        
         <div class="petastrantretjiindex">
             <p>© 2025 URBAN JR. | Vse pravice pridržane</p>
             <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJNsLqLBFFTldxbGjxDnMLkPrctxvjkFJTxWZVqTxGpctGMpMwqjQGxsGPLBnNBHMppSzcL">Izdelava spletne strani</a>
         </div>
     </div>
 
+<!--/* Tukaj je za telefonprikaz meni */ -->
+    <script>
+        function toggleMenu() {
+            let menu = document.getElementById("navmenu");
+            let menuButton = document.querySelector(".menutelefon");
 
-
-
+            menu.classList.toggle("active");
+            menuButton.classList.toggle("active");
+        }
+    </script>
+<!--/* Tukaj je za telefonprikaz meni */ -->
 
 <!--/* Tukaj je za search bar scripta */ -->
     <script>
-                    document.getElementById('gumbsearch').addEventListener('click', function() {
-                let query = document.getElementById('search-input').value.toLowerCase(); // pridobi iskalni niz
-                let results = []; // shranjujemo rezultate iskanja
-                let searchResultsContainer = document.getElementById('search-results');
-                searchResultsContainer.innerHTML = ''; // Preden začnemo iskanje, očistimo obstoječe rezultate
+   document.getElementById('search-input').addEventListener('input', function() {
+    let query = this.value.toLowerCase(); // pridobi iskalni niz
+    let results = []; // shranjujemo rezultate iskanja
+    let searchResultsContainer = document.getElementById('search-results');
+    searchResultsContainer.innerHTML = ''; // Preden začnemo iskanje, očistimo obstoječe rezultate
 
-                if (query.length > 0) {
-                    // Poišči vse elemente na strani, ki vsebujejo besedilo (npr. h1, p)
-                    let elementsToSearch = document.querySelectorAll('h1, h2, p, li, span');
-                    
-                    elementsToSearch.forEach(function(element) {
-                        if (element.textContent.toLowerCase().includes(query)) {
-                            results.push(element); // Dodamo element v rezultate
-                        }
-                    });
-                    
-                    // Prikaz rezultatov
-                    if (results.length > 0) {
-                        searchResultsContainer.style.display = 'block';
-                        results.forEach(function(result) {
-                            let resultItem = document.createElement('p');
-                            resultItem.textContent = result.textContent.substring(0, 100) + '...'; // Prikaz delnega besedila
-                            resultItem.addEventListener('click', function() {
-                                result.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Pomakne na element
-                                searchResultsContainer.style.display = 'none'; // Skrije rezultate iskanja po kliku
-                            });
-                            searchResultsContainer.appendChild(resultItem);
-                        });
-                    } else {
-                        searchResultsContainer.style.display = 'none';
-                    }
-                } else {
-                    searchResultsContainer.style.display = 'none';
-                }
+    if (query.length > 0) {
+        // Poišči vse elemente na strani, ki vsebujejo besedilo (npr. h1, p)
+        let elementsToSearch = document.querySelectorAll('h1, h2, p, li, span');
+        
+        elementsToSearch.forEach(function(element) {
+            if (element.textContent.toLowerCase().includes(query)) {
+                results.push(element); // Dodamo element v rezultate
+            }
+        });
+
+        // Prikaz rezultatov
+        if (results.length > 0) {
+            searchResultsContainer.style.display = 'block'; // Prikaz rezultatov
+            results.forEach(function(result) {
+                let resultItem = document.createElement('p');
+                resultItem.textContent = result.textContent.substring(0, 100) + '...'; // Prikaz delnega besedila
+                resultItem.addEventListener('click', function() {
+                    result.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Pomakne na element
+                    searchResultsContainer.style.display = 'none'; // Skrije rezultate iskanja po kliku
+                });
+                searchResultsContainer.appendChild(resultItem);
             });
+        } else {
+            searchResultsContainer.style.display = 'none'; // Ni rezultatov, skrijemo
+        }
+    } else {
+        searchResultsContainer.style.display = 'none'; // Skrijemo, ko je iskalnik prazen
+    }
+});
 
-            document.getElementById('search-input').addEventListener('input', function() {
-                let query = this.value.toLowerCase(); // pridobi iskalni niz
-                let results = []; // shranjujemo rezultate iskanja
-                let searchResultsContainer = document.getElementById('search-results');
-                searchResultsContainer.innerHTML = ''; // Preden začnemo iskanje, očistimo obstoječe rezultate
+document.getElementById('gumbsearch').addEventListener('click', function() {
+    let query = document.getElementById('search-input').value.toLowerCase(); // pridobi iskalni niz
+    if (query.length > 0) {
+        document.getElementById('search-input').dispatchEvent(new Event('input')); // Simulira input dogodek, da prikaže rezultate
+    }
+});
 
-                if (query.length > 0) {
-                    // Poišči vse elemente na strani, ki vsebujejo besedilo (npr. h1, p)
-                    let elementsToSearch = document.querySelectorAll('h1, h2, p, li, span');
-                    
-                    elementsToSearch.forEach(function(element) {
-                        if (element.textContent.toLowerCase().includes(query)) {
-                            results.push(element); // Dodamo element v rezultate
-                        }
-                    });
-                    
-                    // Prikaz rezultatov
-                    if (results.length > 0) {
-                        searchResultsContainer.style.display = 'block';
-                        results.forEach(function(result) {
-                            let resultItem = document.createElement('p');
-                            resultItem.textContent = result.textContent.substring(0, 100) + '...'; // Prikaz delnega besedila
-                            resultItem.addEventListener('click', function() {
-                                result.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Pomakne na element
-                                searchResultsContainer.style.display = 'none'; // Skrije rezultate iskanja po kliku
-                            });
-                            searchResultsContainer.appendChild(resultItem);
-                        });
-                    } else {
-                        searchResultsContainer.style.display = 'none';
-                    }
-                } else {
-                    searchResultsContainer.style.display = 'none';
-                }
-            });
 
     </script>
 
