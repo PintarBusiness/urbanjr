@@ -29,6 +29,8 @@ html
     font-weight: 500;
 }
 
+/*Index html*/
+
 /*prva stran - index*/
 
 .zacetnastranindex
@@ -40,7 +42,7 @@ html
     background-position-y: 20%;
 }
 
-.temno
+.temnoindex
 {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
@@ -157,13 +159,13 @@ header ul li:not(:last-child) a:hover::after
     color: white;
 }
 
-.nadozadjem
+.nadozadjemindex
 {
     padding-top: 22em;
     text-align: center;
 }
 
-.nadozadjem h1
+.nadozadjemindex h1
 {
     font-family: Amatic, sans-serif;
     color: #DBBB92;
@@ -172,7 +174,7 @@ header ul li:not(:last-child) a:hover::after
     letter-spacing: 0.2em;
 }
 
-.nadozadjem h2
+.nadozadjemindex h2
 {
     margin-top: 0.3em;
     font-family: Amatic, sans-serif;
@@ -182,7 +184,7 @@ header ul li:not(:last-child) a:hover::after
     letter-spacing: 0.3em;
 }
 
-.nadozadjem p
+.nadozadjemindex p
 {
     line-height: 1.6;
     margin-top: 8em;
@@ -193,14 +195,14 @@ header ul li:not(:last-child) a:hover::after
     font-size: 1.3em;
 }
 
-.nadozadjem p span
+.nadozadjemindex p span
 {
     font-weight: 900;
     letter-spacing: 0.1em;
     color: #DBBB92;
 }
 
-.nadozadjem .gumbnadozadjem
+.nadozadjemindex .gumbnadozadjem
 {
     margin-top: 5em;
     padding: 1em 2.3em;
@@ -227,12 +229,12 @@ header ul li:not(:last-child) a:hover::after
     }
 }
 
-.nadozadjem .gumbnadozadjem span
+.nadozadjemindex .gumbnadozadjem span
 {
     font-size: 1.2em;
 }
 
-.nadozadjem .gumbnadozadjem:hover
+.nadozadjemindex .gumbnadozadjem:hover
 {
     background-color: #DBBB92;
 }
@@ -399,7 +401,7 @@ header ul li:not(:last-child) a:hover::after
     background-repeat: no-repeat;
 }
 
-.tretjastrandrugiindex .temno
+.tretjastrandrugiindex .temnoindex
 {
     display: flex;
     flex-direction: column;
@@ -408,7 +410,7 @@ header ul li:not(:last-child) a:hover::after
     height: 70vh;
 }
 
-.tretjastrandrugiindex .temno h1
+.tretjastrandrugiindex .temnoindex h1
 {
     font-family: Poppins-Bold;
     font-size: 3.5em;
@@ -416,7 +418,7 @@ header ul li:not(:last-child) a:hover::after
     margin-bottom: 0.25em;
 }
 
-.tretjastrandrugiindex .temno p
+.tretjastrandrugiindex .temnoindex p
 {
     text-align: center;
     font-size: 1.3em;
@@ -424,7 +426,7 @@ header ul li:not(:last-child) a:hover::after
     max-width: 60%;
 }
 
-.temno p span
+.temnoindex p span
 {
     font-weight: 900;
     letter-spacing: 0.1em;
@@ -859,28 +861,28 @@ footer .logo img
         background-position-x: 50%;
     }
 
-    .nadozadjem
+    .nadozadjemindex
     {
         padding-top: 60%;
     }
 
-    .nadozadjem h1
+    .nadozadjemindex h1
     {
         font-size: 30em;
     }
 
-    .nadozadjem h2
+    .nadozadjemindex h2
     {
         font-size: 8em;
     }
 
-    .nadozadjem p
+    .nadozadjemindex p
     {
         margin-top: 5em;
         font-size: 5em;
     }
 
-    .nadozadjem .gumbnadozadjem
+    .nadozadjemindex .gumbnadozadjem
     {
         scale: 4;
         margin-top: 15em;
@@ -968,7 +970,7 @@ footer .logo img
         background-position-y: unset;
     }
 
-    .tretjastrandrugiindex .temno h1
+    .tretjastrandrugiindex .temnoindex h1
     {
         text-align: center;
         font-size: 13em;
@@ -976,7 +978,7 @@ footer .logo img
         margin-bottom: 1em;
     }
 
-    .tretjastrandrugiindex .temno p
+    .tretjastrandrugiindex .temnoindex p
     {
         font-size: 5em;
         max-width: 80%;
@@ -1122,4 +1124,145 @@ footer .logo img
         font-size: 4em;
     }
 
+}
+
+
+/* O nas html*/
+
+/* Prva stran - O nas */
+.zacetnastranostali
+{
+    height: 35vh;
+    background-image: url(slike/onas/DSC08268-57.JPG);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 70%;
+}
+
+.temnoostali
+{
+    height: 35vh;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.nadozadjemostali
+{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 10em;
+    color: white;
+}
+
+.nadozadjemostali h1
+{
+    font-family: Poppins-Bold;
+    font-size: 4em;
+}
+
+.nadozadjemostali p
+{
+    line-height: 1.6;
+    margin-top: 1em;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60%;
+    font-size: 1.3em;
+}
+
+.nadozadjemostali p span
+{
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #DBBB92;
+}
+
+/* Druga stran - O nas */
+
+.drugastranonas
+{
+    height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.drugastranonas .vsebina .text
+{
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+    max-width: 40%;
+}
+
+.drugastranonas h1
+{
+    font-family: Poppins-Bold;
+    font-size: 1.8em;
+}
+
+.drugastranonas h1 span
+{
+    font-family: Poppins-Bold;
+    font-size: 1.8em;
+    color: #B4B436;
+}
+
+.drugastranonas p
+{
+    font-size: 1.3em;
+}
+
+.drugastranonas h2
+{
+    margin-top: 4em;
+    font-family: Poppins-Bold;
+    font-size: 1.3em;
+}
+
+.drugastranonas ul li
+{
+    margin-top: 1.5em;
+    list-style: none;
+}
+
+.drugastranonas ul li a
+{
+    display: inline-block;
+    color: #B4B436;
+    font-size: 2em;
+    margin-right: 0.5em;
+    transition: all 1s;
+}
+
+.drugastranonas ul li a:hover
+{
+    scale: 1.2;
+    color: #DBBB92;
+}
+
+.drugastranonas .vsebina .slike
+{
+    display: flex;
+    max-height: fit-content;
+}
+
+.drugastranonas img
+{
+    width: 25em;
+    border-radius: 2em;
+}
+
+.drugastranonas .vsebina .slike .enadve
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 4.5em;
+}
+
+.drugastranonas .vsebina .slike .tri
+{
+    height: 37.5em;
 }
