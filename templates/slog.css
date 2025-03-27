@@ -1662,3 +1662,26 @@ footer .logo img
         scale: 3.5;
     }
 }
+
+/* prijava za admin */
+
+.bodyAdmin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+
+}
+
+.bodyAdmin .naslov{
+    border: 0.2em solid gray;
+    border-radius: 0.5em;
+    padding: 1em;
+    
+}
+
+#prijavaAdmin{
+    padding: 0.2em;
+
+}

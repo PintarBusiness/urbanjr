@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="slog.css">
+    <title>Prijava admin</title>
 </head>
 <body>
-    
+    <div class="bodyAdmin">
+        <div class="naslov">
+            <h1>Prijavite se</h1>
+            <form action="/action_page.php">
+                <label for="fname">Uporabniški račun:</label><br>
+                <input type="text" id="fname" name="fname" placeholder="ime..."><br>
+                <label for="lname">Geslo:</label><br>
+                <input type="text" id="lname" name="lname" placeholder="geslo..."><br><br>
+                <input id="prijavaAdmin" type="submit" value="Prijava">
+              </form>
+        </div>
+    </div>
 </body>
 </html>
