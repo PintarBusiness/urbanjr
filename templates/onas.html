@@ -8,12 +8,40 @@
     <meta name="description" content="Kmetija v Dražgošah, ki vpeljuje principe regenerativnega kmetovanja.">
     <meta name="author" content="Izdelava spletnih strani Pintar, Jure Pintar">
 
-    <link rel="stylesheet" href="slog.css">
+    <link rel="stylesheet" href="static/css/slog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <link rel="icon" href="slike/skupne/Logo/Znak__URBAN JR_zelen.ico" type="image/x-icon">
     <title>Urban JR. - O nas</title>
 </head>
+<style>
+    @font-face
+    {
+        font-family: Poppins;
+        src: url("{{ url_for('static', filename='fonts/Poppins/Poppins-Regular.ttf') }}");
+    }
+
+    @font-face
+    {
+        font-family: Poppins-Bold;
+        src: url("{{ url_for('static', filename='fonts/Poppins/Poppins-Bold.ttf') }}");
+    }
+
+    @font-face
+    {
+        font-family: Amatic;
+        src: url("{{ url_for('static', filename='fonts/amatic-bold.ttf') }}");
+    }
+    .ozadjeonas
+    {
+        background-image: url("{{ url_for('static', filename='images/onas/DSC08268-57.JPG') }}");
+    }
+    .cetrtastranonas
+    {
+        background-image: url("{{ url_for('static', filename='images/skupne/DSC07986-22.JPG') }}");
+    }
+
+</style>
 <body>
 
     <div class="zacetnastranostali">
@@ -21,7 +49,7 @@
             <div class="temnoostali">
                 <header>
                     <div class="logo">
-                        <a href=""><img src="slike/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
+                        <a href=""><img src="static/images/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
                     </div>
                 
                     <div class="menutelefon" onclick="toggleMenu()">
@@ -32,11 +60,11 @@
                 
                     <nav class="navmenu" id="navmenu">
                         <ul>
-                            <li><a href="index.html">Domov</a></li>
-                            <li><a href="onas.html">O nas</a></li>
-                            <li><a href="trgovina.html">Trgovina</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="kontakt.html">Kontakt</a></li>
+                            <li><a href="/">Domov</a></li>
+                            <li><a href="/onas">O nas</a></li>
+                            <li><a href="/trgovina">Trgovina</a></li>
+                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/kontakt">Kontakt</a></li>
                             <div class="search" id="search">
                                 <input type="text" placeholder="Poiščite na strani..." id="search-input">
                                 <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -74,11 +102,11 @@
             </div>
             <div class="slike">
                 <div class="enadve">
-                    <img src="slike/onas/DSC08244-52.JPG" alt="Slika ena">
-                    <img src="slike/onas/DSC08273-59.JPG" alt="Slika dva">
+                    <img src="static/images/onas/DSC08244-52.JPG" alt="Slika ena">
+                    <img src="static/images/onas/DSC08273-59.JPG" alt="Slika dva">
                 </div>
                 <div class="tri">
-                    <img src="slike/onas/DSC07893-7.JPG" alt="Slika tri">
+                    <img src="static/images/onas/DSC07893-7.JPG" alt="Slika tri">
                 </div>
             </div>
         </div>
@@ -92,7 +120,7 @@
                     <div class="stevilka">
                         <p>1.</p>
                     </div>
-                    <img src="slike/onas/DSC07893-7.JPG" alt="Slika ena">
+                    <img src="static/images/onas/DSC07893-7.JPG" alt="Slika ena">
                     <div class="text">
                         <h1>PREVZEM KMETIJE</h1>
                         <p>Naše potovanje se je začelo z odločitvijo, da nadaljujemo družinsko tradicijo in prevzamemo kmetijo, ki je že več generacij del naše družine. To ni bila lahka odločitev, saj kmetovanje zahteva ogromno truda, vztrajnosti in ljubezni do zemlje ter živali. Kljub začetnim izzivom smo s ponosom nadaljevali delo naših prednikov, ohranjali tradicionalne metode kmetovanja in jih postopoma nadgrajevali z novimi, sodobnejšimi pristopi. Danes smo veseli, da smo lahko del zgodbe, ki se je začela pred mnogimi leti, in jo nadaljujemo z enako strastjo in predanostjo.</p>
@@ -103,7 +131,7 @@
                     <div class="stevilka">
                         <p>2.</p>
                     </div>
-                    <img src="slike/onas/DSC07901-8.JPG" alt="Slika dva">
+                    <img src="static/images/onas/DSC07901-8.JPG" alt="Slika dva">
                     <div class="text">
                         <h1>PIŠČANCI IN JAJCA</h1>
                         <p>Po prevzemu kmetije smo se odločili za prvo večjo spremembo – vzrejo piščancev in pridelavo svežih domačih jajc. Verjamemo v kakovost in naravne metode reje, zato smo ustvarili okolje, kjer imajo naše kokoši dovolj prostora za gibanje in dostop do sveže hrane. Kmalu smo opazili, da so domača jajca bistveno bolj okusna in hranljiva, kar so potrdili tudi naši prvi kupci. Skozi leta smo izboljšali pogoje za naše živali in razširili proizvodnjo, da lahko danes ponujamo vrhunske izdelke, pridelane z ljubeznijo in skrbnostjo.</p>
@@ -114,7 +142,7 @@
                     <div class="stevilka">
                         <p>3.</p>
                     </div>
-                    <img src="slike/onas/DSC07907-9.JPG" alt="Slika tri">
+                    <img src="static/images/onas/DSC07907-9.JPG" alt="Slika tri">
                     <div class="text">
                         <h1>OSTALE ŽIVALI</h1>
                         <p>Kmetija je skozi leta rasla, zato smo se odločili dodati še druge živali, ki prispevajo k trajnostnemu načinu življenja. Postopoma smo začeli vzrejati ovce, koze in prašiče, ki igrajo ključno vlogo pri ohranjanju naravnega ravnovesja na kmetiji. Vsaka žival ima svojo vlogo – ovce in koze pomagajo pri ohranjanju pašnikov, prašiči pa so pomemben del ekosistema, saj zmanjšujejo odpadke in skrbijo za naravno obdelavo tal. Naša vizija je ustvariti samozadostno in trajnostno kmetijo, kjer narava in živali sobivajo v harmoniji.</p>
@@ -136,7 +164,7 @@
             <footer>
                 <div class="stolpec prvi">
                     <div class="logo">
-                        <img src="slike/skupne/Logo/1Logo__URBAN JR_vertikalen.png" alt="Logotip">
+                        <img src="static/images/skupne/Logo/1Logo__URBAN JR_vertikalen.png" alt="Logotip">
                     </div>
                     <h2>SPLOŠNI PODATKI</h2>
                     <ul>
@@ -185,7 +213,7 @@
         <div class="petastrantretjiindex">
             <p>© 2025 URBAN JR. | Vse pravice pridržane</p>
             <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJNsLqLBFFTldxbGjxDnMLkPrctxvjkFJTxWZVqTxGpctGMpMwqjQGxsGPLBnNBHMppSzcL">Izdelava spletne strani</a>
-            <a href="admin.html">Admin</a>
+            <a href="/admin">Admin</a>
         </div>
     </div>
 

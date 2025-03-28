@@ -8,12 +8,36 @@
     <meta name="description" content="Kmetija v Dražgošah, ki vpeljuje principe regenerativnega kmetovanja.">
     <meta name="author" content="Izdelava spletnih strani Pintar, Jure Pintar">
 
-    <link rel="stylesheet" href="slog.css">
+    <link rel="stylesheet" href="static/css/slog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <link rel="icon" href="slike/skupne/Logo/Znak__URBAN JR_zelen.ico" type="image/x-icon">
+    <link rel="icon" href="static/images/skupne/Logo/Znak__URBAN JR_zelen.ico" type="image/x-icon">
     <title>Urban JR. - Trgovina</title>
 </head>
+<style>
+    @font-face
+    {
+        font-family: Poppins;
+        src: url("{{ url_for('static', filename='fonts/Poppins/Poppins-Regular.ttf') }}");
+    }
+
+    @font-face
+    {
+        font-family: Poppins-Bold;
+        src: url("{{ url_for('static', filename='fonts/Poppins/Poppins-Bold.ttf') }}");
+    }
+
+    @font-face
+    {
+        font-family: Amatic;
+        src: url("{{ url_for('static', filename='fonts/amatic-bold.ttf') }}");
+    }
+    .ozadjetrgovina
+    {
+        background-image: url("{{ url_for('static', filename='images/trgovina/DSC07979-21.JPG') }}");
+    }
+
+</style>
 <body>
 
     <div class="zacetnastranostali">
@@ -21,7 +45,7 @@
             <div class="temnoostali">
                 <header>
                     <div class="logo">
-                        <a href=""><img src="slike/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
+                        <a href=""><img src="static/images/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
                     </div>
                 
                     <div class="menutelefon" onclick="toggleMenu()">
@@ -32,11 +56,11 @@
                 
                     <nav class="navmenu" id="navmenu">
                         <ul>
-                            <li><a href="index.html">Domov</a></li>
-                            <li><a href="onas.html">O nas</a></li>
-                            <li><a href="trgovina.html">Trgovina</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="kontakt.html">Kontakt</a></li>
+                            <li><a href="/">Domov</a></li>
+                            <li><a href="/onas">O nas</a></li>
+                            <li><a href="/trgovina">Trgovina</a></li>
+                            <li><a href="/blog">Blog</a></li>
+                            <li><a href="/kontakt">Kontakt</a></li>
                             <div class="search" id="search">
                                 <input type="text" placeholder="Poiščite na strani..." id="search-input">
                                 <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -60,46 +84,46 @@
                 <div class="sliketext">
                     <div class="text">
                         <h1>JAJCA</h1>
-                        <a href="narocila.html" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
+                        <a href="/narocila" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
                     </div>
                     <div class="slika">
-                        <img src="slike/trgovina/DSC07972-20.JPG" alt="Jajca">
+                        <img src="static/images/trgovina/DSC07972-20.JPG" alt="Jajca">
                     </div>
                 </div>
                 <div class="sliketext">
                     <div class="text">
                         <h1>PIŠČANCI</h1>
-                        <a href="narocila.html" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
+                        <a href="/narocila" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
                     </div>
                     <div class="slika">
-                        <img src="slike/trgovina/DSC07979-21.JPG" alt="Piščanci">
+                        <img src="static/images/trgovina/DSC07979-21.JPG" alt="Piščanci">
                     </div>
                 </div>
                 <div class="sliketext">
                     <div class="text">
                         <h1>MLEKO</h1>
-                        <a href="narocila.html" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
+                        <a href="/narocila" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
                     </div>
                     <div class="slika">
-                        <img src="slike/trgovina/DSC08006-26.JPG" alt="Mleko">
+                        <img src="static/images/trgovina/DSC08006-26.JPG" alt="Mleko">
                     </div>
                 </div>
                 <div class="sliketext">
                     <div class="text">
                         <h1>ZELENJAVA</h1>
-                        <a href="narocila.html" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
+                        <a href="/narocila" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
                     </div>
                     <div class="slika">
-                        <img src="slike/trgovina/DSC07972-20.JPG" alt="Zelenjava">
+                        <img src="static/images/trgovina/DSC07972-20.JPG" alt="Zelenjava">
                     </div>
                 </div>
                 <div class="sliketext">
                     <div class="text">
                         <h1>GOVEDINA</h1>
-                        <a href="narocila.html" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
+                        <a href="/narocila" class="gumbnarocila"><span>ODDAJ NAROČILO</span></a>
                     </div>
                     <div class="slika">
-                        <img src="slike/trgovina/DSC07979-21.JPG" alt="Govedina">
+                        <img src="static/images/trgovina/DSC07979-21.JPG" alt="Govedina">
                     </div>
                 </div>
             </div>
@@ -111,7 +135,7 @@
             <footer>
                 <div class="stolpec prvi">
                     <div class="logo">
-                        <img src="slike/skupne/Logo/1Logo__URBAN JR_vertikalen.png" alt="Logotip">
+                        <img src="static/images/skupne/Logo/1Logo__URBAN JR_vertikalen.png" alt="Logotip">
                     </div>
                     <h2>SPLOŠNI PODATKI</h2>
                     <ul>
@@ -160,7 +184,7 @@
         <div class="petastrantretjiindex">
             <p>© 2025 URBAN JR. | Vse pravice pridržane</p>
             <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJNsLqLBFFTldxbGjxDnMLkPrctxvjkFJTxWZVqTxGpctGMpMwqjQGxsGPLBnNBHMppSzcL">Izdelava spletne strani</a>
-            <a href="admin.html">Admin</a>
+            <a href="/admin">Admin</a>
         </div>
     </div>
 

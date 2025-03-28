@@ -8,19 +8,46 @@
     <meta name="description" content="Kmetija v Dražgošah, ki vpeljuje principe regenerativnega kmetovanja.">
     <meta name="author" content="Izdelava spletnih strani Pintar, Jure Pintar">
 
-    <link rel="stylesheet" href="static\css\slog.css">
+    <link rel="stylesheet" href="static/css/slog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <link rel="icon" href="slike/skupne/Logo/Znak__URBAN JR_zelen.ico" type="image/x-icon">
+    <link rel="icon" href="static/images/skupne/Logo/Znak__URBAN JR_zelen.ico" type="image/x-icon">
     <title>Urban JR. - Domov</title>
 </head>
+<style>
+    @font-face
+    {
+        font-family: Poppins;
+        src: url("{{ url_for('static', filename='fonts/Poppins/Poppins-Regular.ttf') }}");
+    }
+
+    @font-face
+    {
+        font-family: Poppins-Bold;
+        src: url("{{ url_for('static', filename='fonts/Poppins/Poppins-Bold.ttf') }}");
+    }
+
+    @font-face
+    {
+        font-family: Amatic;
+        src: url("{{ url_for('static', filename='fonts/amatic-bold.ttf') }}");
+    }
+    .zacetnastranindex
+    {
+        background-image: url("{{ url_for('static', filename='images/index/DSC08142-41.JPG') }}");
+    }
+    .tretjastrandrugiindex
+    {
+        background-image: url("{{ url_for('static', filename='images/index/DSC08271-58.JPG') }}");
+    }
+</style>
 <body>
 
     <div class="zacetnastranindex">
         <div class="temnoindex">
             <header>
                 <div class="logo">
-                    <a href=""><img src="slike/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
+                    <a href=""><img src="static/images/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
                 </div>
             
                 <div class="menutelefon" onclick="toggleMenu()">
@@ -31,11 +58,11 @@
             
                 <nav class="navmenu" id="navmenu">
                     <ul>
-                        <li><a href="index.html">Domov</a></li>
-                        <li><a href="onas.html">O nas</a></li>
-                        <li><a href="trgovina.html">Trgovina</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="kontakt.html">Kontakt</a></li>
+                        <li><a href="/">Domov</a></li>
+                        <li><a href="/onas">O nas</a></li>
+                        <li><a href="/trgovina">Trgovina</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/kontakt">Kontakt</a></li>
                         <div class="search" id="search">
                             <input type="text" placeholder="Poiščite na strani..." id="search-input">
                             <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -49,7 +76,7 @@
                 <h1>URBAN JR.</h1>
                 <h2>Življenje je boljše, če imaš Jajca</h2>
                 <p>Kmetija v Dražgošah je <span>inovativna</span> ekološka kmetija, ki se osredotoča na <span>regenerativno</span> kmetovanje, trajnostno upravljanje zemljišč in obnovo naravnih ekosistemov. S poudarkom na zdravju tal, biotski raznovrstnosti in sonaravni pridelavi hrane si prizadeva za <span>dolgoročno rodovitnost zemlje</span> ter izboljšanje lokalnega okolja.</p>
-                <a href="trgovina.html" class="gumbnadozadjem"><span>Domači izdelki</span></a>
+                <a href="/trgovina" class="gumbnadozadjem"><span>Domači izdelki</span></a>
             </div>
         </div>
     </div>
@@ -63,28 +90,28 @@
                 <div class="texta">
                     <p>V življenju se srečujemo z mnogimi izzivi, vendar je najpomembnejše, da imamo pogum in odločnost, da se soočimo z njimi. Kadar imamo dovolj "jajc", smo pripravljeni tvegati in sprejeti nove izkušnje, ki nas oblikujejo v boljšo verzijo sebe. Ne glede na to, kako težki so dnevi, odločnost in pogum nas vodita skozi vsako oviro. Včasih je prav tisto, kar potrebujemo za uspeh, preprosto, da imamo dovolj vere v sebe in moč, da nadaljujemo, tudi kadar je pot težka.</p>
                     <p>Točno to je uspelo naši kmetiji URBAN JR. Z vztrajnostjo, trdim delom in pravo mero poguma smo premagali številne izzive ter ustvarili kakovostne in pristne izdelke. Naša strast do kmetovanja in predanost tradiciji sta nas pripeljali do uspeha, na katerega smo ponosni.</p>
-                    <a href="onas.html" class="gumbveconas"><span>Preberi več o nas</span></a>
+                    <a href="/onas" class="gumbveconas"><span>Preberi več o nas</span></a>
                 </div>
             </div>
             <div class="slikadruga">
-                <img src="slike/index/DSC07955-18.JPG" alt="Pobiranje jajc">
+                <img src="static/images/index/DSC07955-18.JPG" alt="Pobiranje jajc">
             </div>
         </div>
     </div>
 
     <div class="tretjastranprviindex">
         <div class="naslovi">
-            <div class="naslov"><a href="trgovina.html">JAJCA</a></div>
-            <div class="naslov"><a href="trgovina.html">PIŠČANCI</a></div>
-            <div class="naslov"><a href="trgovina.html">MLEKO</a></div>
-            <div class="naslov"><a href="trgovina.html">ZELENJAVA</a></div>
+            <div class="naslov"><a href="/trgovina">JAJCA</a></div>
+            <div class="naslov"><a href="/trgovina">PIŠČANCI</a></div>
+            <div class="naslov"><a href="/trgovina">MLEKO</a></div>
+            <div class="naslov"><a href="/trgovina">ZELENJAVA</a></div>
         </div>
         <div class="crta">
             <div class="ikone">
-                <div class="ikona"><a href="trgovina.html"><i class="fa-solid fa-egg"></i></a></div>
-                <div class="ikona"><a href="trgovina.html"><i class="fa-solid fa-drumstick-bite"></i></a></div>
-                <div class="ikona"><a href="trgovina.html"><i class="fa-solid fa-glass-water"></i></a></div>
-                <div class="ikona"><a href="trgovina.html"><i class="fa-solid fa-seedling"></i></a></div>
+                <div class="ikona"><a href="/trgovina"><i class="fa-solid fa-egg"></i></a></div>
+                <div class="ikona"><a href="/trgovina"><i class="fa-solid fa-drumstick-bite"></i></a></div>
+                <div class="ikona"><a href="/trgovina"><i class="fa-solid fa-glass-water"></i></a></div>
+                <div class="ikona"><a href="/trgovina"><i class="fa-solid fa-seedling"></i></a></div>
             </div>
         </div>
     </div>
@@ -103,26 +130,26 @@
         </div>
         <div class="slike">
             <div class="okvir">
-                <img src="slike/index/DSC08206-47.JPG" alt="Prva slika">
+                <img src="static/images/index/DSC08206-47.JPG" alt="Prva slika">
             </div>
             <div class="okvir">
-                <img src="slike/index/DSC08231-51.JPG" alt="Druga slika">
+                <img src="static/images/index/DSC08231-51.JPG" alt="Druga slika">
             </div>
             <div class="okvir">
-                <img src="slike/index/DSC08089-36.JPG" alt="Tretja slika">
+                <img src="static/images/index/DSC08089-36.JPG" alt="Tretja slika">
             </div>
             <div class="okvir">
-                <img src="slike/index/DSC08003-25.JPG" alt="Cetrta slika">
+                <img src="static/images/index/DSC08003-25.JPG" alt="Cetrta slika">
             </div>
             <div class="okvir">
-                <img src="slike/index/DSC08099-37.JPG" alt="Peta slika">
+                <img src="static/images/index/DSC08099-37.JPG" alt="Peta slika">
             </div>
             <div class="okvir">
-                <img src="slike/index/DSC07888-6.JPG" alt="Šesta slika">
+                <img src="static/images/index/DSC07888-6.JPG" alt="Šesta slika">
             </div>
         </div>
         <div class="gumb">
-            <a href="blog.html" class="gumbvec"><span>Oglejte si več</span></a>
+            <a href="/blog" class="gumbvec"><span>Oglejte si več</span></a>
         </div>
     </div>
     
@@ -242,7 +269,7 @@
             <footer>
                 <div class="stolpec prvi">
                     <div class="logo">
-                        <img src="slike/skupne/Logo/1Logo__URBAN JR_vertikalen.png" alt="Logotip">
+                        <img src="static/images/skupne/Logo/1Logo__URBAN JR_vertikalen.png" alt="Logotip">
                     </div>
                     <h2>SPLOŠNI PODATKI</h2>
                     <ul>
@@ -291,7 +318,7 @@
         <div class="petastrantretjiindex">
             <p>© 2025 URBAN JR. | Vse pravice pridržane</p>
             <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJNsLqLBFFTldxbGjxDnMLkPrctxvjkFJTxWZVqTxGpctGMpMwqjQGxsGPLBnNBHMppSzcL">Izdelava spletne strani</a>
-            <a href="admin.html">Admin</a>
+            <a href="/admin">Admin</a>
         </div>
     </div>
 

@@ -1,20 +1,3 @@
-@font-face
-{
-    font-family: Poppins;
-    src: url(fonti/Poppins/Poppins-Regular.ttf);
-}
-
-@font-face
-{
-    font-family: Poppins-Bold;
-    src: url(fonti/Poppins/Poppins-Bold.ttf);
-}
-
-@font-face
-{
-    font-family: Amatic;
-    src: url(fonti/amatic-bold.ttf);
-}
 
 html
 {
@@ -36,7 +19,6 @@ html
 .zacetnastranindex
 {
     height: 100vh;
-    background-image: url(slike/index/DSC08142-41.JPG);
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: 20%;
@@ -395,7 +377,6 @@ header ul li:not(:last-child) a:hover::after
     align-items: center;
     justify-content: center;
     height: 70vh;
-    background-image: url(slike/index/DSC08271-58.JPG);
     background-size: cover;
     background-position-y: -40em;
     background-repeat: no-repeat;
@@ -1138,7 +1119,6 @@ footer .logo img
 
 .ozadjeonas
 {
-    background-image: url(slike/onas/DSC08268-57.JPG);
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: 70%;
@@ -1391,7 +1371,6 @@ footer .logo img
     height: 50vh;
     border-radius: 2em;
     width: 90%;
-    background-image: url(slike/onas/DSC07986-22.JPG);
     background-size: cover;
     background-position-y: -20em;
     background-repeat: no-repeat;
@@ -1555,7 +1534,6 @@ footer .logo img
 
 .ozadjetrgovina
 {
-    background-image: url(slike/trgovina/DSC07979-21.JPG);
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: 70%;
@@ -1661,4 +1639,27 @@ footer .logo img
         justify-content: center;
         scale: 3.5;
     }
+}
+
+/* prijava za admin */
+
+.bodyAdmin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+
+}
+
+.bodyAdmin .naslov{
+    border: 0.2em solid gray;
+    border-radius: 0.5em;
+    padding: 1em;
+    
+}
+
+#prijavaAdmin{
+    padding: 0.2em;
+
 }
