@@ -1648,18 +1648,26 @@ footer .logo img
     justify-content: center;
     align-items: center;
     height: 100vh;
-
-
 }
 
 .bodyAdmin .naslov{
     border: 0.2em solid gray;
     border-radius: 0.5em;
-    padding: 1em;
-    
+    padding: 2em;
+}
+
+.bodyAdmin h1{
+    font-size: 3.5em;
+    margin-bottom: 0.7em;
+}
+
+.bodyAdmin label{
+    font-size: 1.4em;
 }
 
 #prijavaAdmin{
     padding: 0.2em;
-
+}
+#rememberBox{
+    font-size: 1em;
 }

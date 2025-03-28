@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="slog.css">
+    <link rel="stylesheet" href="static/css/slog.css">
     <title>Prijava admin</title>
 </head>
 <body>
@@ -12,9 +12,10 @@
             <h1>Prijavite se</h1>
             <form action="/action_page.php">
                 <label for="fname">Uporabniški račun:</label><br>
-                <input type="text" id="fname" name="fname" placeholder="ime..."><br>
+                <input type="text" id="fname" name="fname" placeholder="ime..."><br><br>
                 <label for="lname">Geslo:</label><br>
                 <input type="text" id="lname" name="lname" placeholder="geslo..."><br><br>
+                <label id="rememberBox"><input type="checkbox" name="remember"> Zapomni se me</label><br><br><br>
                 <input id="prijavaAdmin" type="submit" value="Prijava">
               </form>
         </div>
