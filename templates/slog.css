@@ -1,8 +1,24 @@
+@font-face
+{
+    font-family: Poppins;
+    src: url(fonti/Poppins/Poppins-Regular.ttf);
+}
+
+@font-face
+{
+    font-family: Poppins-Bold;
+    src: url(fonti/Poppins/Poppins-Bold.ttf);
+}
+
+@font-face
+{
+    font-family: Amatic;
+    src: url(fonti/amatic-bold.ttf);
+}
 
 html
 {
     font-size: 0.625vw;
-    scroll-behavior: smooth;
 }
 
 *
@@ -20,6 +36,7 @@ html
 .zacetnastranindex
 {
     height: 100vh;
+    background-image: url(slike/index/DSC08142-41.JPG);
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: 20%;
@@ -378,6 +395,7 @@ header ul li:not(:last-child) a:hover::after
     align-items: center;
     justify-content: center;
     height: 70vh;
+    background-image: url(slike/index/DSC08271-58.JPG);
     background-size: cover;
     background-position-y: -40em;
     background-repeat: no-repeat;
@@ -1120,6 +1138,7 @@ footer .logo img
 
 .ozadjeonas
 {
+    background-image: url(slike/onas/DSC08268-57.JPG);
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: 70%;
@@ -1372,6 +1391,7 @@ footer .logo img
     height: 50vh;
     border-radius: 2em;
     width: 90%;
+    background-image: url(slike/onas/DSC07986-22.JPG);
     background-size: cover;
     background-position-y: -20em;
     background-repeat: no-repeat;
@@ -1535,6 +1555,7 @@ footer .logo img
 
 .ozadjetrgovina
 {
+    background-image: url(slike/trgovina/DSC07979-21.JPG);
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: 70%;
@@ -1642,190 +1663,3 @@ footer .logo img
     }
 }
 
-/* prijava za admin */
-
-.bodyAdmin
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.bodyAdmin .naslov
-{
-    border: 0.2em solid gray;
-    border-radius: 0.5em;
-    padding: 2em;
-}
-
-.bodyAdmin h1
-{
-    font-size: 3.5em;
-    margin-bottom: 0.7em;
-}
-
-.bodyAdmin label
-{
-    font-size: 1.4em;
-}
-
-#prijavaAdmin
-{
-    padding: 0.2em;
-}
-
-#rememberBox
-{
-    font-size: 1em;
-}
-
-/* Prva stran - Blog */
-
-.ozadjeblog
-{
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position-y: 70%;
-}
-
-.prvastrankontakt
-{
-    height: 65vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20em;
-}
-
-.prvastrankontakt .vsebina
-{
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: right;
-    align-items: first baseline;
-    gap: 1em;
-}
-
-.prvastrankontakt .vsebina .text h1
-{
-    font-family: Poppins-Bold;
-    font-size: 3.5em;
-    margin-bottom: 0.5em;
-}
-
-.prvastrankontakt .vsebina .text p
-{
-    font-family: Poppins;
-    font-size: 1.5em;
-}
-
-.prvastrankontakt .vsebina .socialnaomrezja a
-{
-    font-size: 3em;
-    color: #B4B436;
-    margin-right: 0.5em;
-    transition: all 1s;
-}
-
-.prvastrankontakt .vsebina .socialnaomrezja a:hover
-{
-    color: #DBBB92;
-}
-
-.prvastrankontakt .vsebina .lokacija
-{
-    margin-top: 1em;
-}
-
-.prvastrankontakt .vsebina .lokacija p
-{
-    font-size: 1.5em;
-}
-
-.prvastrankontakt .vsebina .lokacija .kroglokacija
-{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-}
-
-.prvastrankontakt .vsebina .lokacija h1
-{
-    font-family: Poppins-Bold;
-    margin-bottom: 0.5em;
-    font-size: 2em;
-}
-
-.prvastrankontakt .vsebina .lokacija .kroglokacija .krog
-{
-    position: relative;
-    width: 6em;
-    height: 6em;
-    border-radius: 100%;
-    border: solid 0.2em #B4B436;
-    transition: all 1s;
-    margin-top: 1em;
-}
-
-.prvastrankontakt .vsebina .lokacija .kroglokacija .krog:hover
-{
-    scale: 1.1;
-}
-
-.prvastrankontakt .vsebina .lokacija .kroglokacija .krog .puscica
-{
-    width: 0;
-    height: 0;
-    border-left: 1em solid transparent;
-    border-right: 1em solid transparent;
-    border-top: 1.5em solid #B4B436;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.prvastrankontakt form
-{
-    display: flex;
-    flex-direction: column;
-    height: 50vh;
-    gap: 5em;
-}
-
-.prvastrankontakt form input, .prvastrankontakt form textarea
-{
-    all: unset;
-}
-
-.prvastrankontakt form input
-{
-    padding: 1em;
-    border: solid 0.2em #B4B436;
-    border-radius: 0.5em;
-    font-size: 1.5em;
-}
-
-.prvastrankontakt form input::placeholder
-{
-    font-size: 1em;
-}
-
-.prvastrankontakt form textarea
-{
-    padding: 1em;
-    border: solid 0.2em #B4B436;
-    border-radius: 0.5em;
-    font-size: 1.5em;
-}
-
-/* Kontakt - druga stran */
-
-.drugastrankontakt iframe
-{
-    width: 100%;
-    height: 50vh;
-}
