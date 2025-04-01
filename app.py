@@ -41,6 +41,6 @@ def admin():
 def narocila():
     return render_template("narocila.html")
 
-app.run(debug = True)
+app.run(debug = True,port=8800)
 
 
