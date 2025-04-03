@@ -32,7 +32,13 @@
         font-family: Amatic;
         src: url("{{ url_for('static', filename='fonts/amatic-bold.ttf') }}");
     }
-    .ozadjeblog
+
+    .ozadjekontakt
+    {
+        background-image: url("{{ url_for('static', filename='images/onas/DSC08268-57.JPG') }}");
+    }
+
+    .prvastrankontakt .vsebina
     {
         background-image: url("{{ url_for('static', filename='images/onas/DSC08268-57.JPG') }}");
     }
@@ -40,7 +46,7 @@
 <body>
 
     <div class="zacetnastranostali">
-        <div class="ozadjeblog">
+        <div class="ozadjekontakt">
             <div class="temnoostali">
                 <header>
                     <div class="logo">
@@ -98,15 +104,18 @@
                 </div>
             </div>
         </div>
+
         <form action="">
+            <h1>IMATE VPRAŠANJE?</h1>
             <input type="text" placeholder="Ime in Priimek...">
             <input type="email" placeholder="Email...">
             <textarea name="sporocilo" rows="10" cols="50" id="sporocilo" placeholder="Vnesite sporočilo..."></textarea>
+            <button type="submit" class="gumbkontakt">Pošlji</button>
         </form>
     </div>
 
     <div class="drugastrankontakt" id="zemljevid">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1159.9277480864719!2d14.16182543912537!3d46.25442900832075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477abfed4c9d61d1%3A0x40d9861cbfe5cd19!2sUrban%20Jr.!5e0!3m2!1ssl!2ssi!4v1743521829556!5m2!1ssl!2ssi" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2253.8445903767947!2d14.162211746454444!3d46.25367807568956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477abfed4c9d61d1%3A0x40d9861cbfe5cd19!2sUrban%20Jr.!5e0!3m2!1ssl!2ssi!4v1743701368809!5m2!1ssl!2ssi" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 
 
