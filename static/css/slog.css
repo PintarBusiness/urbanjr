@@ -1644,40 +1644,29 @@ footer .logo img
 
 /* prijava za admin */
 
-<<<<<<< HEAD
+
 .bodyAdmin{
-=======
-.bodyAdmin
-{
->>>>>>> origin/main
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-<<<<<<< HEAD
+
 .bodyAdmin .naslov{
-=======
-.bodyAdmin .naslov
-{
->>>>>>> origin/main
+
     border: 0.2em solid gray;
     border-radius: 0.5em;
     padding: 2em;
 }
 
-<<<<<<< HEAD
-.bodyAdmin h1{
-=======
 .bodyAdmin h1
 {
->>>>>>> origin/main
     font-size: 3.5em;
     margin-bottom: 0.7em;
 }
 
-<<<<<<< HEAD
+
 .bodyAdmin label{
     font-size: 1.4em;
 }
@@ -1691,8 +1680,7 @@ footer .logo img
 
 .okno_za_prodajo{
      display: none;
-
-=======
+}
 .bodyAdmin label
 {
     font-size: 1.4em;
@@ -1989,5 +1977,4 @@ footer .logo img
         padding-top: 20em;
         scale: 1.84;
     }
->>>>>>> origin/main
 }
