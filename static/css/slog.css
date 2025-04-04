@@ -2,6 +2,7 @@
 html
 {
     font-size: 0.625vw;
+    scroll-behavior: smooth;
 }
 
 *
@@ -1643,24 +1644,40 @@ footer .logo img
 
 /* prijava za admin */
 
+<<<<<<< HEAD
 .bodyAdmin{
+=======
+.bodyAdmin
+{
+>>>>>>> origin/main
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
+<<<<<<< HEAD
 .bodyAdmin .naslov{
+=======
+.bodyAdmin .naslov
+{
+>>>>>>> origin/main
     border: 0.2em solid gray;
     border-radius: 0.5em;
     padding: 2em;
 }
 
+<<<<<<< HEAD
 .bodyAdmin h1{
+=======
+.bodyAdmin h1
+{
+>>>>>>> origin/main
     font-size: 3.5em;
     margin-bottom: 0.7em;
 }
 
+<<<<<<< HEAD
 .bodyAdmin label{
     font-size: 1.4em;
 }
@@ -1675,4 +1692,302 @@ footer .logo img
 .okno_za_prodajo{
      display: none;
 
+=======
+.bodyAdmin label
+{
+    font-size: 1.4em;
+}
+
+#prijavaAdmin
+{
+    padding: 0.2em;
+}
+
+#rememberBox
+{
+    font-size: 1em;
+}
+
+/* Prva stran - Blog */
+
+.ozadjeblog
+{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 70%;
+}
+
+/* Prva stran - Kontakt */
+
+.prvastrankontakt
+{
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20em;
+}
+
+.ozadjekontakt
+{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 70%;
+}
+
+.prvastrankontakt .vsebina
+{
+    z-index: 1;
+    position: relative;
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: first baseline;
+    gap: 1em;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 2em;
+    border-radius: 2em;
+}
+
+.prvastrankontakt .vsebina::after
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 2em;
+    z-index: -1;
+}
+
+.prvastrankontakt .vsebina .text h1
+{
+    font-family: Poppins-Bold;
+    color: #B4B436;
+    font-size: 3em;
+}
+
+.prvastrankontakt .vsebina .text p
+{
+    font-family: Poppins;
+    font-size: 1.5em;
+    color: white;
+}
+
+.prvastrankontakt .vsebina .socialnaomrezja a
+{
+    font-size: 3em;
+    color: white;
+    margin-right: 0.5em;
+    transition: all 1s;
+}
+
+.prvastrankontakt .vsebina .socialnaomrezja a:hover
+{
+    color: #DBBB92;
+}
+
+.prvastrankontakt .vsebina .lokacija
+{
+    margin-top: 1em;
+}
+
+.prvastrankontakt .vsebina .lokacija p
+{
+    font-size: 1.5em;
+    color: white;
+}
+
+.prvastrankontakt .vsebina .lokacija .kroglokacija
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.prvastrankontakt .vsebina .lokacija h1
+{
+    font-family: Poppins-Bold;
+    color: #B4B436;
+    margin-bottom: 0.5em;
+    font-size: 2em;
+}
+
+.prvastrankontakt .vsebina .lokacija .kroglokacija .krog
+{
+    position: relative;
+    width: 5em;
+    height: 5em;
+    border-radius: 100%;
+    border: solid 0.2em #B4B436;
+    transition: all 1s;
+    margin-top: 2em;
+}
+
+.prvastrankontakt .vsebina .lokacija .kroglokacija .krog:hover
+{
+    scale: 1.1;
+}
+
+.prvastrankontakt .vsebina .lokacija .kroglokacija .krog .puscica
+{
+    width: 0;
+    height: 0;
+    border-left: 0.75em solid transparent;
+    border-right: 0.75em solid transparent;
+    border-top: 1.25em solid #B4B436;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.prvastrankontakt form
+{
+    display: flex;
+    flex-direction: column;
+    height: 50vh;
+    gap: 2em;
+}
+
+.prvastrankontakt form h1
+{
+    font-family: Poppins-Bold;
+}
+
+.prvastrankontakt form input, .prvastrankontakt form textarea
+{
+    all: unset;
+}
+
+.prvastrankontakt form input
+{
+    padding: 1em;
+    border: solid 0.2em #B4B436;
+    border-radius: 0.5em;
+    font-size: 1.5em;
+}
+
+.prvastrankontakt form input::placeholder
+{
+    font-size: 1em;
+}
+
+.prvastrankontakt form textarea
+{
+    padding: 1em;
+    border: solid 0.2em #B4B436;
+    border-radius: 0.5em;
+    font-size: 1.5em;
+}
+
+.prvastrankontakt form button
+{
+    position: relative;
+    cursor: pointer;
+    all: unset;
+    padding: 0.75em 1.5em;
+    background-color: #B4B436;
+    border-radius: 2em;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    font-size: 1.5em;
+    text-align: center;
+    transition: all 1s ease;
+}
+
+.prvastrankontakt form button:hover
+{
+    cursor: pointer;
+    background-color: #DBBB92;
+}
+
+/* Kontakt - druga stran */
+
+.drugastrankontakt iframe
+{
+    width: 100%;
+    height: 50vh;
+}
+
+/* Za telefon O nas*/
+@media screen and (max-width: 480px)
+{
+    .prvastrankontakt
+    {
+        flex-direction: column;
+        height: 90vh;
+    }
+
+    .prvastrankontakt .vsebina
+    {
+        width: 80%;
+        margin-top: 15em;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 80vh;
+    }
+
+    .prvastrankontakt .vsebina .text h1
+    {
+        font-size: 7em;
+        margin-bottom: 0.25em;
+    }
+
+    .prvastrankontakt .vsebina .text p
+    {
+        font-size: 5em;
+        margin-bottom: 0.25em;
+    }
+
+    .prvastrankontakt .vsebina .socialnaomrezja a
+    {
+        font-size: 8em;
+    }
+
+    .prvastrankontakt .vsebina .lokacija
+    {
+        margin-top: 10em;
+    }
+
+    .prvastrankontakt .vsebina .lokacija p
+    {
+        font-size: 5em;
+    }
+
+    .prvastrankontakt .vsebina .lokacija h1
+    {
+        font-size: 6em;
+    }
+
+    .prvastrankontakt .vsebina .lokacija .kroglokacija .krog
+    {
+        width: 10em;
+        height: 10em;
+        border: solid 0.5em #B4B436;
+    }
+
+    .prvastrankontakt .vsebina .lokacija .kroglokacija .krog .puscica
+    {
+        border-left: 1.5em solid transparent;
+        border-right: 1.5em solid transparent;
+        border-top: 2em solid #B4B436;
+    }
+
+    .prvastrankontakt form
+    {
+        padding-top: 20em;
+        scale: 1.84;
+    }
+>>>>>>> origin/main
 }
