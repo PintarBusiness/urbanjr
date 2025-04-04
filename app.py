@@ -1,6 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import random
-#import requests
+import requests
 
 #pip install flask --user
 
@@ -22,10 +22,33 @@ def onas():
 def trgovina():
     return render_template("trgovina.html")
 
+
+igtoken = ""
+iguporabnik = ""
+igapi = ""
+
+def instagramapi():
+    objave = {
+        "fields": "id,caption,media_type,media_url,permalink",
+        "access_token": igtoken,
+        "limit": 6
+    }
+
+    odgovor = requests.get(igapi, params=objave)
+    return odgovor.json().get("data", [])
+
 @app.route("/blog")
 
 def blog():
-    return render_template("blog.html")
+    poslji = instagramapi
+    return render_template("blog.html", post=poslji)
+
+@app.route("/api/poslji")
+
+def apiposlji():
+    poslji = instagramapi
+    return jsonify(poslji)
+
 
 @app.route("/kontakt")
 
