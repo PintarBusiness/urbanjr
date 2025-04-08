@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+import requests
 import random
 #import requests
 
@@ -41,7 +42,24 @@ def admin():
 def narocila():
     return render_template("narocila.html")
 
+userDict = {}
+passwordDict = {}
 
-app.run(debug = True)
+userDict["jure"] = 1
+passwordDict["pintar"] = 1
+
+@app.route("/loginTry")
+def login():
+    ime = request.args.get("ime")
+    geslo = request.args.get("geslo")
+
+    if ime in userDict and geslo in passwordDict:
+        if userDict[ime] == passwordDict[geslo]:
+            return f"{ime} {geslo}"
+        else:
+            return f"Vnešeno ime ali geslo je napačno"
+    else:
+        return f"Vnešeno ime ali geslo je napačno"
+app.run(debug = True, port=8800)
 
 

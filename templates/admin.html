@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="static/css/slog.css">
     <title>Prijava admin</title>
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <body>
     <div class="bodyAdmin">
         <div class="naslov">
@@ -13,12 +14,34 @@
             <form action="/action_page.php">
                 <label for="fname">Uporabniški račun:</label><br>
                 <input type="text" id="fname" name="fname" placeholder="ime..."><br><br>
-                <label for="lname">Geslo:</label><br>
+                <label for="fname">Geslo:</label><br>
                 <input type="text" id="lname" name="lname" placeholder="geslo..."><br><br>
-                <label id="rememberBox"><input type="checkbox" name="remember"> Zapomni se me</label><br><br><br>
-                <input id="prijavaAdmin" type="submit" value="Prijava">
+                <!-- <label id="rememberBox"><input type="checkbox" name="remember"> Zapomni se me</label><br><br><br> -->
+                <br><div id="errorBox"></div><br><br>
+                <button id="prijavaAdmin" onclick="loginTry()" type="button">Prijavi se</button>
               </form>
         </div>
     </div>
 </body>
+<script>
+    function loginTry(){
+        var ime = document.getElementById("fname")
+        var geslo = document.getElementById("lname")
+
+        $.ajax({
+        url: "/loginTry",
+        data: {
+            ime: ime.value,
+            geslo: geslo.value
+        },
+
+        success: function( result ) {
+            document.getElementById("errorBox").innerHTML = result
+        }
+        });
+
+        }
+
+
+</script>
 </html>

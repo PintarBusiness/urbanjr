@@ -1696,6 +1696,12 @@ footer .logo img
     font-size: 1em;
 }
 
+.bodyAdmin #errorBox
+{
+    font-size: 1em;
+    color: red;
+}
+
 /* Prva stran - Blog */
 
 .ozadjeblog
