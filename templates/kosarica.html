@@ -62,6 +62,7 @@
                             <li><a href="/trgovina">Trgovina</a></li>
                             <li><a href="/blog">Blog</a></li>
                             <li><a href="/kontakt">Kontakt</a></li>
+                            <li><a href="/kosarica"><i class="fa-solid fa-cart-arrow-down"></i></a></li>
                             <div class="search" id="search">
                                 <input type="text" placeholder="Poiščite na strani..." id="search-input">
                                 <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -80,9 +81,20 @@
     </div>
 
     <div class="narocila">
+        <div class="osebni prevzem">
+            <i class="fa-solid fa-house"></i>
+            <h2>Osebni prevzem</h2>
+            <p>Strošek dostave:</p>
+            <p>0,00 €</p>
+        </div>
+        <div class="dostava prevzem">
+            <i class="fa-solid fa-house"></i>
+            <h2>Dostava na dom</h2>
+            <p>Strošek dostave:</p>
+            <p>0,00 €</p>
+        </div>
         <form action="">
             <p>Vnesite kontaktne podatke</p>
-
             <input type="text" name="ime" placeholder="Ime" required autofocus>
             <input type="text" name="priimek" placeholder="Priimek" required>
             <input type="number" name="telefonska" placeholder="Telefonska številka" pattern="[0-9]{9}" required>
@@ -90,34 +102,6 @@
             <input type="text" name="kraj" placeholder="Kraj" required>
             <input type="text" name="hisnastevilka" placeholder="Hišna številka" required>
             <input type="text" name="poštna številka" placeholder="Poštna številka" pattern="[0-9]{4}" required>
-
-            <p>Izberite izdelke katere želite naročiti</p>
-
-            <input type="checkbox" name="jajca" value="jajca">
-            <span class="imeizdelka">Jajca</span>
-            <div class="jajcakolicina">
-                <input type="checkbox" name="deset" value="10">
-                <span class="imeizdelka">10</span>
-                <input type="checkbox" name="dvajset" value="20">
-                <span class="imeizdelka">20</span>
-                <input type="checkbox" name="trideset" value="30">
-                <span class="imeizdelka">30</span>
-            </div>
-
-            <input type="checkbox" name="jajca" value="jajca">
-            <span class="imeizdelka">Piščanci</span>
-            <div class="jajcakolicina">
-                <input type="checkbox" name="ena" value="1">
-                <span class="imeizdelka">1</span>
-                <input type="checkbox" name="dva" value="2">
-                <span class="imeizdelka">2</span>
-                <input type="checkbox" name="3" value="3">
-                <span class="imeizdelka">3</span>
-                <input type="checkbox" name="stiri" value="4">
-                <span class="imeizdelka">4</span>
-                <input type="checkbox" name="pet" value="5">
-                <span class="imeizdelka">5</span>
-            </div>
         </form>
     </div>
 

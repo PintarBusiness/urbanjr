@@ -60,9 +60,9 @@ def kontakt():
 def admin():
     return render_template("admin.html")
 
-@app.route("/narocila")
+@app.route("/kosarica")
 def narocila():
-    return render_template("narocila.html")
+    return render_template("kosarica.html")
 
 app.run(debug = True, port=5000)
 

@@ -79,6 +79,11 @@ header ul li a
     padding-bottom: 0.2em;
 }
 
+header ul li i
+{
+    font-size: 1.3em;
+}
+
 header ul li:not(:last-child) a::after
 {
     content: '';
