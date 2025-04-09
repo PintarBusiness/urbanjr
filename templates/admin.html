@@ -4,8 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/slog.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="static/images/skupne/Logo/Znak__URBAN JR_zelen.ico" type="image/x-icon">
     <title>Prijava admin</title>
 </head>
+<style>
+    @font-face
+    {
+        font-family: Poppins;
+        src: url("{{ url_for('static', filename='fonts/Poppins/Poppins-Regular.ttf') }}");
+    }
+
+    @font-face
+    {
+        font-family: Poppins-Bold;
+        src: url("{{ url_for('static', filename='fonts/Poppins/Poppins-Bold.ttf') }}");
+    }
+
+    @font-face
+    {
+        font-family: Amatic;
+        src: url("{{ url_for('static', filename='fonts/amatic-bold.ttf') }}");
+    }
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <body>
     <div class="bodyAdmin">
@@ -24,23 +45,30 @@
     </div>
 </body>
 <script>
-    function loginTry(){
-        var ime = document.getElementById("fname")
-        var geslo = document.getElementById("lname")
+    function loginTry() {
+    var ime = document.getElementById("fname");
+    var geslo = document.getElementById("lname");
 
-        $.ajax({
+    $.ajax({
         url: "/loginTry",
+        method: "POST",  // Ensure POST request
         data: {
             ime: ime.value,
             geslo: geslo.value
         },
-
-        success: function( result ) {
-            document.getElementById("errorBox").innerHTML = result
+        success: function(result) {
+            if(result.redirect_to) {
+                // Redirect to the URL provided in the response
+                window.location.href = result.redirect_to;
+            }
+        },
+        error: function(xhr, status, error) {
+            // Handle the error from the server
+            var errorMsg = xhr.responseJSON.error || "An error occurred.";
+            document.getElementById("errorBox").innerHTML = errorMsg;
         }
-        });
-
-        }
+    });
+}
 
 
 </script>
