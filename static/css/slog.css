@@ -1970,13 +1970,86 @@ footer .logo img
     }
 }
 
-/* Narocila - Prva stran */
+/* Kosarica - Prva stran */
 
-.ozadjenarocila
+.ozadjekosarica
 {
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: 70%;
 }
+
+.prvastranizdelek
+{
+    display: flex;
+}
+
+.prvastranizdelek .vsebinaizdelek .slikeizdelek .sliketext
+{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prvastranizdelek .vsebinaizdelek .slikeizdelek .sliketext .slika
+{
+    width: 100%;
+    max-width: 35em;
+    border-radius: 2em;
+    overflow: hidden;
+}
+
+.prvastranizdelek .vsebinaizdelek .slikeizdelek .sliketext img
+{
+    width: 100%;
+    max-width: 35em;
+    border-radius: 2em;
+    display: block;
+    transition: all 1s;
+}
+
+.prvastranizdelek .vsebinaizdelek .slikeizdelek .sliketext .text
+{
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2em 2em 0 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.prvastranizdelek .vsebinaizdelek .slikeizdelek .sliketext h1
+{
+    z-index: 999;
+    margin: 1em;
+    font-size: 1.3em;
+    font-family: Poppins-Bold;
+    color: white;
+}
+
+.prvastranizdelek .vsebinaizdelek .slikeizdelek .sliketext a
+{
+    z-index: 999;
+    margin: 1em;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition: all 1s ease;
+    width: fit-content;
+}
+
+.prvastranizdelek .vsebinaizdelek .slikeizdelek .sliketext a:hover
+{
+    background-color: #DBBB92;
+}
+
 
 

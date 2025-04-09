@@ -33,7 +33,7 @@
         src: url("{{ url_for('static', filename='fonts/amatic-bold.ttf') }}");
     }
 
-    .ozadjenarocila
+    .ozadjekosarica
     {
         background-image: url("{{ url_for('static', filename='images/onas/DSC08268-57.JPG') }}");
     }
@@ -42,7 +42,7 @@
 <body>
 
     <div class="zacetnastranostali">
-        <div class="ozadjenarocila">
+        <div class="ozadjekosarica">
             <div class="temnoostali">
                 <header>
                     <div class="logo">
@@ -81,18 +81,36 @@
     </div>
 
     <div class="narocila">
-        <div class="osebni prevzem">
-            <i class="fa-solid fa-house"></i>
-            <h2>Osebni prevzem</h2>
-            <p>Strošek dostave:</p>
-            <p>0,00 €</p>
+        <div class="narocilo">
+            <div class="nacindostave">
+                <div class="osebni prevzem">
+                    <i class="fa-solid fa-building"></i>
+                    <h2>Osebni prevzem</h2>
+                    <p>Strošek dostave:</p>
+                    <p>0,00 €</p>
+                </div>
+                <div class="dostava prevzem">
+                    <i class="fa-solid fa-truck"></i>
+                    <h2>Dostava na dom</h2>
+                    <p>Strošek dostave:</p>
+                    <p>0,00 €</p>
+                </div>
+            </div>
+
+            {% if izbran %}
+                <div class="prvastranizdelek">
+                    <div class="vsebinaizdelek">
+                        <div class="slikeizdelek">
+                            {{ izbran.html | safe }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>Košarica je prazna.</p>
+            {% endif %}
+        
         </div>
-        <div class="dostava prevzem">
-            <i class="fa-solid fa-house"></i>
-            <h2>Dostava na dom</h2>
-            <p>Strošek dostave:</p>
-            <p>0,00 €</p>
-        </div>
+
         <form action="">
             <p>Vnesite kontaktne podatke</p>
             <input type="text" name="ime" placeholder="Ime" required autofocus>
