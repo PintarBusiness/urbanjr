@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import requests
 import random
 #import requests
@@ -55,11 +55,11 @@ def login():
 
     if ime in userDict and geslo in passwordDict:
         if userDict[ime] == passwordDict[geslo]:
-            return f"{ime} {geslo}"
+            return jsonify({"redirect_to": "index"})
         else:
             return f"Vnešeno ime ali geslo je napačno"
     else:
         return f"Vnešeno ime ali geslo je napačno"
-app.run(debug = True, port=8800)
+app.run(debug = True)
 
 
