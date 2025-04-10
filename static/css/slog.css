@@ -2051,5 +2051,15 @@ footer .logo img
     background-color: #DBBB92;
 }
 
+.narocila
+{
+    display: flex;
+}
+
+.narocila .narocilo .nacindostave
+{
+    display: flex;
+}
+
 
 

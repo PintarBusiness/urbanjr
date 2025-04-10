@@ -97,14 +97,16 @@
                 </div>
             </div>
 
-            {% if izbran %}
-                <div class="prvastranizdelek">
-                    <div class="vsebinaizdelek">
-                        <div class="slikeizdelek">
-                            {{ izbran.html | safe }}
+            {% if izbrani %}
+                {% for izdelek in izbrani %}
+                    <div class="prvastranizdelek">
+                        <div class="vsebinaizdelek">
+                            <div class="slikeizdelek">
+                                {{ izdelek.html | safe }}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             {% else %}
                 <p>Košarica je prazna.</p>
             {% endif %}

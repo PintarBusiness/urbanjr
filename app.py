@@ -63,13 +63,11 @@ app.secret_key = 'skrivnostninkl'
 
 izdelek_podatki = {
     "JAJCA": {
-        "naslov": "JAJCA",
-        "slika": "static/images/trgovina/DSC07972-20.JPG",
         "html": '''
         <div class="sliketext">
             <div class="text">
                 <h1>JAJCA</h1>
-                <a href="/odstrani_iz_kosarice" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
+                <a href="/odstrani_iz_kosarice/JAJCA" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07972-20.JPG" alt="Jajca">
@@ -78,13 +76,11 @@ izdelek_podatki = {
         '''
     },
     "PIŠČANCI": {
-        "naslov": "PIŠČANCI",
-        "slika": "static/images/trgovina/DSC07979-21.JPG",
         "html": '''
         <div class="sliketext">
             <div class="text">
                 <h1>PIŠČANCI</h1>
-                <a href="/odstrani_iz_kosarice" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
+                <a href="/odstrani_iz_kosarice/PIŠČANCI" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Piščanci">
@@ -93,13 +89,11 @@ izdelek_podatki = {
         '''
     },
     "MLEKO": {
-        "naslov": "MLEKO",
-        "slika": "static/images/trgovina/DSC08006-26.JPG",
         "html": '''
         <div class="sliketext">
             <div class="text">
                 <h1>MLEKO</h1>
-                <a href="/odstrani_iz_kosarice" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
+                <a href="/odstrani_iz_kosarice/MLEKO" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC08006-26.JPG" alt="Mleko">
@@ -108,13 +102,11 @@ izdelek_podatki = {
         '''
     },
     "ZELENJAVA": {
-        "naslov": "ZELENJAVA",
-        "slika": "static/images/trgovina/DSC07972-20.JPG",
         "html": '''
         <div class="sliketext">
             <div class="text">
                 <h1>ZELENJAVA</h1>
-                <a href="/odstrani_iz_kosarice" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
+                <a href="/odstrani_iz_kosarice/ZELENJAVA" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07972-20.JPG" alt="Zelenjava">
@@ -123,13 +115,11 @@ izdelek_podatki = {
         '''
     },
     "GOVEDINA": {
-        "naslov": "GOVEDINA",
-        "slika": "static/images/trgovina/DSC07979-21.JPG",
         "html": '''
         <div class="sliketext">
             <div class="text">
                 <h1>GOVEDINA</h1>
-                <a href="/odstrani_iz_kosarice" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
+                <a href="/odstrani_iz_kosarice/GOVEDINA" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Govedina">
@@ -141,21 +131,28 @@ izdelek_podatki = {
 
 @app.route("/dodaj_v_kosarico/<izdelek>")
 def dodaj_v_kosarico(izdelek):
-    
-    session["kosarica"] = izdelek.upper()
+    kosarica = session.get("kosarica", [])
+    if izdelek.upper() not in kosarica:
+        kosarica.append(izdelek.upper())
+    session["kosarica"] = kosarica
     return redirect(url_for("kosarica"))
 
-@app.route("/odstrani_iz_kosarice")
-def odstrani_iz_kosarice():
-    session.pop("kosarica", None)
+@app.route("/odstrani_iz_kosarice/<izdelek>")
+def odstrani_iz_kosarice(izdelek):
+    kosarica = session.get("kosarica", [])
+    izdelek_upper = izdelek.upper()
+    if izdelek_upper in kosarica:
+        kosarica.remove(izdelek_upper)
+    session["kosarica"] = kosarica
     return redirect(url_for("kosarica"))
 
 @app.route("/kosarica")
 def kosarica():
-    izbran_izdelek_ime = session.get("kosarica")
-    izbran = izdelek_podatki.get(izbran_izdelek_ime)
-    return render_template("kosarica.html", izbran=izbran)
+    izbrani_izdelki_imena = session.get("kosarica", [])
+    izbrani = [izdelek_podatki.get(ime) for ime in izbrani_izdelki_imena if ime in izdelek_podatki]
+    return render_template("kosarica.html", izbrani=izbrani)
 
-app.run(debug = True, port=5000)
+
+app.run(debug = True, port=8800)
 
 
