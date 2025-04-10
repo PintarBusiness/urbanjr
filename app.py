@@ -3,32 +3,30 @@ from flask_session import Session
 import requests
 import random
 import redis
+import os
 
 #import requests
 #pip install flask --user
 #pip install redis
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a strong, random key
+app.secret_key = os.urandom(24)
 
-"""
-# Configure Redis for session storage
-app.config['SESSION_TYPE'] = 'redis'
+
+app.config['SESSION_TYPE'] = 'filesystem'  # or 'null'
 app.config['SESSION_PERMANENT'] = False
-app.config['SESSION_USE_SIGNER'] = True
-app.config['SESSION_KEY_PREFIX'] = 'yourapp:'
-app.config['SESSION_REDIS'] = redis.StrictRedis(host='localhost', port=6379, db=0)
 
-# Initialize the session extension
-Session(app)
-"""
-# Clear Redis database on app startup
+@app.before_request
+def make_session_non_permanent():
+    session.permanent = False
+
 
 
 @app.before_request
 def initialize_admin_mode():
     if 'admin_mode' not in session:
         session['admin_mode'] = False
+
 
 @app.route("/")
 
@@ -61,6 +59,11 @@ def kontakt():
 def admin():
     return render_template("admin.html")
 
+@app.route("/logout")
+
+def logout():
+    return render_template("logout.html")
+
 @app.route("/narocila")
 def narocila():
     return render_template("narocila.html")
@@ -84,6 +87,12 @@ def login():
             return jsonify({"error": "Vnešeno ime ali geslo je napačno"}), 400
     else:
         return jsonify({"error": "Vnešeno ime ali geslo je napačno"}), 400
-app.run(debug = True)
+    
+@app.route("/logoutSession", methods=["POST"])
+def logoutSession():
+    session['admin_mode'] = False
+    return jsonify({"redirect_to": "/"})  # URL to redirect to
+
+app.run(debug = True, port=8800)
 
 
