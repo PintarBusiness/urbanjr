@@ -91,8 +91,9 @@ def login():
 @app.route("/logoutSession", methods=["POST"])
 def logoutSession():
     session['admin_mode'] = False
+    print("hhe")
     return jsonify({"redirect_to": "/"})  # URL to redirect to
 
-app.run(debug = True, port=8800)
+app.run(debug = True)
 
 
