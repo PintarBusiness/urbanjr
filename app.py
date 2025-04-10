@@ -37,22 +37,26 @@ def index():
 @app.route("/onas")
 
 def onas():
-    return render_template("onas.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("onas.html",admin_mode=admin_mode)
 
 @app.route("/trgovina")
 
 def trgovina():
-    return render_template("trgovina.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("trgovina.html",admin_mode=admin_mode)
 
 @app.route("/blog")
 
 def blog():
-    return render_template("blog.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("blog.html",admin_mode=admin_mode)
 
 @app.route("/kontakt")
 
 def kontakt():
-    return render_template("kontakt.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("kontakt.html",admin_mode=admin_mode)
 
 @app.route("/admin")
 
@@ -66,7 +70,8 @@ def logout():
 
 @app.route("/narocila")
 def narocila():
-    return render_template("narocila.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("narocila.html",admin_mode=admin_mode)
 
 userDict = {}
 passwordDict = {}

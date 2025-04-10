@@ -134,10 +134,26 @@
         <div class="petastrantretjiindex">
             <p>© 2025 URBAN JR. | Vse pravice pridržane</p>
             <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJNsLqLBFFTldxbGjxDnMLkPrctxvjkFJTxWZVqTxGpctGMpMwqjQGxsGPLBnNBHMppSzcL">Izdelava spletne strani</a>
-            <a href="/admin">Admin</a>
+            <a href="#" onclick="AdminClick()">Admin</a>
         </div>
     </div>
 
+<!-- admin link izbira glede na to ali si prijavljen   -->
+<script>
+    function AdminClick() {
+        // You can perform your checks here, for example, using session data, user status, etc.
+        var admin_mode = {{ admin_mode | tojson }};
+
+
+        // Example condition: If the user is an admin, redirect to /admin, otherwise redirect to /
+        if (admin_mode) {
+            window.location.href = "/logout"; // Redirect to admin page
+        } else {
+            window.location.href = "/admin";
+              // Redirect to home page
+        }
+    }
+</script>
 
 <!--/* Tukaj je za telefonprikaz meni */ -->
 <script>
