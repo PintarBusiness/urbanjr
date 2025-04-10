@@ -149,8 +149,21 @@ def odstrani_iz_kosarice(izdelek):
 @app.route("/kosarica")
 def kosarica():
     izbrani_izdelki_imena = session.get("kosarica", [])
-    izbrani = [izdelek_podatki.get(ime) for ime in izbrani_izdelki_imena if ime in izdelek_podatki]
-    return render_template("kosarica.html", izbrani=izbrani)
+
+    izbrani = []
+    neizbrani = []
+
+    for ime, podatki in izdelek_podatki.items():
+        html = podatki["html"]
+        if ime in izbrani_izdelki_imena:
+            izbrani.append(html)
+        else:
+            html_zamenjan = html.replace(
+                f"/odstrani_iz_kosarice/{ime}", f"/dodaj_v_kosarico/{ime}"
+            ).replace("ODSTRANI IZDELEK", "DODAJ V KOŠARICO")
+            neizbrani.append(html_zamenjan)
+
+    return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani)
 
 
 app.run(debug = True, port=8800)

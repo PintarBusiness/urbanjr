@@ -40,91 +40,121 @@
 
 </style>
 <body>
-
-    <div class="zacetnastranostali">
-        <div class="ozadjekosarica">
-            <div class="temnoostali">
-                <header>
-                    <div class="logo">
-                        <a href=""><img src="static/images/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
-                    </div>
-                
-                    <div class="menutelefon" onclick="toggleMenu()">
-                        <div class="crtica"></div>
-                        <div class="crtica"></div>
-                        <div class="crtica"></div>
-                    </div>
-                
-                    <nav class="navmenu" id="navmenu">
-                        <ul>
-                            <li><a href="/">Domov</a></li>
-                            <li><a href="/onas">O nas</a></li>
-                            <li><a href="/trgovina">Trgovina</a></li>
-                            <li><a href="/blog">Blog</a></li>
-                            <li><a href="/kontakt">Kontakt</a></li>
-                            <li><a href="/kosarica"><i class="fa-solid fa-cart-arrow-down"></i></a></li>
-                            <div class="search" id="search">
-                                <input type="text" placeholder="Poiščite na strani..." id="search-input">
-                                <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
-                            </div>
-                        </ul>
-                    </nav>
-                    <div class="search-results" id="search-results"></div>
-                </header>            
-
-                <div class="nadozadjemostali">
-                    <h1>NAROČILA</h1>
-                    <p>Oddajte <span>naročilo</span> s pomočjo spodnjega obrazca</p>
-                </div>
-            </div>
+    <header>
+        <div class="logo">
+            <a href=""><img src="static/images/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
         </div>
-    </div>
+    
+        <div class="menutelefon" onclick="toggleMenu()">
+            <div class="crtica"></div>
+            <div class="crtica"></div>
+            <div class="crtica"></div>
+        </div>
+    
+        <nav class="navmenu" id="navmenu">
+            <ul>
+                <li><a href="/">Domov</a></li>
+                <li><a href="/onas">O nas</a></li>
+                <li><a href="/trgovina">Trgovina</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/kontakt">Kontakt</a></li>
+                <li><a href="/kosarica"><i class="fa-solid fa-cart-arrow-down"></i></a></li>
+                <div class="search" id="search">
+                    <input type="text" placeholder="Poiščite na strani..." id="search-input">
+                    <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </ul>
+        </nav>
+        <div class="search-results" id="search-results"></div>
+    </header>
 
-    <div class="narocila">
+    <form id="myForm" action="" class="narocila">
         <div class="narocilo">
             <div class="nacindostave">
-                <div class="osebni prevzem">
-                    <i class="fa-solid fa-building"></i>
-                    <h2>Osebni prevzem</h2>
-                    <p>Strošek dostave:</p>
-                    <p>0,00 €</p>
-                </div>
-                <div class="dostava prevzem">
-                    <i class="fa-solid fa-truck"></i>
-                    <h2>Dostava na dom</h2>
-                    <p>Strošek dostave:</p>
-                    <p>0,00 €</p>
-                </div>
+                <label>
+                    <input type="radio" name="nacindostave" value="osebni" required/>
+                    <div class="osebni prevzem">
+                        <i class="fa-solid fa-building"></i>
+                        <h2>Osebni prevzem</h2>
+                        <p>Strošek dostave:</p>
+                        <p>0,00 €</p>
+                    </div>
+                </label>
+                <label>
+                    <input type="radio" name="nacindostave" value="dostava" required/>
+                    <div class="dostava prevzem">
+                        <i class="fa-solid fa-truck"></i>
+                        <h2>Dostava na dom</h2>
+                        <p>Strošek dostave:</p>
+                        <p>3,99 €</p>
+                    </div>
+                </label>
             </div>
-
-            {% if izbrani %}
-                {% for izdelek in izbrani %}
-                    <div class="prvastranizdelek">
-                        <div class="vsebinaizdelek">
-                            <div class="slikeizdelek">
-                                {{ izdelek.html | safe }}
+            <div class="prikazizdelkov">
+                {% if izbrani %}
+                <h1>VAŠA KOŠARICA</h1>
+                <div class="prikazizdelkovgrid">
+                    {% for izdelek in izbrani %}
+                        <div class="prvastranizdelek">
+                            <div class="vsebinaizdelek">
+                                <div class="slikeizdelek">
+                                    {{ izdelek | safe }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p>Košarica je prazna.</p>
-            {% endif %}
-        
+                    {% endfor %}
+                </div>
+                <button type="submit">ODDAJ NAROČILO</button>
+                {% else %}
+                    <h1>KOŠARICA JE PRAZNA</h1>
+                    <style>
+                        .narocila
+                            {
+                                margin-top: 7em;
+                                gap: 15em;
+                                justify-content: center;
+                            }
+                    </style>
+                {% endif %}
+            </div>
         </div>
 
-        <form action="">
-            <p>Vnesite kontaktne podatke</p>
-            <input type="text" name="ime" placeholder="Ime" required autofocus>
-            <input type="text" name="priimek" placeholder="Priimek" required>
-            <input type="number" name="telefonska" placeholder="Telefonska številka" pattern="[0-9]{9}" required>
-            <input type="email" name="e-pošta" placeholder="E-poštni naslov" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
-            <input type="text" name="kraj" placeholder="Kraj" required>
-            <input type="text" name="hisnastevilka" placeholder="Hišna številka" required>
-            <input type="text" name="poštna številka" placeholder="Poštna številka" pattern="[0-9]{4}" required>
-        </form>
-    </div>
+        <div class="glavnidelform">
+            <h1>VNESITE KONTAKTNE PODATKE</h1>
+            <div class="vsebinaform">
+                <input type="text" name="ime" placeholder="Ime" required autofocus>
+                <input type="text" name="priimek" placeholder="Priimek" required>
+                <input type="number" name="telefonska" placeholder="Telefonska številka" pattern="[0-9]{9}" required>
+                <input type="email" name="e-pošta" placeholder="E-poštni naslov" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
+                <input type="text" name="kraj" placeholder="Kraj" required>
+                <input type="text" name="hisnastevilka" placeholder="Hišna številka" required>
+                <input type="text" name="poštna številka" placeholder="Poštna številka" pattern="[0-9]{4}" required>
+            </div>
 
+            <input type="hidden" name="nacin_dostave" id="nacin_dostave" value="OSEBNI_PREVZEM">
+
+            {% if neizbrani %}
+            <h1>DODAJTE VEČ IZDELKOV</h1>
+            <div class="vecizdelkov">
+                <div class="prikazizdelkov">
+                    <div class="prikazizdelkovgrid">
+                        {% for izdelek in neizbrani %}
+                            <div class="prvastranizdelek">
+                                <div class="vsebinaizdelek">
+                                    <div class="slikeizdelek">
+                                        {{ izdelek | safe }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        <p>Vsi izdelki so že dodani v košarico.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
 
     <div class="petastrandrugiindex">
         <div class="poravnava">
@@ -247,6 +277,34 @@ if (query.length > 0) {
 
 <!--/* Tukaj je za search bar scripta */ -->
 
+<!--/* Tukaj je za izberi način dostave scripta */ -->
+<script>
+
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    // Preveri, ali so radio gumbi skriti
+    var radios = document.getElementsByName('nacindostave');
+    var selected = false;
+
+    // Preveri, ali je en radio gumb izbran
+    for (var i = 0; i < radios.length; i++) {
+        console.log("Preverjam radio gumb:", radios[i].value); // Dodaj log za vsak radio gumb
+        if (radios[i].checked) {
+            selected = true;
+            console.log("Izbran radio gumb:", radios[i].value); // Log izbranega gumba
+            break;
+        }
+    }
+
+    // Če noben gumb ni izbran, prikaži opozorilo
+    if (!selected) {
+        alert('Prosimo, izberite način dostave!');
+        event.preventDefault(); // Prepreči pošiljanje obrazca
+    }
+});
+
+
+</script>
+<!--/* Tukaj je za izberi način dostave scripta */ -->
 
 <!--/* Tukaj je za cekiranje ce je mail prav napisan*/ -->
 <script>
