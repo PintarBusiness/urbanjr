@@ -160,7 +160,7 @@ def kosarica():
         else:
             html_zamenjan = html.replace(
                 f"/odstrani_iz_kosarice/{ime}", f"/dodaj_v_kosarico/{ime}"
-            ).replace("ODSTRANI IZDELEK", "DODAJ V KOŠARICO")
+            ).replace("ODSTRANI IZDELEK", "DODAJ&nbsp;IZDELEK")
             neizbrani.append(html_zamenjan)
 
     return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani)

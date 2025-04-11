@@ -2145,13 +2145,19 @@ footer .logo img
 {
     font-family: Poppins-Bold;
     font-size: 2.5em;
-    margin-bottom: 0.5em;
+    margin-bottom: 2.75em;
     color: #B4B436;
+    width: 80%;
 }
 
 .narocila .glavnidelform h1:nth-child(4)
 {
     margin-top: 0.5em;
+}
+
+.narocila .glavnidelform
+{
+    max-width: 40%;
 }
 
 .narocila .glavnidelform .vsebinaform
@@ -2161,6 +2167,15 @@ footer .logo img
     gap: 1em;
 }
 
+.narocila .glavnidelform .vsebinaform input
+{
+    all: unset;
+    padding: 1em;
+    border: solid 0.25em #B4B436;
+    border-radius: 0.5em;
+    font-size: 1.2em;
+}
+
 .narocila .prikazizdelkov .prikazizdelkovgrid
 {
     display: grid;
@@ -2168,4 +2183,7 @@ footer .logo img
     gap: 1em;
 }
 
-
+.narocila .vecizdelkov .prikazizdelkov .prikazizdelkovgrid
+{
+    width: 80%;
+}
