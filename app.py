@@ -26,6 +26,8 @@ def make_session_non_permanent():
 def initialize_admin_mode():
     if 'admin_mode' not in session:
         session['admin_mode'] = False
+        session['last_log_link'] = "/"
+
 
 
 @app.route("/")
@@ -61,11 +63,15 @@ def kontakt():
 @app.route("/admin")
 
 def admin():
+    referring_url = request.referrer or "/"  # Default to "/" if no referrer
+    session['last_log_link'] = referring_url
     return render_template("admin.html")
 
 @app.route("/logout")
 
 def logout():
+    referring_url = request.referrer or "/"  # Default to "/" if no referrer
+    session['last_log_link'] = referring_url
     return render_template("logout.html")
 
 @app.route("/narocila")
@@ -87,7 +93,7 @@ def login():
     if ime in userDict and geslo in passwordDict:
         if userDict[ime] == passwordDict[geslo]:
             session['admin_mode'] = True
-            return jsonify({"redirect_to": "/"})  # URL to redirect to
+            return jsonify({"redirect_to": session['last_log_link']})  # URL to redirect to
         else:
             return jsonify({"error": "Vnešeno ime ali geslo je napačno"}), 400
     else:
@@ -96,8 +102,8 @@ def login():
 @app.route("/logoutSession", methods=["POST"])
 def logoutSession():
     session['admin_mode'] = False
-    return jsonify({"redirect_to": "/"})  # URL to redirect to
+    return jsonify({"redirect_to": session['last_log_link']})  # URL to redirect to
 
-app.run(debug = True)
+app.run(debug = True, port=8800)
 
 
