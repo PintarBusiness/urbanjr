@@ -39,6 +39,7 @@
                 <input type="text" id="lname" name="lname" placeholder="geslo..."><br><br>
                 <!-- <label id="rememberBox"><input type="checkbox" name="remember"> Zapomni se me</label><br><br><br> -->
                 <br><div id="errorBox"></div><br><br>
+                <button id="loginNazaj" class="gumbiAdmin" onclick="goBack()" type="button">Pojdi nazaj</button>
                 <button id="prijavaAdmin" class="gumbiAdmin" onclick="loginTry()" type="button">Prijavi se</button>
               </form>
         </div>
@@ -71,5 +72,23 @@
 }
 
 
+</script>
+<script>
+    function goBack() {
+
+
+    $.ajax({
+        url: "/goBack",
+        method: "POST",  // Ensure POST request
+
+        success: function(result) {
+            if(result.redirect_to) {
+                // Redirect to the URL provided in the response
+                window.location.href = result.redirect_to;
+            }
+        },
+
+    });
+}
 </script>
 </html>

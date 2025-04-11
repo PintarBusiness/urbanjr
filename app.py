@@ -104,6 +104,10 @@ def logoutSession():
     session['admin_mode'] = False
     return jsonify({"redirect_to": session['last_log_link']})  # URL to redirect to
 
+@app.route("/goBack", methods=["POST"])
+def goBack():
+    return jsonify({"redirect_to": session['last_log_link']})  # URL to redirect to
+
 app.run(debug = True, port=8800)
 
 

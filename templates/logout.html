@@ -33,7 +33,7 @@
         <div class="naslov">
             <h1>Odjavite se</h1>
             <form action="/action_page.php">
-                <button id="logoutNazaj" class="gumbiAdmin" onclick="" type="button">Pojdi nazaj</button>
+                <button id="logoutNazaj" class="gumbiAdmin" onclick="goBack()" type="button">Pojdi nazaj</button>
                 <button id="prijavaAdmin" class="gumbiAdmin" onclick="logoutSession()" type="button">Odjava</button>
               </form>
         </div>
@@ -45,6 +45,24 @@
 
     $.ajax({
         url: "/logoutSession",
+        method: "POST",  // Ensure POST request
+
+        success: function(result) {
+            if(result.redirect_to) {
+                // Redirect to the URL provided in the response
+                window.location.href = result.redirect_to;
+            }
+        },
+
+    });
+}
+</script>
+<script>
+    function goBack() {
+
+
+    $.ajax({
+        url: "/goBack",
         method: "POST",  // Ensure POST request
 
         success: function(result) {
