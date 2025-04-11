@@ -1657,16 +1657,17 @@ footer .logo img
     flex-direction: column;
     
     
+    
 }
 #prijavaAdmin, #odjavaAdmin{
     background-color: white;
     font-weight: bold;
     font-size: 1.6em;
-    color: #B4B436;
+    color: rgb(182, 182, 53);
 
 }
 .bodyAdmin .naslov{
-
+    background-color: rgba(214, 235, 224, 0.5);
     border: 0.2em solid gray;
     border-radius: 0.5em;
     padding: 2em;
@@ -1674,20 +1675,26 @@ footer .logo img
 
 .bodyAdmin h1
 {
-    font-size: 3.5em;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-size: 4em;
     margin-bottom: 0.7em;
     color: #B4B436;
 }
 
 
 .bodyAdmin label{
-    font-size: 1.7em;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+    text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-size: 1.9em;
     color: #DBBB92;
 }
 
 .gumbiAdmin{
     padding: 0.2em;
     margin-top: 0.6em;
+    background-color: rgb(189, 188, 188);
     
 }
 
@@ -1709,6 +1716,7 @@ footer .logo img
 .bodyAdmin #errorBox
 {
     font-size: 1em;
+    font-weight: bold;
     color: red;
 }
 

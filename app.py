@@ -108,6 +108,6 @@ def logoutSession():
 def goBack():
     return jsonify({"redirect_to": session['last_log_link']})  # URL to redirect to
 
-app.run(debug = True)
+app.run(debug = True, port=8800)
 
 
