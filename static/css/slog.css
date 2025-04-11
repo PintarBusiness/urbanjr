@@ -1646,13 +1646,26 @@ footer .logo img
 
 
 .bodyAdmin{
+    
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
+.bodyAdmin form{
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+#prijavaAdmin{
+    background-color: white;
+    font-weight: bold;
+    font-size: 1.6em;
+    color: #B4B436;
 
+}
 .bodyAdmin .naslov{
 
     border: 0.2em solid gray;
@@ -1664,37 +1677,31 @@ footer .logo img
 {
     font-size: 3.5em;
     margin-bottom: 0.7em;
+    color: #B4B436;
 }
 
 
 .bodyAdmin label{
-    font-size: 1.4em;
+    font-size: 1.7em;
+    color: #DBBB92;
 }
 
 .gumbiAdmin{
     padding: 0.2em;
+    
 }
-#rememberBox{
-    font-size: 1em;
-}
+
 
 .okno_za_prodajo{
      display: none;
 }
-.bodyAdmin label
-{
-    font-size: 1.4em;
-}
+
 
 #prijavaAdmin
 {
     padding: 0.2em;
 }
 
-#rememberBox
-{
-    font-size: 1em;
-}
 
 .bodyAdmin #errorBox
 {
