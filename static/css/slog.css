@@ -1646,7 +1646,6 @@ footer .logo img
 
 
 .bodyAdmin{
-    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1659,7 +1658,7 @@ footer .logo img
     
     
 }
-#prijavaAdmin{
+#prijavaAdmin, #odjavaAdmin{
     background-color: white;
     font-weight: bold;
     font-size: 1.6em;
@@ -1688,9 +1687,13 @@ footer .logo img
 
 .gumbiAdmin{
     padding: 0.2em;
+    margin-top: 0.6em;
     
 }
 
+.bodyAdmin .inputBoxAdmin{
+    margin-bottom: 1.1em;
+}
 
 .okno_za_prodajo{
      display: none;

@@ -34,12 +34,12 @@
             <h1>Prijavite se</h1>
             <form action="/action_page.php">
                 <label for="fname">Uporabniški račun:</label>
-                <input type="text" id="fname" name="fname" placeholder="ime..."><br>
+                <input type="text" id="fname" class="inputBoxAdmin" name="fname" placeholder="ime...">
                 <label for="fname">Geslo:</label>
-                <input type="text" id="lname" name="lname" placeholder="geslo..."><br>
+                <input type="password" id="lname" class="inputBoxAdmin" name="lname" placeholder="geslo...">
                 <!-- <label id="rememberBox"><input type="checkbox" name="remember"> Zapomni se me</label><br><br><br> -->
-                <br><div id="errorBox"></div><br>
-                <button id="loginNazaj" class="gumbiAdmin" onclick="goBack()" type="button">Pojdi nazaj</button><br>
+                <div id="errorBox"></div>
+                <button id="loginNazaj" class="gumbiAdmin" onclick="goBack()" type="button">Pojdi nazaj</button>
                 <button id="prijavaAdmin" class="gumbiAdmin" onclick="loginTry()" type="button">Prijavi se</button>
               </form>
         </div>
