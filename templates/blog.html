@@ -136,12 +136,12 @@
                         <p>Bodite obveščeni o novostih</p>
                     </div>
                     <form action="" class="emailform">
-                        <input type="email" id="emailInput" placeholder="Vaš Email naslov" required
+                        <input type="email" id="emailInputBlog" placeholder="Vaš Email naslov" required
                             pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
                         <span id="emailStatus">
                             <span class="loading"></span>
                         </span>
-                        <button type="submit" id="submitButton">Prijavite se</button>
+                        <button type="submit" id="submitButton" onclick="poskusDodajanjaMail()">Prijavite se</button>
                     </form>
                 </div>
             </footer>
@@ -171,6 +171,34 @@
     }
 </script>
 
+<!-- poskus dodajanja e-maila na seznam TinyDB -->
+<script>
+    function poskusDodajanjaMail() {
+        event.preventDefault();
+        var mail = document.getElementById("emailInputBlog");
+    
+        $.ajax({
+            url: "/poskusDodajanjaMail",
+            method: "POST",  // Ensure POST request
+            data: {
+                mail: mail.value,
+
+            },
+            success: function(result) {
+                console.log("AJAX success, rezultat:", result);
+                if(result.success == false) {
+                    document.getElementById("emailInputBlog").style.backgroundColor = "#FF474C";
+                }
+                else{
+                    window.location.href = "/blog";
+                }
+            },
+
+        });
+    }
+    
+    
+</script>
 <!--/* Tukaj je za telefonprikaz meni */ -->
 <script>
     function toggleMenu() {
@@ -236,7 +264,7 @@ if (query.length > 0) {
 
 <!--/* Tukaj je za cekiranje ce je mail prav napisan*/ -->
 <script>
-    document.getElementById("emailInput").addEventListener("input", function () {
+    document.getElementById("emailInputBlog").addEventListener("input", function () {
 let email = this.value;
 let emailStatus = document.getElementById("emailStatus");
 let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
