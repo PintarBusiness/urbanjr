@@ -1,17 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify,session
 from flask_session import Session
+from tinydb import TinyDB, Query
+import re
 import requests
 import random
 import redis
 import os
 
 #import requests
+
 #pip install flask --user
 #pip install redis
+#pip install tinydb
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-
+narocnikiDB = TinyDB('db.json')
 
 app.config['SESSION_TYPE'] = 'filesystem'  # or 'null'
 app.config['SESSION_PERMANENT'] = False
@@ -108,6 +112,19 @@ def logoutSession():
 def goBack():
     return jsonify({"redirect_to": session['last_log_link']})  # URL to redirect to
 
-app.run(debug = True, port=8800)
+@app.route("/poskusDodajanjaMail", methods=["POST"])
+def poskusDodajanjaMail():
+    mail = request.form.get("mail")
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    mailTest = re.match(pattern, mail) is not None
+    if (mailTest):
+        User = Query()
+        if len(narocnikiDB.search(User.mail == mail))==0:
+            narocnikiDB.insert({"mail":mail})
+        return jsonify(success=True)
+    else:
+        return jsonify(success=False)
+
+app.run(debug = True)
 
 

@@ -14,6 +14,7 @@
     <link rel="icon" href="static/images/skupne/Logo/Znak__URBAN JR_zelen.ico" type="image/x-icon">
     <title>Urban JR. - Domov</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
     @font-face
     {
@@ -309,7 +310,7 @@
                         <span id="emailStatus">
                             <span class="loading"></span>
                         </span>
-                        <button type="submit" id="submitButton">Prijavite se</button>
+                        <button type="submit" id="submitButton" onclick="poskusDodajanjaMail()">Prijavite se</button>
                     </form>
                 </div>
             </footer>
@@ -339,6 +340,34 @@
         }
     </script>
 
+<!-- poskus dodajanja e-maila na seznam TinyDB -->
+    <script>
+    function poskusDodajanjaMail() {
+        event.preventDefault();
+        var mail = document.getElementById("emailInput");
+    
+        $.ajax({
+            url: "/poskusDodajanjaMail",
+            method: "POST",  // Ensure POST request
+            data: {
+                mail: mail.value,
+
+            },
+            success: function(result) {
+                console.log("AJAX success, rezultat:", result);
+                if(result.success == false) {
+                    document.getElementById("emailInput").style.backgroundColor = "#FF474C";
+                }
+                else{
+                    window.location.href = "/";
+                }
+            },
+
+        });
+    }
+    
+    
+    </script>
     
 <!--/* Tukaj je za telefonprikaz meni */ -->
     <script>
@@ -455,6 +484,7 @@ document.getElementById('gumbsearch').addEventListener('click', function() {
         if (emailRegex.test(email)) {
             emailStatus.innerHTML = "✅";
             emailStatus.style.color = "green";
+            document.getElementById("emailInput").style.backgroundColor = "white";
         } else {
             emailStatus.innerHTML = "❌";
             emailStatus.style.color = "red";

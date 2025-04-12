@@ -1735,8 +1735,8 @@ footer .logo img
     #prijavaAdmin, #odjavaAdmin{
         background-color: rgb(255, 255, 255);
         font-weight: bold;
-        font-size: 7em;
-        padding: 1em;
+        font-size: 10.5em;
+        padding: 0.3em;
         color: rgb(182, 182, 53);
     
     }
@@ -1768,7 +1768,7 @@ footer .logo img
     .gumbiAdmin{
         padding: 0.2em;
         margin-top: 0.6em;
-        font-size: 9em;
+        font-size: 7em;
         background-color: rgb(189, 188, 188);
         
     }
