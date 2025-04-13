@@ -1447,6 +1447,29 @@ footer .logo img
     white-space: normal;
 }
 
+.graf
+{
+    height: fit-content;
+    padding: 10em 0em;
+}
+
+.graf h1
+{
+    color: #B4B436;
+    font-family: Poppins-Bold;
+    font-size: 3em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+#jajcaGraf
+{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100em;
+    height: 50em;
+}
 
 .cetrtastranonas
 {
@@ -1580,6 +1603,36 @@ footer .logo img
         flex-direction: column;
         justify-content: center;
         scale: 3.5;
+    }
+
+    .graf
+    {
+        margin-top: -15em;
+        margin-bottom: 30em;
+        justify-content: center;
+    }
+
+    .graf h1
+    {
+        font-size: 7em;
+        margin-bottom: 1em;
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .grafmanjsi
+    {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 80%;
+        overflow-x: auto;
+    }
+
+    #jajcaGraf
+    {
+        width: 250em;
+        height: 150em;
     }
 
     .cetrtastranonas
@@ -2136,6 +2189,12 @@ footer .logo img
     color: #B4B436;
 }
 
+.narocila .narocilo .prikazizdelkov .gp
+{
+    display: flex;
+    flex-direction: column;
+}
+
 .narocila .narocilo .prikazizdelkov button
 {
     all: unset;
@@ -2156,6 +2215,14 @@ footer .logo img
     cursor: pointer;
     scale: 1.1;
     background-color: #DBBB92;
+}
+
+.narocila .narocilo .prikazizdelkov a
+{
+    margin-top: 1em;
+    font-size: 1.1em;
+    text-decoration: none;
+    color: black;
 }
 
 .narocila .narocilo .prikazizdelkov .prikazizdelkovgrid
@@ -2292,18 +2359,23 @@ footer .logo img
 .stevec
 {
     position: absolute;
-    bottom: 0.5em;
+    bottom: 0em;
     right: 0.5em;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.stevec a
+{
+    margin-bottom: 1em;
+}
+
 .opiskoliko, .opiskolikot
 {
     position: absolute;
-    bottom: 1em;
-    left: 1em;
+    bottom: 1.3em;
+    left: 1.5em;
 }
 
 .opiskoliko p, .opiskolikot p
@@ -2339,7 +2411,7 @@ footer .logo img
     margin: 0 0.3em;
 }
 
-.telgumbnarocilo button
+.telgumbnarocilo
 {
     display: none;
 }
@@ -2415,13 +2487,17 @@ footer .logo img
         left: 1.5em;
     }
 
-    .narocila .narocilo .prikazizdelkov button
+    .narocila .narocilo .prikazizdelkov .gp
     {
         display: none;
     }
 
     .telgumbnarocilo
     {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         text-align: center;
     }
 
@@ -2438,6 +2514,14 @@ footer .logo img
         font-size: 3em;
         transition: all 1s ease;
         width: fit-content;
+    }
+
+    .telgumbnarocilo a
+    {
+        text-decoration: none;
+        margin-top: 1em;
+        font-size: 4em;
+        color: black;
     }
     
     .narocila .glavnidelform
@@ -2473,4 +2557,120 @@ footer .logo img
     }
 
 
+}
+
+
+/* Pomoc - Prva stran */
+.pomocvsebina
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pomocvsebina video
+{
+    width: 80em;
+    margin-top: 3em;
+    margin-bottom: 2em;
+}
+
+.pomocvsebina audio
+{
+}
+
+/* Za telefon Pomoč */
+
+@media screen and (max-width: 480px)
+{
+    .pomocvsebina video
+    {
+        width: 150em;
+        margin-top: 10em;
+        margin-bottom: 5em;
+    }
+}
+
+/* Hvala za nakup */
+.hvalazanakup
+{
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hvalazanakup h1
+{
+    text-align: center;
+    font-size: 3em;
+    font-family: Poppins-Bold;
+    color: #B4B436;
+}
+
+.hvalazanakup p
+{
+    margin-top: 0.5em;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.hvalazanakup a
+{
+    display: flex;
+    all: unset;
+    margin-top: 3em;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: all 1s ease;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.hvalazanakup a:hover
+{
+    background-color: #DBBB92;
+    scale: 1.1;
+}
+
+.hvalazanakup p span
+{
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #DBBB92;
+}
+
+/* Za telefon Hvala za nakup*/
+
+@media screen and (max-width: 480px)
+{
+    .hvalazanakup
+    {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hvalazanakup h1
+    {
+        font-size: 10em;
+    }
+
+    .hvalazanakup p
+    {
+        font-size: 5em;
+    }
+
+    .hvalazanakup a
+    {
+        font-size: 4.5em;
+    }
 }

@@ -32,6 +32,11 @@ def admin():
 def trgovina():
     return render_template("trgovina.html")
 
+@app.route("/pomoc")
+
+def pomoc():
+    return render_template("pomoc.html")
+
 igtoken = ""
 iguporabnik = ""
 igapi = ""
@@ -196,6 +201,15 @@ def znizaj(izdelek):
             del kosarica[izdelek_upper]
     session["kosarica"] = kosarica
     return redirect(url_for("kosarica"))
+
+@app.route("/oddaj_narocilo", methods=["POST"])
+def oddaj_narocilo():
+    zahtevani_podatki = ["ime", "priimek", "telefonska", "e-pošta", "kraj", "hisnastevilka", "poštnaštevilka", "nacindostave"]
+    manjkajoci = [p for p in zahtevani_podatki if not request.form.get(p)]
+    if manjkajoci:
+        return redirect(url_for("kosarica"))
+    session["kosarica"] = {}
+    return render_template("hvala.html")
 
 @app.route("/kosarica")
 def kosarica():

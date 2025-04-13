@@ -159,6 +159,50 @@
             </div>
         </div>
     </div>
+    <div class="graf">
+        <h1>ŠTEVILO PRIDELANIH JAJC PO MESECIH NA NAŠI KMETIJI</h1>
+        <div class="grafmanjsi">
+            <canvas id="jajcaGraf" width="1600" height="800"></canvas>
+        </div>
+    </div>
+        <script>
+            const canvas = document.getElementById("jajcaGraf");
+            const ctx = canvas.getContext("2d");
+          
+            const meseci = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"];
+            const dneviVMesecu = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+          
+            const podatki = dneviVMesecu.map(dnevi => {
+              const jajcNaDan = Math.floor(Math.random() * 11) + 40; // 40–50
+              return jajcNaDan * dnevi;
+            });
+          
+            const width = canvas.width;
+            const height = canvas.height;
+            const barWidth = width / meseci.length;
+            const max = Math.max(...podatki);
+          
+            ctx.clearRect(0, 0, width, height);
+            ctx.font = "20px Arial";
+            ctx.textAlign = "center";
+          
+            meseci.forEach((mesec, i) => {
+              const x = i * barWidth + 10;
+              const barHeight = (podatki[i] / max) * (height - 100);
+              const y = height - barHeight - 50;
+          
+              // Stolpci v tvoji barvi
+              ctx.fillStyle = "#B4B436";
+              ctx.fillRect(x, y, barWidth - 20, barHeight);
+          
+              // Število jajc
+              ctx.fillStyle = "#000";
+              ctx.fillText(podatki[i], x + (barWidth - 20) / 2, y - 10);
+          
+              // Mesec
+              ctx.fillText(mesec, x + (barWidth - 20) / 2, height - 20);
+            });
+        </script>
 
     <div class="cetrtastranonas">
         <div class="temnoonas">

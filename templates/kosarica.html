@@ -75,7 +75,7 @@
         <div class="search-results" id="search-results"></div>
     </header>
 
-    <form id="myForm" action="" method="POST" class="narocila">
+    <form id="myForm" action="/oddaj_narocilo" method="POST" class="narocila">
         <div class="narocilo">
             <div class="nacindostave">
                 <label>
@@ -111,7 +111,10 @@
                         </div>
                     {% endfor %}
                 </div>
-                <button type="submit">ODDAJ NAROČILO</button>
+                <div class="gp">
+                    <button type="submit">ODDAJ NAROČILO</button>
+                    <a href="/pomoc">Potrebuje pomoč pri oddaji naročila?</a>
+                </div>
                 {% else %}
                     <h1>KOŠARICA JE PRAZNA</h1>
                     <style>
@@ -148,6 +151,7 @@
             <input type="hidden" name="nacin_dostave" id="nacin_dostave" value="OSEBNI_PREVZEM">
             <div class="telgumbnarocilo">
                 <button type="submit">ODDAJ NAROČILO</button>
+                <a href="/pomoc">Potrebuje pomoč pri oddaji naročila?</a>
             </div>
             {% if neizbrani %}
             <h1>DODAJTE VEČ IZDELKOV</h1>
