@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, session, redirect, url_for
+from flask import Flask, render_template, jsonify, session, redirect, url_for, request
 import random
 import requests
 
@@ -72,6 +72,9 @@ izdelek_podatki = {
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07972-20.JPG" alt="Jajca">
             </div>
+            <div class="opiskoliko">
+                <p>V vsakem paketu je 10 jajc</p>
+            </div>
         </div>
         '''
     },
@@ -84,6 +87,9 @@ izdelek_podatki = {
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Piščanci">
+            </div>
+            <div class="opiskoliko">
+                <p>V vsakem paketu je 1 piščanec</p>
             </div>
         </div>
         '''
@@ -98,6 +104,9 @@ izdelek_podatki = {
             <div class="slika">
                 <img src="/static/images/trgovina/DSC08006-26.JPG" alt="Mleko">
             </div>
+            <div class="opiskoliko">
+                <p>V vsakem paketu je 1 liter mleka</p>
+            </div>
         </div>
         '''
     },
@@ -110,6 +119,9 @@ izdelek_podatki = {
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07972-20.JPG" alt="Zelenjava">
+            </div>
+            <div class="opiskoliko">
+                <p>Paket mešane zelenjave</p>
             </div>
         </div>
         '''
@@ -124,48 +136,96 @@ izdelek_podatki = {
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Govedina">
             </div>
+            <div class="opiskoliko">
+                <p>V vsakekem paketu je 0.5 kg govedine</p>
+            </div>
         </div>
         '''
     }
 }
 
+@app.context_processor
+def kosarica_stevec():
+    kosarica = session.get("kosarica", {})
+    if not isinstance(kosarica, dict):
+        kosarica = {}
+    skupno = sum(kosarica.values())
+    return {"st_izdelkov": skupno}
+
 @app.route("/dodaj_v_kosarico/<izdelek>")
 def dodaj_v_kosarico(izdelek):
-    kosarica = session.get("kosarica", [])
-    if izdelek.upper() not in kosarica:
-        kosarica.append(izdelek.upper())
+    kosarica = session.get("kosarica", {})
+    if not isinstance(kosarica, dict):
+        kosarica = {}
+    izdelek_upper = izdelek.upper()
+    kosarica[izdelek_upper] = kosarica.get(izdelek_upper, 0) + 1
     session["kosarica"] = kosarica
-    return redirect(url_for("kosarica"))
+    return redirect(request.referrer)
 
 @app.route("/odstrani_iz_kosarice/<izdelek>")
 def odstrani_iz_kosarice(izdelek):
-    kosarica = session.get("kosarica", [])
+    kosarica = session.get("kosarica", {})
+    if not isinstance(kosarica, dict):
+        kosarica = {}
     izdelek_upper = izdelek.upper()
     if izdelek_upper in kosarica:
-        kosarica.remove(izdelek_upper)
+        del kosarica[izdelek_upper]
+    session["kosarica"] = kosarica
+    return redirect(url_for("kosarica"))
+
+@app.route("/povecaj/<izdelek>")
+def povecaj(izdelek):
+    kosarica = session.get("kosarica", {})
+    if not isinstance(kosarica, dict):
+        kosarica = {}
+    izdelek_upper = izdelek.upper()
+    if izdelek_upper in kosarica:
+        kosarica[izdelek_upper] += 1
+    session["kosarica"] = kosarica
+    return redirect(url_for("kosarica"))
+
+@app.route("/znizaj/<izdelek>")
+def znizaj(izdelek):
+    kosarica = session.get("kosarica", {})
+    if not isinstance(kosarica, dict):
+        kosarica = {}
+    izdelek_upper = izdelek.upper()
+    if izdelek_upper in kosarica:
+        kosarica[izdelek_upper] -= 1
+        if kosarica[izdelek_upper] <= 0:
+            del kosarica[izdelek_upper]
     session["kosarica"] = kosarica
     return redirect(url_for("kosarica"))
 
 @app.route("/kosarica")
 def kosarica():
-    izbrani_izdelki_imena = session.get("kosarica", [])
+    kosarica_ses = session.get("kosarica", {})
+
+    if not isinstance(kosarica_ses, dict):
+        kosarica_ses = {}
 
     izbrani = []
     neizbrani = []
 
     for ime, podatki in izdelek_podatki.items():
         html = podatki["html"]
-        if ime in izbrani_izdelki_imena:
+        if ime in kosarica_ses:
+            kolicina = kosarica_ses[ime]
+            html += f'''
+                <div class="stevec">
+                    <a href="/znizaj/{ime}" class="stevecgumb">-</a>
+                    <span class="steveckolicina">{kolicina}</span>
+                    <a href="/povecaj/{ime}" class="stevecgumb">+</a>
+                </div>
+            '''
             izbrani.append(html)
         else:
             html_zamenjan = html.replace(
-                f"/odstrani_iz_kosarice/{ime}", f"/dodaj_v_kosarico/{ime}"
-            ).replace("ODSTRANI IZDELEK", "DODAJ&nbsp;IZDELEK")
+                f"/odstrani_iz_kosarice/{ime}", f"/dodaj_v_kosarico/{ime}").replace("ODSTRANI IZDELEK", "DODAJ&nbsp;IZDELEK")
             neizbrani.append(html_zamenjan)
 
     return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani)
-
-
-app.run(debug = True, port=8800)
+      
+app.run(debug = True, port=5000)
 
 

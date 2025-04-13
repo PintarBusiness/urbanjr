@@ -58,7 +58,14 @@
                 <li><a href="/trgovina">Trgovina</a></li>
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/kontakt">Kontakt</a></li>
-                <li><a href="/kosarica"><i class="fa-solid fa-cart-arrow-down"></i></a></li>
+                <li>
+                    <a href="/kosarica">
+                    <i class="fa-solid fa-cart-arrow-down"></i>
+                    {% if st_izdelkov > 0 %}
+                    <span class="kosaricastevec">{{ st_izdelkov }}</span>
+                    {% endif %}
+                    </a>
+                </li>
                 <div class="search" id="search">
                     <input type="text" placeholder="Poiščite na strani..." id="search-input">
                     <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -68,7 +75,7 @@
         <div class="search-results" id="search-results"></div>
     </header>
 
-    <form id="myForm" action="" class="narocila">
+    <form id="myForm" action="" method="POST" class="narocila">
         <div class="narocilo">
             <div class="nacindostave">
                 <label>
@@ -109,11 +116,18 @@
                     <h1>KOŠARICA JE PRAZNA</h1>
                     <style>
                         .narocila
+                        {
+                            margin-top: 7em;
+                            gap: 15em;
+                            justify-content: center;
+                        }
+                        @media screen and (max-width: 480px)
+                        {
+                            .narocila
                             {
-                                margin-top: 7em;
-                                gap: 15em;
-                                justify-content: center;
+                                margin-top: 45em;
                             }
+                        }
                     </style>
                 {% endif %}
             </div>
@@ -124,15 +138,17 @@
             <div class="vsebinaform">
                 <input type="text" name="ime" placeholder="Ime" required autofocus>
                 <input type="text" name="priimek" placeholder="Priimek" required>
-                <input type="number" name="telefonska" placeholder="Telefonska številka" pattern="[0-9]{9}" required>
+                <input type="tel" name="telefonska" placeholder="Telefonska številka" pattern="^[0-9]{9}$" maxlength="9" required>
                 <input type="email" name="e-pošta" placeholder="E-poštni naslov" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
                 <input type="text" name="kraj" placeholder="Kraj" required>
                 <input type="text" name="hisnastevilka" placeholder="Hišna številka" required>
-                <input type="text" name="poštna številka" placeholder="Poštna številka" pattern="[0-9]{4}" required>
+                <input type="text" name="poštnaštevilka" placeholder="Poštna številka" pattern="[0-9]{4}" required>
             </div>
 
             <input type="hidden" name="nacin_dostave" id="nacin_dostave" value="OSEBNI_PREVZEM">
-
+            <div class="telgumbnarocilo">
+                <button type="submit">ODDAJ NAROČILO</button>
+            </div>
             {% if neizbrani %}
             <h1>DODAJTE VEČ IZDELKOV</h1>
             <div class="vecizdelkov">
@@ -148,8 +164,6 @@
                             </div>
                         {% endfor %}
                     </div>
-                    {% else %}
-                        <p>Vsi izdelki so že dodani v košarico.</p>
                     {% endif %}
                 </div>
             </div>

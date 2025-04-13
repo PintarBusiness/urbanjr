@@ -60,7 +60,14 @@
                             <li><a href="/trgovina">Trgovina</a></li>
                             <li><a href="/blog">Blog</a></li>
                             <li><a href="/kontakt">Kontakt</a></li>
-                            <li><a href="/kosarica"><i class="fa-solid fa-cart-arrow-down"></i></a></li>
+                            <li>
+                                <a href="/kosarica">
+                                <i class="fa-solid fa-cart-arrow-down"></i>
+                                {% if st_izdelkov > 0 %}
+                                <span class="kosaricastevec">{{ st_izdelkov }}</span>
+                                {% endif %}
+                                </a>
+                            </li>
                             <div class="search" id="search">
                                 <input type="text" placeholder="Poiščite na strani..." id="search-input">
                                 <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>

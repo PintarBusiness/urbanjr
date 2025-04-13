@@ -61,7 +61,14 @@
                             <li><a href="/trgovina">Trgovina</a></li>
                             <li><a href="/blog">Blog</a></li>
                             <li><a href="/kontakt">Kontakt</a></li>
-                            <li><a href="/kosarica"><i class="fa-solid fa-cart-arrow-down"></i></a></li>
+                            <li>
+                                <a href="/kosarica">
+                                <i class="fa-solid fa-cart-arrow-down"></i>
+                                {% if st_izdelkov > 0 %}
+                                <span class="kosaricastevec">{{ st_izdelkov }}</span>
+                                {% endif %}
+                                </a>
+                            </li>
                             <div class="search" id="search">
                                 <input type="text" placeholder="Poiščite na strani..." id="search-input">
                                 <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -90,6 +97,9 @@
                     <div class="slika">
                         <img src="static/images/trgovina/DSC07972-20.JPG" alt="Jajca">
                     </div>
+                    <div class="opiskolikot">
+                        <p>V vsakem paketu je 10 jajc</p>
+                    </div>
                 </div>
                 <div class="sliketext">
                     <div class="text">
@@ -98,6 +108,9 @@
                     </div>
                     <div class="slika">
                         <img src="static/images/trgovina/DSC07979-21.JPG" alt="Piščanci">
+                    </div>
+                    <div class="opiskolikot">
+                        <p>V vsakem paketu je 1 piščanec</p>
                     </div>
                 </div>
                 <div class="sliketext">
@@ -108,6 +121,9 @@
                     <div class="slika">
                         <img src="static/images/trgovina/DSC08006-26.JPG" alt="Mleko">
                     </div>
+                    <div class="opiskolikot">
+                        <p>V vsakem paketu je 1 liter mleka</p>
+                    </div>
                 </div>
                 <div class="sliketext">
                     <div class="text">
@@ -117,6 +133,9 @@
                     <div class="slika">
                         <img src="static/images/trgovina/DSC07972-20.JPG" alt="Zelenjava">
                     </div>
+                    <div class="opiskolikot">
+                        <p>Paket mešane zelenjave</p>
+                    </div>
                 </div>
                 <div class="sliketext">
                     <div class="text">
@@ -125,6 +144,9 @@
                     </div>
                     <div class="slika">
                         <img src="static/images/trgovina/DSC07979-21.JPG" alt="Govedina">
+                    </div>
+                    <div class="opiskolikot">
+                        <p>V vsakekem paketu je 0.5 kg govedine</p>
                     </div>
                 </div>
             </div>
