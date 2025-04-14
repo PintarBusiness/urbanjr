@@ -117,6 +117,7 @@ def goBack():
 @app.route("/poskusDodajanjaMail", methods=["POST"])
 def poskusDodajanjaMail():
     mail = request.form.get("mail")
+    print("heh")
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     mailTest = re.match(pattern, mail) is not None
     if (mailTest):

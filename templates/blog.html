@@ -14,6 +14,7 @@
     <link rel="icon" href="static/images/skupne/Logo/Znak__URBAN JR_zelen.ico" type="image/x-icon">
     <title>Urban JR. - Blog</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
     @font-face
     {
@@ -136,7 +137,7 @@
                         <p>Bodite obveščeni o novostih</p>
                     </div>
                     <form action="" class="emailform">
-                        <input type="email" id="emailInputBlog" placeholder="Vaš Email naslov" required
+                        <input type="email" id="emailInput" placeholder="Vaš Email naslov" required
                             pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$">
                         <span id="emailStatus">
                             <span class="loading"></span>
@@ -174,8 +175,9 @@
 <!-- poskus dodajanja e-maila na seznam TinyDB -->
 <script>
     function poskusDodajanjaMail() {
+        console.log("he");
         event.preventDefault();
-        var mail = document.getElementById("emailInputBlog");
+        var mail = document.getElementById("emailInput");
     
         $.ajax({
             url: "/poskusDodajanjaMail",
@@ -187,7 +189,7 @@
             success: function(result) {
                 console.log("AJAX success, rezultat:", result);
                 if(result.success == false) {
-                    document.getElementById("emailInputBlog").style.backgroundColor = "#FF474C";
+                    document.getElementById("emailInput").style.backgroundColor = "#FF474C";
                 }
                 else{
                     window.location.href = "/blog";
@@ -264,7 +266,7 @@ if (query.length > 0) {
 
 <!--/* Tukaj je za cekiranje ce je mail prav napisan*/ -->
 <script>
-    document.getElementById("emailInputBlog").addEventListener("input", function () {
+    document.getElementById("emailInput").addEventListener("input", function () {
 let email = this.value;
 let emailStatus = document.getElementById("emailStatus");
 let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
