@@ -282,6 +282,7 @@ setTimeout(() => {
     if (emailRegex.test(email)) {
         emailStatus.innerHTML = "✅";
         emailStatus.style.color = "green";
+        document.getElementById("emailInput").style.backgroundColor = "white";
     } else {
         emailStatus.innerHTML = "❌";
         emailStatus.style.color = "red";

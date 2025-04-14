@@ -228,7 +228,7 @@
                     document.getElementById("emailInput").style.backgroundColor = "#FF474C";
                 }
                 else{
-                    window.location.href = "/";
+                    window.location.href = "/trgovina";
                 }
             },
 
@@ -318,6 +318,7 @@ setTimeout(() => {
     if (emailRegex.test(email)) {
         emailStatus.innerHTML = "✅";
         emailStatus.style.color = "green";
+        document.getElementById("emailInput").style.backgroundColor = "white";
     } else {
         emailStatus.innerHTML = "❌";
         emailStatus.style.color = "red";
