@@ -37,6 +37,11 @@ def trgovina():
 def pomoc():
     return render_template("pomoc.html")
 
+@app.route("/pregled")
+
+def pregled():
+    return render_template("pregled.html")
+
 igtoken = ""
 iguporabnik = ""
 igapi = ""

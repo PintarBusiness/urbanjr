@@ -155,6 +155,7 @@ header ul li:not(:last-child) a:hover::after
 
 .menjanje
 {
+    pointer-events: none;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -165,6 +166,7 @@ header ul li:not(:last-child) a:hover::after
 
 .prev, .next
 {
+    pointer-events: auto;
     position: absolute;
     color: white;
     background-color: transparent;
