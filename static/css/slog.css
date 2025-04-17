@@ -2676,3 +2676,149 @@ footer .logo img
         font-size: 4.5em;
     }
 }
+/* prijava za admin login in logout */
+
+
+.bodyAdmin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.bodyAdmin form{
+    display: flex;
+    flex-direction: column;
+    
+    
+    
+}
+#prijavaAdmin, #odjavaAdmin{
+    background-color: white;
+    font-weight: bold;
+    font-size: 2em;
+    padding: 0.24em;
+    color: rgb(182, 182, 53);
+
+}
+.bodyAdmin .naslov{
+    background-color: rgba(214, 235, 224, 0.5);
+    border: 0.2em solid gray;
+    border-radius: 0.5em;
+    padding: 2em;
+}
+
+.bodyAdmin h1
+{
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-size: 4em;
+    margin-bottom: 0.7em;
+    color: #B4B436;
+}
+
+
+.bodyAdmin label{
+    font-weight: bold;
+    letter-spacing: 0.07em;
+    text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-size: 1.9em;
+    color: #DBBB92;
+}
+
+.gumbiAdmin{
+    padding: 0.2em;
+    margin-top: 0.6em;
+    font-size: 1.8em;
+    background-color: rgb(189, 188, 188);
+    
+}
+
+.bodyAdmin .inputBoxAdmin{
+    margin-bottom: 1.1em;
+}
+
+.okno_za_prodajo{
+     display: none;
+}
+
+.bodyAdmin #errorBox
+{
+    font-size: 1em;
+    font-weight: bold;
+    color: red;
+}
+
+
+/* Za telefon admin login in logout */
+@media screen and (max-width: 480px){
+    .bodyAdmin{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .bodyAdmin form{
+        display: flex;
+        flex-direction: column;
+        
+        
+        
+    }
+    #prijavaAdmin, #odjavaAdmin{
+        background-color: rgb(255, 255, 255);
+        font-weight: bold;
+        font-size: 10.5em;
+        padding: 0.3em;
+        color: rgb(182, 182, 53);
+    
+    }
+    .bodyAdmin .naslov{
+        background-color: rgba(214, 235, 224, 0.5);
+        border: 0.2em solid gray;
+        border-radius: 0.5em;
+        padding: 2em;
+    }
+    
+    .bodyAdmin h1
+    {
+        font-weight: bold;
+        text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        font-size: 14em;
+        margin-bottom: 0.7em;
+        color: #B4B436;
+    }
+    
+    
+    .bodyAdmin label{
+        font-weight: bold;
+        letter-spacing: 0.07em;
+        text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        font-size: 7em;
+        color: #DBBB92;
+    }
+    
+    .gumbiAdmin{
+        padding: 0.2em;
+        margin-top: 0.6em;
+        font-size: 7em;
+        background-color: rgb(189, 188, 188);
+        
+    }
+    
+    .bodyAdmin .inputBoxAdmin{
+        margin-bottom: 1.1em;
+    }
+    
+    .okno_za_prodajo{
+         display: none;
+    }
+    
+    .bodyAdmin #errorBox
+    {
+        font-size: 4em;
+        font-weight: bold;
+        color: red;
+    }
+}

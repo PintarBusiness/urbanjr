@@ -1,47 +1,144 @@
-from flask import Flask, render_template, jsonify, session, redirect, url_for, request
-import random
+from flask import Flask, render_template, request, redirect, url_for, jsonify,session
+from flask_session import Session
+from tinydb import TinyDB, Query
+import re
 import requests
+import random
+import redis
+import os
+#import requests
+
+# ---------- NALOZI  ----------
 
 #pip install flask --user
+#pip install redis
+#pip install tinydb
 
 app = Flask(__name__)
 
+# ---------- Funkcije  za admin Session ----------
+app.secret_key = os.urandom(24)
 
+
+app.config['SESSION_TYPE'] = 'filesystem' 
+app.config['SESSION_PERMANENT'] = False
+
+@app.before_request
+def make_session_non_permanent():
+    session.permanent = False
+
+@app.before_request
+def initialize_admin_mode():
+    if 'admin_mode' not in session:
+        session['admin_mode'] = False
+        session['last_log_link'] = "/"
+
+# ---------- Databaze ----------
+narocnikiDB = TinyDB('db.json')
+
+# ---------- Linki (poti) do html datotek ----------
 @app.route("/")
-
 def index():
-    return render_template("index.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("index.html",admin_mode=admin_mode)
 
 @app.route("/onas")
-
 def onas():
-    return render_template("onas.html")
-
-@app.route("/kontakt")
-
-def kontakt():
-    return render_template("kontakt.html")
-
-@app.route("/admin")
-
-def admin():
-    return render_template("admin.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("onas.html",admin_mode=admin_mode)
 
 @app.route("/trgovina")
-
 def trgovina():
-    return render_template("trgovina.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("trgovina.html",admin_mode=admin_mode)
+"""
+@app.route("/blog")
+def blog():
+    admin_mode = session.get('admin_mode', False)
+    return render_template("blog.html",admin_mode=admin_mode)
+"""
+@app.route("/kontakt")
+def kontakt():
+    admin_mode = session.get('admin_mode', False)
+    return render_template("kontakt.html",admin_mode=admin_mode)
+
+@app.route("/admin")
+def admin():
+    referring_url = request.referrer or "/"  
+    session['last_log_link'] = referring_url
+    return render_template("admin.html")
+
+@app.route("/logout")
+def logout():
+    referring_url = request.referrer or "/" 
+    session['last_log_link'] = referring_url
+    return render_template("logout.html")
+
+@app.route("/narocila")
+def narocila():
+    admin_mode = session.get('admin_mode', False)
+    return render_template("narocila.html",admin_mode=admin_mode)
 
 @app.route("/pomoc")
-
 def pomoc():
-    return render_template("pomoc.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("pomoc.html",admin_mode=admin_mode)
 
 @app.route("/pregled")
-
 def pregled():
-    return render_template("pregled.html")
+    admin_mode = session.get('admin_mode', False)
+    return render_template("pregled.html",admin_mode=admin_mode)
 
+# ---------- Prijava v admin ----------
+
+userDict = {}
+passwordDict = {}
+
+userDict["admin"] = 1
+passwordDict["admin"] = 1
+
+@app.route("/loginTry", methods=["POST"])
+def login():
+    ime = request.form.get("ime") 
+    geslo = request.form.get("geslo")  
+
+    if ime in userDict and geslo in passwordDict:
+        if userDict[ime] == passwordDict[geslo]:
+            session['admin_mode'] = True
+            return jsonify({"redirect_to": session['last_log_link']})  
+        else:
+            return jsonify({"error": "Vnešeno ime ali geslo je napačno"}), 400
+    else:
+        return jsonify({"error": "Vnešeno ime ali geslo je napačno"}), 400
+
+# ---------- Odjava iz admina ----------
+
+@app.route("/logoutSession", methods=["POST"])
+def logoutSession():
+    session['admin_mode'] = False
+    return jsonify({"redirect_to": session['last_log_link']}) 
+
+@app.route("/goBack", methods=["POST"])
+def goBack():
+    return jsonify({"redirect_to": session['last_log_link']})  
+
+# ---------- Dodajanje e-mail racuna v databazo TinyDB (za novice) ----------
+
+@app.route("/poskusDodajanjaMail", methods=["POST"])
+def poskusDodajanjaMail():
+    mail = request.form.get("mail")
+    print("heh")
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    mailTest = re.match(pattern, mail) is not None
+    if (mailTest):
+        User = Query()
+        if len(narocnikiDB.search(User.mail == mail))==0:
+            narocnikiDB.insert({"mail":mail})
+        return jsonify(success=True)
+    else:
+        return jsonify(success=False)
+
+# ---------- INSTAGRAM API  ---------- 
 igtoken = ""
 iguporabnik = ""
 igapi = ""
@@ -60,7 +157,8 @@ def instagramapi():
 
 def blog():
     poslji = instagramapi
-    return render_template("blog.html", post=poslji)
+    admin_mode = session.get('admin_mode', False)
+    return render_template("blog.html", post=poslji,admin_mode=admin_mode)
 
 @app.route("/api/poslji")
 
@@ -69,7 +167,7 @@ def apiposlji():
     return jsonify(poslji)
 
 
-app.secret_key = 'skrivnostninkl'
+# ---------- Delovanje kosarice ----------
 
 izdelek_podatki = {
     "JAJCA": {
@@ -81,9 +179,6 @@ izdelek_podatki = {
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07972-20.JPG" alt="Jajca">
-            </div>
-            <div class="opiskoliko">
-                <p>V vsakem paketu je 10 jajc</p>
             </div>
         </div>
         '''
@@ -98,9 +193,6 @@ izdelek_podatki = {
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Piščanci">
             </div>
-            <div class="opiskoliko">
-                <p>V vsakem paketu je 1 piščanec</p>
-            </div>
         </div>
         '''
     },
@@ -113,9 +205,6 @@ izdelek_podatki = {
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC08006-26.JPG" alt="Mleko">
-            </div>
-            <div class="opiskoliko">
-                <p>V vsakem paketu je 1 liter mleka</p>
             </div>
         </div>
         '''
@@ -130,9 +219,6 @@ izdelek_podatki = {
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07972-20.JPG" alt="Zelenjava">
             </div>
-            <div class="opiskoliko">
-                <p>Paket mešane zelenjave</p>
-            </div>
         </div>
         '''
     },
@@ -145,9 +231,6 @@ izdelek_podatki = {
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Govedina">
-            </div>
-            <div class="opiskoliko">
-                <p>V vsakekem paketu je 0.5 kg govedine</p>
             </div>
         </div>
         '''
@@ -209,17 +292,18 @@ def znizaj(izdelek):
 
 @app.route("/oddaj_narocilo", methods=["POST"])
 def oddaj_narocilo():
+    admin_mode = session.get('admin_mode', False)
     zahtevani_podatki = ["ime", "priimek", "telefonska", "e-pošta", "kraj", "hisnastevilka", "poštnaštevilka", "nacindostave"]
     manjkajoci = [p for p in zahtevani_podatki if not request.form.get(p)]
     if manjkajoci:
         return redirect(url_for("kosarica"))
     session["kosarica"] = {}
-    return render_template("hvala.html")
+    return render_template("hvala.html",admin_mode=admin_mode)
 
 @app.route("/kosarica")
 def kosarica():
     kosarica_ses = session.get("kosarica", {})
-
+    admin_mode = session.get('admin_mode', False)
     if not isinstance(kosarica_ses, dict):
         kosarica_ses = {}
 
@@ -243,7 +327,7 @@ def kosarica():
                 f"/odstrani_iz_kosarice/{ime}", f"/dodaj_v_kosarico/{ime}").replace("ODSTRANI IZDELEK", "DODAJ&nbsp;IZDELEK")
             neizbrani.append(html_zamenjan)
 
-    return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani)
+    return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani, admin_mode=admin_mode)
       
 app.run(debug = True, port=5000)
 

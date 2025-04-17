@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/slog.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="static/images/skupne/Logo/Znak__URBAN JR_zelen.ico" type="image/x-icon">
-    <title>Prijava admin</title>
+    <title>Odjava admin</title>
 </head>
 <style>
     @font-face
@@ -26,58 +26,36 @@
         font-family: Amatic;
         src: url("{{ url_for('static', filename='fonts/amatic-bold.ttf') }}");
     }
-    html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    
-    }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <body>
     <div class="bodyAdmin" style="background-image: url('static/images/index/DSC08271-58.JPG');background-size: cover;background-position: center;background-repeat: no-repeat;">
         <div class="naslov">
-            <h1>Prijavite se</h1>
+            <h1>Odjavite se</h1>
             <form action="/action_page.php">
-                <label for="fname">Uporabniški račun:</label>
-                <input type="text" id="fname" class="inputBoxAdmin" name="fname" placeholder="ime...">
-                <label for="fname">Geslo:</label>
-                <input type="password" id="lname" class="inputBoxAdmin" name="lname" placeholder="geslo...">
-                <!-- <label id="rememberBox"><input type="checkbox" name="remember"> Zapomni se me</label><br><br><br> -->
-                <div id="errorBox"></div>
-                <button id="loginNazaj" class="gumbiAdmin" onclick="goBack()" type="button">Pojdi nazaj</button>
-                <button id="prijavaAdmin" class="gumbiAdmin" onclick="loginTry()" type="button">Prijavi se</button>
+                <button id="logoutNazaj" class="gumbiAdmin" onclick="goBack()" type="button">Pojdi nazaj</button>
+                <button id="odjavaAdmin" class="gumbiAdmin" onclick="logoutSession()" type="button">Odjava</button>
               </form>
         </div>
     </div>
 </body>
 <script>
-    function loginTry() {
-    var ime = document.getElementById("fname");
-    var geslo = document.getElementById("lname");
+    function logoutSession() {
+
 
     $.ajax({
-        url: "/loginTry",
+        url: "/logoutSession",
         method: "POST",  // Ensure POST request
-        data: {
-            ime: ime.value,
-            geslo: geslo.value
-        },
+
         success: function(result) {
             if(result.redirect_to) {
                 // Redirect to the URL provided in the response
                 window.location.href = result.redirect_to;
             }
         },
-        error: function(xhr, status, error) {
-            // Handle the error from the server
-            var errorMsg = xhr.responseJSON.error || "An error occurred.";
-            document.getElementById("errorBox").innerHTML = errorMsg;
-        }
+
     });
 }
-
-
 </script>
 <script>
     function goBack() {
