@@ -90,10 +90,15 @@
     <div class="prvastrantrgovina">
         <div class="vsebina">
             <div class="slike">
+                <!-- JAJCA -->
                 <div class="sliketext">
                     <div class="text">
                         <h1>JAJCA</h1>
-                        <a href="/dodaj_v_kosarico/JAJCA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% if zaloga.get('JAJCA', 0) > 0 %}
+                            <a href="/dodaj_v_kosarico/JAJCA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% else %}
+                            <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
+                        {% endif %}
                     </div>
                     <div class="slika">
                         <img src="static/images/trgovina/DSC07972-20.JPG" alt="Jajca">
@@ -102,10 +107,16 @@
                         <p>V vsakem paketu je 10 jajc</p>
                     </div>
                 </div>
+    
+                <!-- PIŠČANCI -->
                 <div class="sliketext">
                     <div class="text">
                         <h1>PIŠČANCI</h1>
-                        <a href="/dodaj_v_kosarico/PIŠČANCI" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% if zaloga.get('PIŠČANCI', 0) > 0 %}
+                            <a href="/dodaj_v_kosarico/PIŠČANCI" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% else %}
+                            <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
+                        {% endif %}
                     </div>
                     <div class="slika">
                         <img src="static/images/trgovina/DSC07979-21.JPG" alt="Piščanci">
@@ -114,10 +125,16 @@
                         <p>V vsakem paketu je 1 piščanec</p>
                     </div>
                 </div>
+    
+                <!-- MLEKO -->
                 <div class="sliketext">
                     <div class="text">
                         <h1>MLEKO</h1>
-                        <a href="/dodaj_v_kosarico/MLEKO" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% if zaloga.get('MLEKO', 0) > 0 %}
+                            <a href="/dodaj_v_kosarico/MLEKO" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% else %}
+                            <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
+                        {% endif %}
                     </div>
                     <div class="slika">
                         <img src="static/images/trgovina/DSC08006-26.JPG" alt="Mleko">
@@ -126,10 +143,16 @@
                         <p>V vsakem paketu je 1 liter mleka</p>
                     </div>
                 </div>
+    
+                <!-- ZELENJAVA -->
                 <div class="sliketext">
                     <div class="text">
                         <h1>ZELENJAVA</h1>
-                        <a href="/dodaj_v_kosarico/ZELENJAVA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% if zaloga.get('ZELENJAVA', 0) > 0 %}
+                            <a href="/dodaj_v_kosarico/ZELENJAVA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% else %}
+                            <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
+                        {% endif %}
                     </div>
                     <div class="slika">
                         <img src="static/images/trgovina/DSC07972-20.JPG" alt="Zelenjava">
@@ -138,16 +161,22 @@
                         <p>Paket mešane zelenjave</p>
                     </div>
                 </div>
+    
+                <!-- GOVEDINA -->
                 <div class="sliketext">
                     <div class="text">
                         <h1>GOVEDINA</h1>
-                        <a href="/dodaj_v_kosarico/GOVEDINA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% if zaloga.get('GOVEDINA', 0) > 0 %}
+                            <a href="/dodaj_v_kosarico/GOVEDINA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        {% else %}
+                            <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
+                        {% endif %}
                     </div>
                     <div class="slika">
                         <img src="static/images/trgovina/DSC07979-21.JPG" alt="Govedina">
                     </div>
                     <div class="opiskolikot">
-                        <p>V vsakekem paketu je 0.5 kg govedine</p>
+                        <p>V vsakem paketu je 0.5 kg govedine</p>
                     </div>
                 </div>
             </div>

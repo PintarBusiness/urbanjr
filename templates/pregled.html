@@ -86,16 +86,33 @@
         </div>
     </div>
 
-    <div class="kolikonavoljo">
-        <!--Tukaj bo vnosno polje za vse izdelke koliko jih je še na voljo in bodo povezani z košarico in jih bo samo toliko se dalo naročiti, če izdelek nebo na voljo, bo pisalo trenutno ni na voljo-->
-    </div>
-    <div class="tabela">
-        <div class="prikaznarocil">
-            <!--Tukaj bo tabela z vsemi narocili-->
-        </div>
+    <div class="pregledglavno">
+        <div class="kolikonavoljo">
+            <!--Tukaj bo vnosno polje za vse izdelke koliko jih je še na voljo in bodo povezani z košarico in jih bo samo toliko se dalo naročiti, če izdelek nebo na voljo, bo pisalo trenutno ni na voljo-->
+            <h1>Pregled zaloge</h1>
 
-        <div class="novice">
-            <!--Tukaj bo tabela z vsemi maili uporabnikov-->
+            {% if admin_mode %}
+                <p><strong>ADMIN način je aktiven.</strong></p>
+            {% endif %}
+
+            <form action="/nastavi_zalogo" method="POST">
+                {% for izdelek, kolicina in zaloga.items() %}
+                    <div>
+                        <label>{{ izdelek }}: </label>
+                        <input type="number" name="{{ izdelek }}" value="{{ kolicina }}">
+                    </div>
+                {% endfor %}
+                <button type="submit">Shrani zalogo</button>
+            </form>           
+        </div>
+        <div class="tabela">
+            <div class="prikaznarocil">
+                <!--Tukaj bo tabela z vsemi narocili-->
+            </div>
+
+            <div class="novice">
+                <!--Tukaj bo tabela z vsemi maili uporabnikov-->
+            </div>
         </div>
     </div>
 

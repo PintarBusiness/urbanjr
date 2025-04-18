@@ -1742,7 +1742,7 @@ footer .logo img
     color: white;
 }
 
-.prvastrantrgovina .vsebina .slike .sliketext a
+.prvastrantrgovina .vsebina .slike .sliketext a, .onemogoceno
 {
     z-index: 999;
     margin: 1em;

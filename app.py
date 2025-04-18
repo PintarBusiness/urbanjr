@@ -49,8 +49,10 @@ def onas():
 
 @app.route("/trgovina")
 def trgovina():
+    zaloga = session.get("zaloga", {})
     admin_mode = session.get('admin_mode', False)
-    return render_template("trgovina.html",admin_mode=admin_mode)
+    return render_template("trgovina.html", zaloga=zaloga, admin_mode=admin_mode)
+
 """
 @app.route("/blog")
 def blog():
@@ -83,11 +85,6 @@ def narocila():
 def pomoc():
     admin_mode = session.get('admin_mode', False)
     return render_template("pomoc.html",admin_mode=admin_mode)
-
-@app.route("/pregled")
-def pregled():
-    admin_mode = session.get('admin_mode', False)
-    return render_template("pregled.html",admin_mode=admin_mode)
 
 # ---------- Prijava v admin ----------
 
@@ -248,11 +245,16 @@ def kosarica_stevec():
 @app.route("/dodaj_v_kosarico/<izdelek>")
 def dodaj_v_kosarico(izdelek):
     kosarica = session.get("kosarica", {})
-    if not isinstance(kosarica, dict):
-        kosarica = {}
+    zaloga = session.get("zaloga", {})
     izdelek_upper = izdelek.upper()
-    kosarica[izdelek_upper] = kosarica.get(izdelek_upper, 0) + 1
-    session["kosarica"] = kosarica
+
+    na_voljo = zaloga.get(izdelek_upper, 0)
+    v_kosarici = kosarica.get(izdelek_upper, 0)
+
+    if v_kosarici < na_voljo:
+        kosarica[izdelek_upper] = v_kosarici + 1
+        session["kosarica"] = kosarica
+
     return redirect(request.referrer)
 
 @app.route("/odstrani_iz_kosarice/<izdelek>")
@@ -297,8 +299,19 @@ def oddaj_narocilo():
     manjkajoci = [p for p in zahtevani_podatki if not request.form.get(p)]
     if manjkajoci:
         return redirect(url_for("kosarica"))
+
+    kosarica = session.get("kosarica", {})
+    zaloga = session.get("zaloga", {})
+
+    # Zmanjšaj zalogo
+    for izdelek, kolicina in kosarica.items():
+        if izdelek in zaloga:
+            zaloga[izdelek] = max(0, zaloga[izdelek] - kolicina)
+
+    session["zaloga"] = zaloga
     session["kosarica"] = {}
-    return render_template("hvala.html",admin_mode=admin_mode)
+
+    return render_template("hvala.html", admin_mode=admin_mode)
 
 @app.route("/kosarica")
 def kosarica():
@@ -314,20 +327,53 @@ def kosarica():
         html = podatki["html"]
         if ime in kosarica_ses:
             kolicina = kosarica_ses[ime]
+            zaloga_kolicina = session.get("zaloga", {}).get(ime, 0)
+
+            # Če je v košarici že največ kolikor je zaloge — onemogoči +
+            if kolicina >= zaloga_kolicina:
+                povecaj_gumb = f'<span class="stevecgumb onemogoceno">+</span>'
+            else:
+                povecaj_gumb = f'<a href="/povecaj/{ime}" class="stevecgumb">+</a>'
+
             html += f'''
                 <div class="stevec">
                     <a href="/znizaj/{ime}" class="stevecgumb">-</a>
                     <span class="steveckolicina">{kolicina}</span>
-                    <a href="/povecaj/{ime}" class="stevecgumb">+</a>
+                    {povecaj_gumb}
                 </div>
             '''
             izbrani.append(html)
         else:
-            html_zamenjan = html.replace(
-                f"/odstrani_iz_kosarice/{ime}", f"/dodaj_v_kosarico/{ime}").replace("ODSTRANI IZDELEK", "DODAJ&nbsp;IZDELEK")
+            zaloga_kolicina = session.get("zaloga", {}).get(ime, 0)
+
+            if zaloga_kolicina > 0:
+                html_zamenjan = html.replace(
+                    f"/odstrani_iz_kosarice/{ime}", f"/dodaj_v_kosarico/{ime}"
+                ).replace("ODSTRANI IZDELEK", "DODAJ&nbsp;IZDELEK")
+            else:
+                html_zamenjan = html.replace(
+                    f"/odstrani_iz_kosarice/{ime}", "#"
+                ).replace("ODSTRANI IZDELEK", "NI&nbsp;NA&nbsp;VOLJO")
+
             neizbrani.append(html_zamenjan)
 
     return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani, admin_mode=admin_mode)
+
+# ---------- Delovanje pregled zaloge ----------
+@app.route("/pregled")
+def pregled():
+    zaloga = session.get("zaloga", {})
+    admin_mode = session.get('admin_mode', False)
+    return render_template("pregled.html", zaloga=zaloga, admin_mode=admin_mode)
+
+@app.route("/nastavi_zalogo", methods=["POST"])
+def nastavi_zalogo():
+    zaloga = {}
+    for izdelek in izdelek_podatki.keys():
+        kolicina = request.form.get(izdelek, "0")  # default '0' kot string
+        zaloga[izdelek] = int(kolicina or 0)
+    session["zaloga"] = zaloga
+    return redirect(url_for("pregled"))
       
 app.run(debug = True, port=5000)
 
