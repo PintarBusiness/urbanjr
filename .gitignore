@@ -1,0 +1,14 @@
+# Environment files
+.env
+.env.*
+
+# Flask
+instance/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# System
+.DS_Store
+Thumbs.db

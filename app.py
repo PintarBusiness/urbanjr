@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify,session
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session, flash
 from flask_session import Session
+from flask_mail import Mail, Message
 from tinydb import TinyDB, Query
+from dotenv import load_dotenv
 import re
 import requests
 import random
@@ -14,7 +16,12 @@ import os
 #pip install redis
 #pip install tinydb
 
+# Load environment variables first
+load_dotenv()  # Looks for .env file automatically
+
 app = Flask(__name__)
+
+app.secret_key = os.environ['SECRET_KEY']  # Access variables like this
 
 # ---------- Funkcije  za admin Session ----------
 app.secret_key = os.urandom(24)
