@@ -53,12 +53,6 @@ def trgovina():
     admin_mode = session.get('admin_mode', False)
     return render_template("trgovina.html", zaloga=zaloga, admin_mode=admin_mode)
 
-"""
-@app.route("/blog")
-def blog():
-    admin_mode = session.get('admin_mode', False)
-    return render_template("blog.html",admin_mode=admin_mode)
-"""
 @app.route("/kontakt")
 def kontakt():
     admin_mode = session.get('admin_mode', False)
@@ -135,7 +129,7 @@ def poskusDodajanjaMail():
     else:
         return jsonify(success=False)
 
-# ---------- INSTAGRAM API  ---------- 
+# ---------- INSTAGRAM API  ----------
 igtoken = ""
 iguporabnik = ""
 igapi = ""
