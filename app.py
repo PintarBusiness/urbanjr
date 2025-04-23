@@ -49,9 +49,8 @@ def onas():
 
 @app.route("/trgovina")
 def trgovina():
-    zaloga = session.get("zaloga", {})
-    admin_mode = session.get('admin_mode', False)
-    return render_template("trgovina.html", zaloga=zaloga, admin_mode=admin_mode)
+    admin_mode = session.get("admin_mode", False)
+    return render_template("trgovina.html", zaloga=pridobi_zalogo(), admin_mode=admin_mode)
 
 @app.route("/kontakt")
 def kontakt():
@@ -239,10 +238,11 @@ def kosarica_stevec():
 @app.route("/dodaj_v_kosarico/<izdelek>")
 def dodaj_v_kosarico(izdelek):
     kosarica = session.get("kosarica", {})
-    zaloga = session.get("zaloga", {})
     izdelek_upper = izdelek.upper()
 
-    na_voljo = zaloga.get(izdelek_upper, 0)
+    # Pridobi pravo zalogo iz baze
+    trenutna_zaloga = pridobi_zalogo()
+    na_voljo = trenutna_zaloga.get(izdelek_upper, 0)
     v_kosarici = kosarica.get(izdelek_upper, 0)
 
     if v_kosarici < na_voljo:
@@ -289,6 +289,7 @@ def znizaj(izdelek):
 @app.route("/oddaj_narocilo", methods=["POST"])
 def oddaj_narocilo():
     admin_mode = session.get('admin_mode', False)
+    session["zaloga"] = pridobi_zalogo()
     zahtevani_podatki = ["ime", "priimek", "telefonska", "e-pošta", "kraj", "hisnastevilka", "poštnaštevilka", "nacindostave"]
     manjkajoci = [p for p in zahtevani_podatki if not request.form.get(p)]
     if manjkajoci:
@@ -299,8 +300,11 @@ def oddaj_narocilo():
 
     # Zmanjšaj zalogo
     for izdelek, kolicina in kosarica.items():
-        if izdelek in zaloga:
-            zaloga[izdelek] = max(0, zaloga[izdelek] - kolicina)
+        obstojece = zalogaDB.get(ZalogaQuery.izdelek == izdelek)
+        if obstojece:
+            nova_kolicina = max(0, obstojece["kolicina"] - kolicina)
+            zalogaDB.update({"kolicina": nova_kolicina}, ZalogaQuery.izdelek == izdelek)
+
 
     session["zaloga"] = zaloga
     session["kosarica"] = {}
@@ -311,8 +315,7 @@ def oddaj_narocilo():
 def kosarica():
     kosarica_ses = session.get("kosarica", {})
     admin_mode = session.get('admin_mode', False)
-    if not isinstance(kosarica_ses, dict):
-        kosarica_ses = {}
+    trenutna_zaloga = pridobi_zalogo()  # <-- Ključno
 
     izbrani = []
     neizbrani = []
@@ -321,9 +324,9 @@ def kosarica():
         html = podatki["html"]
         if ime in kosarica_ses:
             kolicina = kosarica_ses[ime]
-            zaloga_kolicina = session.get("zaloga", {}).get(ime, 0)
+            zaloga_kolicina = trenutna_zaloga.get(ime, 0)
 
-            # Če je v košarici že največ kolikor je zaloge — onemogoči +
+            # Gumb za +
             if kolicina >= zaloga_kolicina:
                 povecaj_gumb = f'<span class="stevecgumb onemogoceno">+</span>'
             else:
@@ -338,7 +341,7 @@ def kosarica():
             '''
             izbrani.append(html)
         else:
-            zaloga_kolicina = session.get("zaloga", {}).get(ime, 0)
+            zaloga_kolicina = trenutna_zaloga.get(ime, 0)
 
             if zaloga_kolicina > 0:
                 html_zamenjan = html.replace(
@@ -351,23 +354,32 @@ def kosarica():
 
             neizbrani.append(html_zamenjan)
 
-    return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani, admin_mode=admin_mode)
+    return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani, admin_mode=admin_mode, zaloga=trenutna_zaloga)
 
 # ---------- Delovanje pregled zaloge ----------
+
+zalogaDB = TinyDB("zaloga.json")
+ZalogaQuery = Query()
+
 @app.route("/pregled")
 def pregled():
-    zaloga = session.get("zaloga", {})
+    zaloga = pridobi_zalogo()
     admin_mode = session.get('admin_mode', False)
     return render_template("pregled.html", zaloga=zaloga, admin_mode=admin_mode)
 
 @app.route("/nastavi_zalogo", methods=["POST"])
 def nastavi_zalogo():
-    zaloga = {}
     for izdelek in izdelek_podatki.keys():
-        kolicina = request.form.get(izdelek, "0")  # default '0' kot string
-        zaloga[izdelek] = int(kolicina or 0)
-    session["zaloga"] = zaloga
+        kolicina = int(request.form.get(izdelek, "0") or 0)
+        if zalogaDB.contains(ZalogaQuery.izdelek == izdelek):
+            zalogaDB.update({"kolicina": kolicina}, ZalogaQuery.izdelek == izdelek)
+        else:
+            zalogaDB.insert({"izdelek": izdelek, "kolicina": kolicina})
     return redirect(url_for("pregled"))
+
+def pridobi_zalogo():
+    podatki = zalogaDB.all()
+    return {item["izdelek"]: item["kolicina"] for item in podatki}
       
 app.run(debug = True, port=5000)
 
