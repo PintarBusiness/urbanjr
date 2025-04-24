@@ -94,7 +94,8 @@
                 <div class="sliketext">
                     <div class="text">
                         <h1>JAJCA</h1>
-                        {% if zaloga.get('JAJCA', 0) > 0 %}
+                        {% set zaloga_jajca = zaloga.get('JAJCA', 0) - session.get('kosarica', {}).get('JAJCA', 0) %}
+                        {% if zaloga_jajca > 0 %}
                             <a href="/dodaj_v_kosarico/JAJCA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
                         {% else %}
                             <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
@@ -112,7 +113,8 @@
                 <div class="sliketext">
                     <div class="text">
                         <h1>PIŠČANCI</h1>
-                        {% if zaloga.get('PIŠČANCI', 0) > 0 %}
+                        {% set zaloga_piscanci = zaloga.get('PIŠČANCI', 0) - session.get('kosarica', {}).get('PIŠČANCI', 0) %}
+                        {% if zaloga_piscanci > 0 %}
                             <a href="/dodaj_v_kosarico/PIŠČANCI" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
                         {% else %}
                             <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
@@ -130,7 +132,8 @@
                 <div class="sliketext">
                     <div class="text">
                         <h1>MLEKO</h1>
-                        {% if zaloga.get('MLEKO', 0) > 0 %}
+                        {% set zaloga_mleko = zaloga.get('MLEKO', 0) - session.get('kosarica', {}).get('MLEKO', 0) %}
+                        {% if zaloga_mleko > 0 %}
                             <a href="/dodaj_v_kosarico/MLEKO" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
                         {% else %}
                             <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
@@ -148,7 +151,8 @@
                 <div class="sliketext">
                     <div class="text">
                         <h1>ZELENJAVA</h1>
-                        {% if zaloga.get('ZELENJAVA', 0) > 0 %}
+                        {% set zaloga_zelenjava = zaloga.get('ZELENJAVA', 0) - session.get('kosarica', {}).get('ZELENJAVA', 0) %}
+                        {% if zaloga_zelenjava > 0 %}
                             <a href="/dodaj_v_kosarico/ZELENJAVA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
                         {% else %}
                             <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
@@ -166,7 +170,8 @@
                 <div class="sliketext">
                     <div class="text">
                         <h1>GOVEDINA</h1>
-                        {% if zaloga.get('GOVEDINA', 0) > 0 %}
+                        {% set zaloga_govedina = zaloga.get('GOVEDINA', 0) - session.get('kosarica', {}).get('GOVEDINA', 0) %}
+                        {% if zaloga_govedina > 0 %}
                             <a href="/dodaj_v_kosarico/GOVEDINA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
                         {% else %}
                             <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>

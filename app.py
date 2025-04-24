@@ -170,6 +170,9 @@ izdelek_podatki = {
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07972-20.JPG" alt="Jajca">
             </div>
+            <div class="opiskoliko">
+                <p>V vsakem paketu je 10 jajc</p>
+            </div>
         </div>
         '''
     },
@@ -182,6 +185,9 @@ izdelek_podatki = {
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Piščanci">
+            </div>
+            <div class="opiskoliko">
+                <p>V vsakem paketu je 10 jajc</p>
             </div>
         </div>
         '''
@@ -196,6 +202,9 @@ izdelek_podatki = {
             <div class="slika">
                 <img src="/static/images/trgovina/DSC08006-26.JPG" alt="Mleko">
             </div>
+            <div class="opiskoliko">
+                <p>V vsakem paketu je 10 jajc</p>
+            </div>
         </div>
         '''
     },
@@ -209,6 +218,9 @@ izdelek_podatki = {
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07972-20.JPG" alt="Zelenjava">
             </div>
+            <div class="opiskoliko">
+                <p>V vsakem paketu je 10 jajc</p>
+            </div>
         </div>
         '''
     },
@@ -221,6 +233,9 @@ izdelek_podatki = {
             </div>
             <div class="slika">
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Govedina">
+            </div>
+            <div class="opiskoliko">
+                <p>V vsakem paketu je 10 jajc</p>
             </div>
         </div>
         '''
