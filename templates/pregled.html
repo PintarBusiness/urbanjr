@@ -107,7 +107,44 @@
         </div>
         <div class="tabela">
             <div class="prikaznarocil">
-                <!--Tukaj bo tabela z vsemi narocili-->
+                {% if narocila %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ime</th>
+                                <th>Priimek</th>
+                                <th>Telefon</th>
+                                <th>E-pošta</th>
+                                <th>Naslov</th>
+                                <th>Dostava</th>
+                                <th>Izdelki</th>
+                                <th>Datum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for narocilo in narocila %}
+                            <tr>
+                                <td>{{ narocilo.ime }}</td>
+                                <td>{{ narocilo.priimek }}</td>
+                                <td>{{ narocilo.telefonska }}</td>
+                                <td>{{ narocilo.eposta }}</td>
+                                <td>{{ narocilo.kraj }} {{ narocilo.hisna_stevilka }}, {{ narocilo.postna_stevilka }}</td>
+                                <td>{{ "Dostava na dom" if narocilo.nacin_dostave == "dostava" else "Osebni prevzem" }}</td>
+                                <td>
+                                    <ul>
+                                        {% for izdelek, kolicina in narocilo.izdelki.items() %}
+                                            <li>{{ izdelek }} x{{ kolicina }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>{{ narocilo.datum }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Trenutno ni nobenih naročil.</p>
+                {% endif %}
             </div>
 
             <div class="novice">

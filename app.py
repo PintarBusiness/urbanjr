@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify,session
 from flask_session import Session
 from tinydb import TinyDB, Query
+from datetime import datetime
 import re
 import requests
 import random
@@ -301,6 +302,10 @@ def znizaj(izdelek):
     session["kosarica"] = kosarica
     return redirect(url_for("kosarica"))
 
+# Za naročila v bazo
+
+db_narocila = TinyDB("naročila.json")
+
 @app.route("/oddaj_narocilo", methods=["POST"])
 def oddaj_narocilo():
     admin_mode = session.get('admin_mode', False)
@@ -313,13 +318,28 @@ def oddaj_narocilo():
     kosarica = session.get("kosarica", {})
     zaloga = session.get("zaloga", {})
 
-    # Zmanjšaj zalogo
+    # Shrani naročilo v bazo
+    narocilo = {
+        "ime": request.form["ime"],
+        "priimek": request.form["priimek"],
+        "telefonska": request.form["telefonska"],
+        "eposta": request.form["e-pošta"],
+        "kraj": request.form["kraj"],
+        "hisna_stevilka": request.form["hisnastevilka"],
+        "postna_stevilka": request.form["poštnaštevilka"],
+        "nacin_dostave": request.form["nacindostave"],
+        "izdelki": kosarica,
+        "datum": datetime.now().strftime("%d.%m.%Y ob %H:%M")
+    }
+
+    db_narocila.insert(narocilo)
+
+    # Posodobi zalogo
     for izdelek, kolicina in kosarica.items():
         obstojece = zalogaDB.get(ZalogaQuery.izdelek == izdelek)
         if obstojece:
             nova_kolicina = max(0, obstojece["kolicina"] - kolicina)
             zalogaDB.update({"kolicina": nova_kolicina}, ZalogaQuery.izdelek == izdelek)
-
 
     session["zaloga"] = zaloga
     session["kosarica"] = {}
@@ -378,9 +398,21 @@ ZalogaQuery = Query()
 
 @app.route("/pregled")
 def pregled():
+    narocila = db_narocila.all()
+
+    def parse_datum(n):
+        try:
+            return datetime.strptime(n["datum"], "%d.%m.%Y ob %H:%M")
+        except:
+            return datetime.min  # če je kaj narobe z datumom
+
+    narocila = sorted(narocila, key=parse_datum, reverse=True)
+
+    narocila = narocila[:30]
+
     zaloga = pridobi_zalogo()
     admin_mode = session.get('admin_mode', False)
-    return render_template("pregled.html", zaloga=zaloga, admin_mode=admin_mode)
+    return render_template("pregled.html", narocila=narocila, zaloga=zaloga, admin_mode=admin_mode)
 
 @app.route("/nastavi_zalogo", methods=["POST"])
 def nastavi_zalogo():
