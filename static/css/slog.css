@@ -2822,3 +2822,142 @@ footer .logo img
         color: red;
     }
 }
+
+/* Pregled */
+
+.pregledglavno
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+    padding: 2em;
+    flex-wrap: wrap;
+}
+
+.pregledglavno .prikazzaloge,
+.pregledglavno .prikaznarocil,
+.pregledglavno .prikazmaili
+{
+    flex: 1;
+    background-color: #ffffff;
+    padding: 1.5em;
+    border-radius: 0.75em;
+    box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.1);
+    height: auto;
+    max-height: 35em;
+    width: 100%;
+    min-width: fit-content;
+}
+
+.pregledglavno .prikaznarocil table,
+.pregledglavno .prikazmaili table
+{
+    display: block;
+    max-height: 25em;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.pregledglavno .prikazmaili table
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pregledglavno h1
+{
+    font-size: 3em;
+    color: #B4B436;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 1em;
+}
+
+.pregledglavno table
+{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+.pregledglavno thead
+{
+    background-color: #B4B436;
+    color: white;
+}
+
+.pregledglavno thead th
+{
+    text-align: left;
+    padding: 0.75em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+.pregledglavno tbody td
+{
+    padding: 0.75em;
+    border-bottom: 0.0625em solid #ddd;
+}
+
+.pregledglavno tbody tr:hover
+{
+    background-color: #f1f1f1;
+}
+
+.pregledglavno ul
+{
+    padding-left: 1.2em;
+    margin: 0;
+}
+
+.pregledglavno .prikazzaloge form .izd
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75em 0;
+    border-bottom: 0.0625em solid #ddd;
+}
+
+.pregledglavno .prikazzaloge label
+{
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    color: #333;
+}
+
+.pregledglavno .prikazzaloge input
+{
+    padding: 0.5em;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.375em;
+    width: 5em;
+}
+
+.pregledglavno .prikazzaloge button
+{
+    margin-top: 1.5em;
+    padding: 0.75em 1.5em;
+    background-color: #B4B436;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pregledglavno .prikazzaloge button:hover
+{
+    background-color: #9b9b2d;
+}

@@ -87,17 +87,12 @@
     </div>
 
     <div class="pregledglavno">
-        <div class="kolikonavoljo">
-            <!--Tukaj bo vnosno polje za vse izdelke koliko jih je še na voljo in bodo povezani z košarico in jih bo samo toliko se dalo naročiti, če izdelek nebo na voljo, bo pisalo trenutno ni na voljo-->
-            <h1>Pregled zaloge</h1>
-
-            {% if admin_mode %}
-                <p><strong>ADMIN način je aktiven.</strong></p>
-            {% endif %}
+        <div class="prikazzaloge">
+            <h1>TRENUTNA ZALOGA</h1>
 
             <form action="/nastavi_zalogo" method="POST">
                 {% for izdelek, kolicina in zaloga.items() %}
-                    <div>
+                    <div class="izd">
                         <label>{{ izdelek }}: </label>
                         <input type="number" name="{{ izdelek }}" value="{{ kolicina }}">
                     </div>
@@ -105,51 +100,66 @@
                 <button type="submit">Shrani zalogo</button>
             </form>           
         </div>
-        <div class="tabela">
-            <div class="prikaznarocil">
-                {% if narocila %}
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Ime</th>
-                                <th>Priimek</th>
-                                <th>Telefon</th>
-                                <th>E-pošta</th>
-                                <th>Naslov</th>
-                                <th>Dostava</th>
-                                <th>Izdelki</th>
-                                <th>Datum</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for narocilo in narocila %}
-                            <tr>
-                                <td>{{ narocilo.ime }}</td>
-                                <td>{{ narocilo.priimek }}</td>
-                                <td>{{ narocilo.telefonska }}</td>
-                                <td>{{ narocilo.eposta }}</td>
-                                <td>{{ narocilo.kraj }} {{ narocilo.hisna_stevilka }}, {{ narocilo.postna_stevilka }}</td>
-                                <td>{{ "Dostava na dom" if narocilo.nacin_dostave == "dostava" else "Osebni prevzem" }}</td>
-                                <td>
-                                    <ul>
-                                        {% for izdelek, kolicina in narocilo.izdelki.items() %}
-                                            <li>{{ izdelek }} x{{ kolicina }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </td>
-                                <td>{{ narocilo.datum }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                {% else %}
-                    <p>Trenutno ni nobenih naročil.</p>
-                {% endif %}
-            </div>
+        <div class="prikaznarocil">
+            <h1>NAROČILA</h1>
 
-            <div class="novice">
-                <!--Tukaj bo tabela z vsemi maili uporabnikov-->
-            </div>
+            {% if narocila %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ime</th>
+                            <th>Priimek</th>
+                            <th>Telefon</th>
+                            <th>E-pošta</th>
+                            <th>Naslov</th>
+                            <th>Dostava</th>
+                            <th>Izdelki</th>
+                            <th>Datum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for narocilo in narocila %}
+                        <tr>
+                            <td>{{ narocilo.ime }}</td>
+                            <td>{{ narocilo.priimek }}</td>
+                            <td>{{ narocilo.telefonska }}</td>
+                            <td>{{ narocilo.eposta }}</td>
+                            <td>{{ narocilo.kraj }} {{ narocilo.hisna_stevilka }}, {{ narocilo.postna_stevilka }}</td>
+                            <td>{{ "Dostava na dom" if narocilo.nacin_dostave == "dostava" else "Osebni prevzem" }}</td>
+                            <td>
+                                <ul>
+                                    {% for izdelek, kolicina in narocilo.izdelki.items() %}
+                                        <li>{{ izdelek }} x{{ kolicina }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>{{ narocilo.datum }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Trenutno ni nobenih naročil.</p>
+            {% endif %}
+        </div>
+
+        <div class="prikazmaili">
+            <h1>MAILI NAROČENI NA NOVICE</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Email naslov</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for oseba in maili %}
+                        <tr>
+                            <td>{{ oseba.mail }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

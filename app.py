@@ -409,10 +409,10 @@ def pregled():
     narocila = sorted(narocila, key=parse_datum, reverse=True)
 
     narocila = narocila[:30]
-
+    maili = narocnikiDB.all()
     zaloga = pridobi_zalogo()
     admin_mode = session.get('admin_mode', False)
-    return render_template("pregled.html", narocila=narocila, zaloga=zaloga, admin_mode=admin_mode)
+    return render_template("pregled.html", narocila=narocila, zaloga=zaloga, maili=maili, admin_mode=admin_mode)
 
 @app.route("/nastavi_zalogo", methods=["POST"])
 def nastavi_zalogo():

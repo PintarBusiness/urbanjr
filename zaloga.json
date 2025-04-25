@@ -1,1 +1,1 @@
-{"_default": {"1": {"izdelek": "JAJCA", "kolicina": 0}, "2": {"izdelek": "PI\u0160\u010cANCI", "kolicina": 0}, "3": {"izdelek": "MLEKO", "kolicina": 0}, "4": {"izdelek": "ZELENJAVA", "kolicina": 0}, "5": {"izdelek": "GOVEDINA", "kolicina": 0}}}
+{"_default": {"1": {"izdelek": "JAJCA", "kolicina": 2}, "2": {"izdelek": "PI\u0160\u010cANCI", "kolicina": 4}, "3": {"izdelek": "MLEKO", "kolicina": 2}, "4": {"izdelek": "ZELENJAVA", "kolicina": 4}, "5": {"izdelek": "GOVEDINA", "kolicina": 3}}}
