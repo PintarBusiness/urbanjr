@@ -2866,6 +2866,13 @@ footer .logo img
     box-sizing: border-box;
 }
 
+.pregledglavno .prikazmaili table tbody tr, .pregledglavno .prikazmaili table tbody tr td
+{
+    display: block;
+    width: 100%;
+}
+
+
 .pregledglavno h1
 {
     font-size: 3em;
