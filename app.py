@@ -1,12 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify,session
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session, flash
 from flask_session import Session
+from flask_mail import Mail, Message
 from tinydb import TinyDB, Query
-from datetime import datetime
+from dotenv import load_dotenv
 import re
 import requests
 import random
 import redis
 import os
+import smtplib
+import datetime
 #import requests
 
 # ---------- NALOZI  ----------
@@ -15,7 +18,23 @@ import os
 #pip install redis
 #pip install tinydb
 
+# Load environment variables first
+load_dotenv() 
+
 app = Flask(__name__)
+
+
+# ---------- Pridobitev podatkov iz .env ----------
+app.secret_key = os.environ['SECRET_KEY'] 
+MAIL_SERVER=os.getenv('MAIL_SERVER'),
+MAIL_PORT=int(os.getenv('MAIL_PORT')),
+MAIL_USE_TLS=os.getenv('MAIL_USE_TLS', 'True').lower() == 'true',
+MAIL_USERNAME=os.getenv('MAIL_USERNAME'),
+MAIL_PASSWORD=os.getenv('MAIL_PASSWORD')
+
+#  ---------- Zagon potreben za pošiljanje mail ----------
+mail = Mail(app)
+
 
 # ---------- Funkcije  za admin Session ----------
 app.secret_key = os.urandom(24)
@@ -85,8 +104,11 @@ def pomoc():
 userDict = {}
 passwordDict = {}
 
-userDict["admin"] = 1
-passwordDict["admin"] = 1
+AdminName = app.secret_key = os.environ['ADMIN_NAME'] 
+AdminPassword = app.secret_key = os.environ['ADMIN_PASSWORD']
+
+userDict[AdminName] = 1
+passwordDict[AdminPassword] = 1
 
 @app.route("/loginTry", methods=["POST"])
 def login():
@@ -427,7 +449,59 @@ def nastavi_zalogo():
 def pridobi_zalogo():
     podatki = zalogaDB.all()
     return {item["izdelek"]: item["kolicina"] for item in podatki}
-      
-app.run(debug = True, port=5000)
+
+# ---------- Kontakt pošiljanje na mail ----------
+
+@app.route('/posljiPriporocilo', methods=['POST'])
+def posljiPriporocilo():
+    # Podatki iz html
+    name = request.form.get('ime_posiljatelj')
+    sender_email = request.form.get('mail_posiljatelj')
+    message = request.form.get('sporocilo_posiljatelj')
+
+    # povezava mail
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
+    username = os.getenv('MAIL_USERNAME')  
+    password = os.getenv('MAIL_PASSWORD')  
+    recipient = os.getenv('MAIL_USERNAME')
+
+    # Mail vsebina
+    subject = f"Novo sporočilo od {name} (Urban JR. Kontakt)"
+    body = f"""Pošiljatelj: {name}
+Email: {sender_email}
+
+Sporočilo:
+{message}"""
+    # Celotna vsebina mail
+    email_message = f"""Subject: {subject}
+To: {recipient}
+From: {username}
+Reply-To: {sender_email}
+
+{body}"""
+    try:
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls() 
+            server.login(username, password)
+            server.sendmail(username, recipient, email_message.encode('utf-8'))
+        
+        flash('Sporočilo poslano! Hvala.', 'success')
+    except smtplib.SMTPAuthenticationError:
+        flash('Napaka pri prijavi. Preverite uporabniško ime in geslo.', 'danger')
+        print("SMTP Authentication Error")
+    except smtplib.SMTPException as e:
+        flash('Napaka pri pošiljanju. Prosimo, poskusite kasneje.', 'danger')
+        print(f"SMTP Error: {e}")
+    except Exception as e:
+        flash('Nepričakovana napaka.', 'danger')
+        print(f"General Error: {e}")
+
+    return redirect(url_for('kontakt'))
+
+
+
+
+app.run(debug = True, port=8800)
 
 
