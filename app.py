@@ -3,13 +3,21 @@ from flask_session import Session
 from flask_mail import Mail, Message
 from tinydb import TinyDB, Query
 from dotenv import load_dotenv
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from premailer import transform
+import sys
+import locale
+from email.header import Header
+from email.charset import Charset, QP
 import re
 import requests
 import random
 import redis
 import os
 import smtplib
-import datetime
+import html
+from datetime import datetime 
 #import requests
 
 # ---------- NALOZI  ----------
@@ -328,6 +336,265 @@ def znizaj(izdelek):
 
 db_narocila = TinyDB("naročila.json")
 
+# Za pošiljanje e-maila
+def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna_stevilka,nacin_dostave,izdelki,datum):
+
+    html_narocilo = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <style>
+            body {{
+
+                font-family: 'Arial', sans-serif;
+                line-height: 0.7;
+                color: #333;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+            }}
+            .header {{
+                background-color: #B4B436;
+                color: white;
+                padding: 0.5em;
+                font-size: 1.6em;
+                text-align: center;
+                border-radius: 1.5em;
+                width:88%;
+            }}
+            .content {{
+                padding: 1.5em;
+                background-color: #f9f9f9;
+                border: 0.15em solid #ddd;
+                margin-top: 1em;
+                border-radius: 2em;
+                width: 85%
+            }}
+            .content p {{
+                line-height: 1.1;
+                color: #DBBB92;
+                font-size: 0.9em;
+                margin-left: 0.5em;
+                
+            }}
+            table{{
+                width:90%;
+                margin:auto;
+            }}
+            .prostor{{
+                width:45%;
+            }}
+            .presledek{{
+                width:10%;
+            }}
+            .imemail{{
+                border-radius: 1em;
+                background-color: white;
+                border: 0.3em solid #DBBB92;
+                width: 100%;
+                
+                
+            }}
+            strong {{
+                font-family: sans-serif;
+                font-size: 1.6em;
+                color: #B4B436;
+
+            }}
+            .footer{{
+                width:100%;
+                text-align: center;
+                font-size: 0.9em;
+            }}
+            .pomemben_text{{
+                font-size: 2.8em;
+
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h2>Naročilo iz spletne strani Urban JR.</h2>
+        </div>
+        <div class="content">
+            <table>
+            <tr><td ><p><strong>Ime:</strong></p></td>
+            <td>&nbsp;&nbsp;</td>
+            <td ><p><strong>Priimek:</strong></p></td></tr>
+            <tr>
+                <td class="prostor">
+                    <div class="imemail">
+                        <p>{html.escape(ime)}</p>
+                    </div><br>
+                </td>
+                <td>&nbsp;&nbsp;</td>
+                <td class="prostor">
+                    <div class="imemail">
+                        <p>{html.escape(priimek)}</p>
+                    </div><br>
+                </td>
+            </tr>
+            <tr><td ><p><strong>Telefonska številka:</strong></p></td>
+            <td>&nbsp;&nbsp;</td>
+            <td ><p><strong>e-mail:</strong></p></td></tr>
+            <tr>
+                <td>
+                    <div class="imemail">
+                        <p>{html.escape(telefonska)}</p>
+                    </div><br>
+                </td>
+                <td class="presledek">&nbsp;&nbsp;</td>
+                <td>
+                    <div class="imemail">
+                        <p>{html.escape(sender_email)}</p>
+                    </div><br>
+                </td>
+            </tr>
+            <tr><td><p><strong>Kraj:</strong></p></td>
+            <td>&nbsp;&nbsp;</td>
+            <td><p><strong>Hišna številka:</strong></p></td></tr>
+            <tr>
+                <td>
+                    <div class="imemail">
+                        <p>{html.escape(kraj)}</p>
+                    </div><br>
+                </td>
+                <td>&nbsp;&nbsp;</td>
+                <td>
+                    <div class="imemail">
+                        <p>{html.escape(hisna_stevilka)}</p>
+                    </div><br>
+                </td>
+            </tr>
+            <tr><td><p><strong>Poštna številka:</strong></p></td>
+            <td>&nbsp;&nbsp;</td>
+            <td><p><strong>Način dostave:</strong></p></td></tr>
+            <tr>
+                <td>
+                    <div class="imemail">
+                        <p>{html.escape(postna_stevilka)}</p>
+                    </div><br>
+                </td>
+                <td>&nbsp;&nbsp;</td>
+                <td>
+                    <div class="imemail">
+                        <p>{html.escape(nacin_dostave)}</p>
+                    </div><br>
+                </td>
+            </tr>
+            <br>
+            <tr>
+             <td colspan="3">
+                <p><strong class="pomemben_text">Naročeni izdelki:</strong></p>
+                <div class="imemail">
+                        <p>{izdelki}</p>
+                </div><br>
+             </td>
+            </tr>
+            </table>  
+        </div>
+        <div class="footer">
+            <p>Nakup uporabnika iz strani Urban JR.</p>
+        </div>
+    </body>
+    </html>
+    """
+    return html_narocilo
+
+def narocilo_poslji_mail(narocilo):
+    try:
+        # 1. Configure charset for UTF-8 with Quoted-Printable encoding
+        charset = Charset('utf-8')
+        charset.body_encoding = QP  # Use Quoted-Printable for non-ASCII
+        charset.header_encoding = QP
+
+        # 2. Extract and ensure proper string encoding
+        def ensure_unicode(s):
+            if isinstance(s, bytes):
+                return s.decode('utf-8', errors='replace')
+            return str(s)
+
+        data = {k: ensure_unicode(v) for k, v in narocilo.items()}
+
+        # 3. Mail server settings
+        smtp_server = "smtp.gmail.com"
+        smtp_port = 587
+        username = os.getenv('MAIL_USERNAME')
+        password = os.getenv('MAIL_PASSWORD')
+        recipient = os.getenv('MAIL_USERNAME')
+
+        # 4. Create message with forced UTF-8 encoding
+        msg = MIMEMultipart('alternative')
+        msg.set_charset('utf-8')
+
+        # 5. Encode headers properly
+        msg['Subject'] = Header(
+            f"Naročilo osebe: {data['ime']} {data['priimek']}",
+            'utf-8'
+        )
+        msg['From'] = Header(f"Urban JR <{username}>", 'utf-8')
+        msg['To'] = recipient
+        msg['Reply-To'] = data['eposta']
+
+        # 6. Prepare content with HTML escaping
+        def safe_content(s):
+            try:
+                return html.escape(ensure_unicode(s))
+            except:
+                return str(s)
+
+        # HTML version
+        narocilo_html_content = html_narocilo(
+            safe_content(data['ime']), safe_content(data['priimek']),
+            safe_content(data['telefonska']), safe_content(data['eposta']),
+            safe_content(data['kraj']), safe_content(data['hisna_stevilka']),
+            safe_content(data['postna_stevilka']), safe_content(data['nacin_dostave']),
+            safe_content(data['izdelki']), safe_content(data['datum'])
+        )
+
+        # Plain text version
+        narocilo_text_content = f"""Naročilo:
+Ime: {data['ime']}
+Priimek: {data['priimek']}
+Telefon: {data['telefonska']}
+Email: {data['eposta']}
+Kraj: {data['kraj']}
+Hišna številka: {data['hisna_stevilka']}
+Poštna številka: {data['postna_stevilka']}
+Način dostave: {data['nacin_dostave']}
+Izdelki: {data['izdelki']}
+Datum: {data['datum']}"""
+
+        # 7. Create MIME parts with proper encoding
+        part1 = MIMEText(narocilo_text_content, 'plain', 'utf-8')
+        part1.set_charset('utf-8')
+        
+        part2 = MIMEText(narocilo_html_content, 'html', 'utf-8')
+        part2.set_charset('utf-8')
+        
+        msg.attach(part1)
+        msg.attach(part2)
+
+        # 8. Send email with explicit UTF-8 encoding
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(username, password)
+            # Encode the final message as UTF-8 before sending
+            raw_message = msg.as_string()
+            if isinstance(raw_message, str):
+                raw_message = raw_message.encode('utf-8')
+            server.sendmail(username, recipient, raw_message)
+        
+        flash('Sporočilo poslano! Hvala.', 'success')
+        
+    except Exception as e:
+        error_msg = f'Napaka pri pošiljanju: {str(e)}'
+        if 'ascii' in str(e).lower():
+            error_msg = 'Napaka pri kodiranju znakov (č, š, ž). Prosimo, poskusite znova.'
+        flash(error_msg, 'danger')
+        print(f"Error details: {repr(e)}")
+
 @app.route("/oddaj_narocilo", methods=["POST"])
 def oddaj_narocilo():
     admin_mode = session.get('admin_mode', False)
@@ -355,6 +622,7 @@ def oddaj_narocilo():
     }
 
     db_narocila.insert(narocilo)
+    narocilo_poslji_mail(narocilo)
 
     # Posodobi zalogo
     for izdelek, kolicina in kosarica.items():
@@ -452,56 +720,199 @@ def pridobi_zalogo():
 
 # ---------- Kontakt pošiljanje na mail ----------
 
+def html_kontakt(name, sender_email, message):
+    # Clean and format the message content
+    
+    
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <style>
+            body {{
+                display: flex;
+                justify-content:center;
+                align-items:center;
+                font-family: 'Arial', sans-serif;
+                line-height: 1.2;
+                color: #333;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+            }}
+            .header {{
+                background-color: #B4B436;
+                color: white;
+                padding: 0.5em;
+                font-size: 1.6em;
+                text-align: center;
+                border-radius: 1.5em;
+                width:88%;
+            }}
+            .content {{
+                padding: 1.5em;
+                background-color: #f9f9f9;
+                border: 0.15em solid #ddd;
+                margin-top: 1em;
+                border-radius: 2em;
+                width: 85%
+            }}
+            .content p {{
+                line-height: 1.2;
+                color: #DBBB92;
+                font-size: 1.2em;
+                margin-left: 1em;
+            }}
+            .message {{
+                background-color: white;
+                padding: 1.5em;
+                padding-top: 0;
+                color: #DBBB92;
+                border: 0.3em solid #DBBB92;
+                border-radius: 1.5em;
+                font-size:1.1em;
+                height: 20em;
+                width: 84%;
+                overflow-y: auto;
+                overflow-x: hidden;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }}
+            .imemail{{
+                border-radius: 1em;
+                background-color: white;
+                border: 0.3em solid #DBBB92;
+                width: 30%;
+                min-width:20em;
+                
+            }}
+            strong {{
+                font-family: sans-serif;
+                font-size: 1.7em;
+                color: #B4B436;
+            }}
+            .footer{{
+                width:100%;
+                text-align: center;
+                font-size: 0.9em;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h2>Vprašanje iz spletne strani Urban JR.</h2>
+        </div>
+        <div class="content">
+            <p><strong>Ime:</strong></p>
+            <div class="imemail">
+            <p>{html.escape(name)}</p>
+            </div><br>
+            <p><strong>e-mail:</strong></p>
+            <div class="imemail">
+                <p>{html.escape(sender_email)}</p>
+            </div><br>
+            <p><strong>Vprašanje:</strong></p>
+            <div class="message">
+                {"\n"+message}
+            </div>
+        </div>
+        <div class="footer">
+            <p>Vprašanje uporabnika iz kontaktnega obrazca na spletni strani Urban JR.</p>
+        </div>
+    </body>
+    </html>
+    """
+    return html_content
+
+
 @app.route('/posljiPriporocilo', methods=['POST'])
 def posljiPriporocilo():
-    # Podatki iz html
-    name = request.form.get('ime_posiljatelj')
-    sender_email = request.form.get('mail_posiljatelj')
-    message = request.form.get('sporocilo_posiljatelj')
+    try:
+        # 1. Configure charset for UTF-8 with Quoted-Printable encoding
+        charset = Charset('utf-8')
+        charset.body_encoding = QP
+        charset.header_encoding = QP
 
-    # povezava mail
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587
-    username = os.getenv('MAIL_USERNAME')  
-    password = os.getenv('MAIL_PASSWORD')  
-    recipient = os.getenv('MAIL_USERNAME')
+        # 2. Get and sanitize form data
+        def ensure_unicode(s):
+            if isinstance(s, bytes):
+                return s.decode('utf-8', errors='replace')
+            return str(s)
 
-    # Mail vsebina
-    subject = f"Novo sporočilo od {name} (Urban JR. Kontakt)"
-    body = f"""Pošiljatelj: {name}
+        name = ensure_unicode(request.form.get('ime_posiljatelj', ''))
+        sender_email = ensure_unicode(request.form.get('mail_posiljatelj', ''))
+        message = ensure_unicode(request.form.get('sporocilo_posiljatelj', ''))
+
+        # 3. Email server configuration
+        smtp_server = "smtp.gmail.com"
+        smtp_port = 587
+        username = os.getenv('MAIL_USERNAME')
+        password = os.getenv('MAIL_PASSWORD')
+        recipient = os.getenv('MAIL_USERNAME')
+
+        # 4. Create message with proper encoding
+        msg = MIMEMultipart('alternative')
+        msg.set_charset('utf-8')
+
+        # 5. Encode headers properly
+        msg['Subject'] = Header(f"Vprašanje od osebe: {name}", 'utf-8')
+        msg['From'] = Header(f"Urban JR <{username}>", 'utf-8')
+        msg['To'] = recipient
+        msg['Reply-To'] = sender_email
+
+        # 6. Generate email content
+        def safe_content(content):
+            try:
+                return html.escape(content)
+            except:
+                return str(content)
+
+        kontakt_html_content = html_kontakt(
+            safe_content(name),
+            safe_content(sender_email),
+            safe_content(message)
+        )
+
+        kontakt_text_content = f"""Vprašanje od stranke:
+Ime: {name}
 Email: {sender_email}
-
 Sporočilo:
 {message}"""
-    # Celotna vsebina mail
-    email_message = f"""Subject: {subject}
-To: {recipient}
-From: {username}
-Reply-To: {sender_email}
 
-{body}"""
-    try:
+        # 7. Create MIME parts with proper encoding
+        part1 = MIMEText(kontakt_text_content, 'plain', 'utf-8')
+        part1.set_charset('utf-8')
+        
+        part2 = MIMEText(kontakt_html_content, 'html', 'utf-8')
+        part2.set_charset('utf-8')
+        
+        msg.attach(part1)
+        msg.attach(part2)
+
+        # 8. Send email with explicit UTF-8 encoding
         with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.starttls() 
+            server.starttls()
             server.login(username, password)
-            server.sendmail(username, recipient, email_message.encode('utf-8'))
+            raw_message = msg.as_string()
+            if isinstance(raw_message, str):
+                raw_message = raw_message.encode('utf-8')
+            server.sendmail(username, recipient, raw_message)
         
         flash('Sporočilo poslano! Hvala.', 'success')
-    except smtplib.SMTPAuthenticationError:
-        flash('Napaka pri prijavi. Preverite uporabniško ime in geslo.', 'danger')
-        print("SMTP Authentication Error")
-    except smtplib.SMTPException as e:
-        flash('Napaka pri pošiljanju. Prosimo, poskusite kasneje.', 'danger')
-        print(f"SMTP Error: {e}")
+        
     except Exception as e:
-        flash('Nepričakovana napaka.', 'danger')
-        print(f"General Error: {e}")
+        error_msg = f'Napaka pri pošiljanju: {str(e)}'
+        if 'ascii' in str(e).lower():
+            error_msg = 'Napaka pri kodiranju znakov (č, š, ž). Prosimo, poskusite znova.'
+        flash(error_msg, 'danger')
+        print(f"Error details: {repr(e)}")
 
     return redirect(url_for('kontakt'))
 
 
 
 
-app.run(debug = True, port=8800)
+app.run(debug = True, port=5000)
 
 
