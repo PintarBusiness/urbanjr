@@ -508,31 +508,26 @@ def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna
 
 def narocilo_poslji_mail(narocilo):
     try:
-        # 1. Configure charset for UTF-8 with Quoted-Printable encoding
+        # slovenski znaki
         charset = Charset('utf-8')
-        charset.body_encoding = QP  # Use Quoted-Printable for non-ASCII
+        charset.body_encoding = QP  
         charset.header_encoding = QP
-
-        # 2. Extract and ensure proper string encoding
         def ensure_unicode(s):
             if isinstance(s, bytes):
                 return s.decode('utf-8', errors='replace')
             return str(s)
-
         data = {k: ensure_unicode(v) for k, v in narocilo.items()}
 
-        # 3. Mail server settings
+        # server mail
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
         username = os.getenv('MAIL_USERNAME')
         password = os.getenv('MAIL_PASSWORD')
         recipient = os.getenv('MAIL_USERNAME')
 
-        # 4. Create message with forced UTF-8 encoding
+        # ustvarjanje sporočila na emailu
         msg = MIMEMultipart('alternative')
         msg.set_charset('utf-8')
-
-        # 5. Encode headers properly
         msg['Subject'] = Header(
             f"Naročilo osebe: {data['ime']} {data['priimek']}",
             'utf-8'
@@ -541,19 +536,18 @@ def narocilo_poslji_mail(narocilo):
         msg['To'] = recipient
         msg['Reply-To'] = data['eposta']
 
-        # 6. Prepare content with HTML escaping
+        # omogočanje slovenskih simbolov
         def safe_content(s):
             try:
                 return html.escape(ensure_unicode(s))
             except:
-                return str(s)
-            
+                return str(s) 
         strIzdelkov = ""
         for key, value in json.loads(data["izdelki"].replace("'",'"')).items():
             strIzdelkov += f"{value}X {key} \n"
-
         print(strIzdelkov)
-        # HTML version
+
+        # klic izdelava html
         narocilo_html_content = html_narocilo(
             safe_content(data['ime']), safe_content(data['priimek']),
             safe_content(data['telefonska']), safe_content(data['eposta']),
@@ -561,8 +555,7 @@ def narocilo_poslji_mail(narocilo):
             safe_content(data['postna_stevilka']), safe_content(data['nacin_dostave']),
             safe_content(strIzdelkov), safe_content(data['datum'])
         )
-
-        # Plain text version
+        # navadni text
         narocilo_text_content = f"""Naročilo:
 Ime: {data['ime']}
 Priimek: {data['priimek']}
@@ -575,7 +568,7 @@ Način dostave: {data['nacin_dostave']}
 Izdelki: {data['izdelki']}
 Datum: {data['datum']}"""
 
-        # 7. Create MIME parts with proper encoding
+        # poti MIME za email
         part1 = MIMEText(narocilo_text_content, 'plain', 'utf-8')
         part1.set_charset('utf-8')
         
@@ -585,18 +578,15 @@ Datum: {data['datum']}"""
         msg.attach(part1)
         msg.attach(part2)
 
-        # 8. Send email with explicit UTF-8 encoding
+        # pošiljanje email
         with smtplib.SMTP(smtp_server, smtp_port) as server:
             server.starttls()
             server.login(username, password)
-            # Encode the final message as UTF-8 before sending
             raw_message = msg.as_string()
             if isinstance(raw_message, str):
                 raw_message = raw_message.encode('utf-8')
             server.sendmail(username, recipient, raw_message)
-        
         flash('Sporočilo poslano! Hvala.', 'success')
-        
     except Exception as e:
         error_msg = f'Napaka pri pošiljanju: {str(e)}'
         if 'ascii' in str(e).lower():
@@ -838,58 +828,55 @@ def html_kontakt(name, sender_email, message):
 @app.route('/posljiPriporocilo', methods=['POST'])
 def posljiPriporocilo():
     try:
-        # 1. Configure charset for UTF-8 with Quoted-Printable encoding
+        # slovenski znaki
         charset = Charset('utf-8')
         charset.body_encoding = QP
         charset.header_encoding = QP
-
-        # 2. Get and sanitize form data
         def ensure_unicode(s):
             if isinstance(s, bytes):
                 return s.decode('utf-8', errors='replace')
             return str(s)
 
+        # podatki
         name = ensure_unicode(request.form.get('ime_posiljatelj', ''))
         sender_email = ensure_unicode(request.form.get('mail_posiljatelj', ''))
         message = ensure_unicode(request.form.get('sporocilo_posiljatelj', ''))
 
-        # 3. Email server configuration
+        # email server
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
         username = os.getenv('MAIL_USERNAME')
         password = os.getenv('MAIL_PASSWORD')
         recipient = os.getenv('MAIL_USERNAME')
 
-        # 4. Create message with proper encoding
+        # ustvarjanje email sporočila
         msg = MIMEMultipart('alternative')
         msg.set_charset('utf-8')
-
-        # 5. Encode headers properly
         msg['Subject'] = Header(f"Vprašanje od osebe: {name}", 'utf-8')
         msg['From'] = Header(f"Urban JR <{username}>", 'utf-8')
         msg['To'] = recipient
         msg['Reply-To'] = sender_email
-
-        # 6. Generate email content
         def safe_content(content):
             try:
                 return html.escape(content)
             except:
                 return str(content)
 
+        # klic izdelava html
         kontakt_html_content = html_kontakt(
             safe_content(name),
             safe_content(sender_email),
             safe_content(message)
         )
 
+        # navadni text
         kontakt_text_content = f"""Vprašanje od stranke:
 Ime: {name}
 Email: {sender_email}
 Sporočilo:
 {message}"""
 
-        # 7. Create MIME parts with proper encoding
+        # uporaba MIME za izdelavo emaila
         part1 = MIMEText(kontakt_text_content, 'plain', 'utf-8')
         part1.set_charset('utf-8')
         
@@ -899,7 +886,7 @@ Sporočilo:
         msg.attach(part1)
         msg.attach(part2)
 
-        # 8. Send email with explicit UTF-8 encoding
+        # pošiljanje emaila
         with smtplib.SMTP(smtp_server, smtp_port) as server:
             server.starttls()
             server.login(username, password)
@@ -907,9 +894,7 @@ Sporočilo:
             if isinstance(raw_message, str):
                 raw_message = raw_message.encode('utf-8')
             server.sendmail(username, recipient, raw_message)
-        
         flash('Sporočilo poslano! Hvala.', 'success')
-        
     except Exception as e:
         error_msg = f'Napaka pri pošiljanju: {str(e)}'
         if 'ascii' in str(e).lower():
