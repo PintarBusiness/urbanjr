@@ -18,6 +18,7 @@ import os
 import smtplib
 import html
 from datetime import datetime 
+import json
 #import requests
 
 # ---------- NALOZI  ----------
@@ -392,9 +393,12 @@ def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna
                 border-radius: 1em;
                 background-color: white;
                 border: 0.3em solid #DBBB92;
-                width: 100%;
-                
-                
+                width: 100%;   
+            }}
+            .izdelki{{
+                font-size: 1.3em;
+                margin: 0.8em;
+                color: #DBBB92;
             }}
             strong {{
                 font-family: sans-serif;
@@ -488,7 +492,7 @@ def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna
              <td colspan="3">
                 <p><strong class="pomemben_text">Naročeni izdelki:</strong></p>
                 <div class="imemail">
-                        <p>{izdelki}</p>
+                        <div class="izdelki">{html.escape(izdelki).replace('\n', '<br>')}</div>
                 </div><br>
              </td>
             </tr>
@@ -543,14 +547,19 @@ def narocilo_poslji_mail(narocilo):
                 return html.escape(ensure_unicode(s))
             except:
                 return str(s)
+            
+        strIzdelkov = ""
+        for key, value in json.loads(data["izdelki"].replace("'",'"')).items():
+            strIzdelkov += f"{value}X {key} \n"
 
+        print(strIzdelkov)
         # HTML version
         narocilo_html_content = html_narocilo(
             safe_content(data['ime']), safe_content(data['priimek']),
             safe_content(data['telefonska']), safe_content(data['eposta']),
             safe_content(data['kraj']), safe_content(data['hisna_stevilka']),
             safe_content(data['postna_stevilka']), safe_content(data['nacin_dostave']),
-            safe_content(data['izdelki']), safe_content(data['datum'])
+            safe_content(strIzdelkov), safe_content(data['datum'])
         )
 
         # Plain text version
