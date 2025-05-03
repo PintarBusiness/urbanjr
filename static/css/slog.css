@@ -2980,3 +2980,15 @@ footer .logo img
 {
     background-color: #9b9b2d;
 }
+
+.buttonCopyMails
+{
+    all: unset;
+    color: #DBBB92;
+    background-color: white;
+    padding: 0.7em 0.7em;
+    border-radius: 2em;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: all 1s;
+}

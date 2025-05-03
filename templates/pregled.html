@@ -150,7 +150,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Email naslov</th>
+                        <th>Email naslov &nbsp;<button class="buttonCopyMails"onclick="copyText()">Kopiraj</button></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -276,6 +276,17 @@ function poskusDodajanjaMail() {
 
 </script>
 
+<!--/* Text z e-maili */ -->
+<script>
+    function copyText() {
+        const text = {{narocniki_text| tojson}}
+        navigator.clipboard.writeText(text).then(function() {
+            alert("Vsi e-mail naslovi naročnikov so kopirani!");
+        }).catch(function(err) {
+            console.error("Napaka pri kopiranju:", err);
+        });
+    }
+    </script>
     <!--/* Tukaj je za telefonprikaz meni */ -->
     <script>
     function toggleMenu() {
@@ -357,6 +368,6 @@ function poskusDodajanjaMail() {
     });
     </script>
     <!--/* Tukaj je za cekiranje ce je mail prav napisan*/ -->
-
+    
 </body>
 </html>
