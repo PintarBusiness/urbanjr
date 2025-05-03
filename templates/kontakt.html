@@ -67,6 +67,7 @@
                             <li><a href="/trgovina">Trgovina</a></li>
                             <li><a href="/blog">Blog</a></li>
                             <li><a href="/kontakt">Kontakt</a></li>
+                            <li id="lipregled" style="display:none;"><a href="/pregled">Pregled</a></li>
                             <li>
                                 <a href="/kosarica">
                                 <i class="fa-solid fa-cart-arrow-down"></i>
@@ -186,7 +187,19 @@
             <a href="#" onclick="AdminClick()">Admin</a>
         </div>
     </div>
-
+<!-- pregled se pokaže če si admin   -->
+<script>
+    window.onload = function() {
+        var admin_mode = {{ admin_mode | tojson }};
+        var element = document.getElementById("lipregled");
+        if (admin_mode) {
+            element.style.display = "block";
+        }
+        else {
+            element.style.display = "none";
+        }
+    };
+</script>
 <!-- pošiljanje na mail kontakt   -->
 <script>
 
