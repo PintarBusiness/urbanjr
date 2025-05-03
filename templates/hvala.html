@@ -167,16 +167,11 @@
 <!-- admin link izbira glede na to ali si prijavljen   -->
 <script>
     function AdminClick() {
-        // You can perform your checks here, for example, using session data, user status, etc.
         var admin_mode = {{ admin_mode | tojson }};
-        
-
-        // Example condition: If the user is an admin, redirect to /admin, otherwise redirect to /
         if (admin_mode) {
-            window.location.href = "/logout"; // Redirect to admin page
+            window.location.href = "/logout";
         } else {
             window.location.href = "/admin";
-              // Redirect to home page
         }
     }
 </script>
@@ -189,7 +184,7 @@ function poskusDodajanjaMail() {
 
     $.ajax({
         url: "/poskusDodajanjaMail",
-        method: "POST",  // Ensure POST request
+        method: "POST",
         data: {
             mail: mail.value,
 

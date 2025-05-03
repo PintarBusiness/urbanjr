@@ -206,23 +206,21 @@
 function posljiPriporocilo(event) {
     event.preventDefault();
     
-    // Get form elements
+    // pridobivanje podatkov
     var ime_posiljatelj = document.getElementById("pime");
     var mail_posiljatelj = document.getElementById("pmail");
     var sporocilo_posiljatelj = document.getElementById("psporocilo");
     var button = document.querySelector('.gumbkontakt');
     
-    // Validate required fields
+    // preverjanje če so polja izpolnjena
     if (!ime_posiljatelj.value || !mail_posiljatelj.value || !sporocilo_posiljatelj.value) {
         alert('Prosimo, izpolnite vsa polja!');
         return false;
     }
-    
-    // Change button state during submission
     button.disabled = true;
     button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Pošiljanje...';
     
-    // AJAX call
+    // AJAX klic
     $.ajax({
         url: "/posljiPriporocilo",
         method: "POST",
@@ -232,7 +230,6 @@ function posljiPriporocilo(event) {
             sporocilo_posiljatelj: sporocilo_posiljatelj.value,
         },
         success: function(result) {
-            // Success handling
             button.innerHTML = '<i class="fas fa-check"></i> Poslano!';
             setTimeout(function() {
                 button.disabled = false;
@@ -269,7 +266,7 @@ function posljiPriporocilo(event) {
     
         $.ajax({
             url: "/poskusDodajanjaMail",
-            method: "POST",  // Ensure POST request
+            method: "POST", 
             data: {
                 mail: mail.value,
 

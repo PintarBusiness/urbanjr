@@ -1,25 +1,32 @@
+# flask
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session, flash
-from flask_session import Session
 from flask_mail import Mail, Message
-from tinydb import TinyDB, Query
-from dotenv import load_dotenv
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from premailer import transform
-import sys
-import locale
-from email.header import Header
-from email.charset import Charset, QP
-import re
 import requests
-import random
-import redis
+
+# navadno
 import os
-import smtplib
 import html
 from datetime import datetime 
 import json
-#import requests
+
+# databaza
+from tinydb import TinyDB, Query
+
+# pišiljanje emailov + slovenski znaki v emailih
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.header import Header
+from email.charset import Charset, QP
+import smtplib
+
+#iskanje
+import re
+
+#tajnost
+from dotenv import load_dotenv
+
+
+
 
 # ---------- NALOZI  ----------
 
@@ -719,10 +726,7 @@ def pridobi_zalogo():
 
 # ---------- Kontakt pošiljanje na mail ----------
 
-def html_kontakt(name, sender_email, message):
-    # Clean and format the message content
-    
-    
+def html_kontakt(name, sender_email, message): 
     html_content = f"""
     <!DOCTYPE html>
     <html>
