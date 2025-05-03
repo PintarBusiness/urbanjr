@@ -31,8 +31,8 @@ from dotenv import load_dotenv
 # ---------- NALOZI  ----------
 
 #pip install flask --user
-#pip install redis
 #pip install tinydb
+# -- pa seveda se kaj drugega :) --
 
 # Load environment variables first
 load_dotenv() 
@@ -344,7 +344,7 @@ def znizaj(izdelek):
 
 db_narocila = TinyDB("naročila.json")
 
-# Za pošiljanje e-maila
+# ---------- Za pošiljanje e-maila ob nakupu ----------
 def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna_stevilka,nacin_dostave,izdelki,datum):
 
     html_narocilo = f"""
@@ -601,6 +601,7 @@ Datum: {data['datum']}"""
         flash(error_msg, 'danger')
         print(f"Error details: {repr(e)}")
 
+# ---------- funkcija za oddajo naročila v košarici ----------
 @app.route("/oddaj_narocilo", methods=["POST"])
 def oddaj_narocilo():
     admin_mode = session.get('admin_mode', False)
@@ -642,6 +643,7 @@ def oddaj_narocilo():
 
     return render_template("hvala.html", admin_mode=admin_mode)
 
+# ---------- Kosarica ----------
 @app.route("/kosarica")
 def kosarica():
     kosarica_ses = session.get("kosarica", {})
