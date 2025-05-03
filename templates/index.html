@@ -60,6 +60,7 @@
                         <li><a href="/trgovina">Trgovina</a></li>
                         <li><a href="/blog">Blog</a></li>
                         <li><a href="/kontakt">Kontakt</a></li>
+                        <li id="lipregled"><a href="/pregled">Pregled</a></li>
                         <li>
                             <a href="/kosarica">
                             <i class="fa-solid fa-cart-arrow-down"></i>
@@ -340,19 +341,27 @@
         </div>
     </div>
 
+<!-- pregled se pokaže če si admin   -->
+    <script>
+        window.onload = function() {
+            var admin_mode = {{ admin_mode | tojson }};
+            var element = document.getElementById("lipregled");
+            if (admin_mode) {
+                element.style.display = "block";
+            }
+            else {
+                element.style.display = "none";
+            }
+        };
+    </script>
 <!-- admin link izbira glede na to ali si prijavljen   -->
     <script>
         function AdminClick() {
-            // You can perform your checks here, for example, using session data, user status, etc.
             var admin_mode = {{ admin_mode | tojson }};
-            
-
-            // Example condition: If the user is an admin, redirect to /admin, otherwise redirect to /
             if (admin_mode) {
-                window.location.href = "/logout"; // Redirect to admin page
+                window.location.href = "/logout"; 
             } else {
                 window.location.href = "/admin";
-                  // Redirect to home page
             }
         }
     </script>
