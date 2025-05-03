@@ -301,54 +301,46 @@ function posljiPriporocilo(event) {
 
 <!--/* Tukaj je za search bar scripta */ -->
 <script>
-document.getElementById('search-input').addEventListener('input', function() {
-let query = this.value.toLowerCase(); // pridobi iskalni niz
-let results = []; // shranjujemo rezultate iskanja
-let searchResultsContainer = document.getElementById('search-results');
-searchResultsContainer.innerHTML = ''; // Preden začnemo iskanje, očistimo obstoječe rezultate
-
-if (query.length > 0) {
-    // Poišči vse elemente na strani, ki vsebujejo besedilo (npr. h1, p)
-    let elementsToSearch = document.querySelectorAll('h1, h2, p, li, span');
+    let izdelki = ["Jajca", "Piščanec", "Mleko", "Zelenjava", "Govedina"];
     
-    elementsToSearch.forEach(function(element) {
-        if (element.textContent.toLowerCase().includes(query)) {
-            results.push(element); // Dodamo element v rezultate
+    const searchInput = document.getElementById('search-input');
+    const searchResultsContainer = document.getElementById('search-results');
+    
+    searchInput.addEventListener('input', function () {
+        let query = this.value.toLowerCase();
+        searchResultsContainer.innerHTML = '';
+    
+        if (query.length > 0) {
+            let filtered = izdelki.filter(item => item.toLowerCase().includes(query));
+    
+            if (filtered.length > 0) {
+                searchResultsContainer.style.display = 'block';
+                filtered.forEach(item => {
+                    let resultItem = document.createElement('p');
+                    resultItem.textContent = item;
+                    resultItem.style.cursor = "pointer";
+                    resultItem.addEventListener('click', function () {
+                        searchInput.value = item;
+                        window.location.href = "/trgovina";
+                    });
+                    searchResultsContainer.appendChild(resultItem);
+                });
+            } else {
+                searchResultsContainer.style.display = 'none';
+            }
+        } else {
+            searchResultsContainer.style.display = 'none';
         }
     });
-
-    // Prikaz rezultatov
-    if (results.length > 0) {
-        searchResultsContainer.style.display = 'block'; // Prikaz rezultatov
-        results.forEach(function(result) {
-            let resultItem = document.createElement('p');
-            resultItem.textContent = result.textContent.substring(0, 100) + '...'; // Prikaz delnega besedila
-            resultItem.addEventListener('click', function() {
-                result.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Pomakne na element
-                searchResultsContainer.style.display = 'none'; // Skrije rezultate iskanja po kliku
-            });
-            searchResultsContainer.appendChild(resultItem);
-        });
-    } else {
-        searchResultsContainer.style.display = 'none'; // Ni rezultatov, skrijemo
-    }
-} else {
-    searchResultsContainer.style.display = 'none'; // Skrijemo, ko je iskalnik prazen
-}
-});
-
-document.getElementById('gumbsearch').addEventListener('click', function() {
-let query = document.getElementById('search-input').value.toLowerCase(); // pridobi iskalni niz
-if (query.length > 0) {
-    document.getElementById('search-input').dispatchEvent(new Event('input')); // Simulira input dogodek, da prikaže rezultate
-}
-});
-
-
+    searchInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if (searchInput.value.trim().length > 0) {
+                window.location.href = "/trgovina";
+            }
+        }
+    });
 </script>
-
-<!--/* Tukaj je za search bar scripta */ -->
-
 
 <!--/* Tukaj je za cekiranje ce je mail prav napisan*/ -->
 <script>
