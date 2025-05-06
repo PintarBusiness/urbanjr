@@ -115,6 +115,11 @@ def pomoc():
     admin_mode = session.get('admin_mode', False)
     return render_template("pomoc.html",admin_mode=admin_mode)
 
+@app.route("/pravno")
+def pravno():
+    admin_mode = session.get('admin_mode', False)
+    return render_template("pravno.html",admin_mode=admin_mode)
+
 # ---------- Prijava v admin ----------
 
 userDict = {}
