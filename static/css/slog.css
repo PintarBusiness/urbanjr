@@ -2843,7 +2843,7 @@ footer .logo img
     justify-content: space-between;
     gap: 2em;
     padding: 2em;
-    flex-wrap: wrap;
+    
 }
 
 .pregledglavno .prikazzaloge,
@@ -2878,7 +2878,7 @@ footer .logo img
     box-sizing: border-box;
 }
 
-.pregledglavno .prikazmaili table tbody tr, .pregledglavno .prikazmaili table tbody tr td
+.pregledglavno .prikazmaili table thead tr, .pregledglavno .prikazmaili table tbody tr, .pregledglavno .prikazmaili table tbody tr td
 {
     display: block;
     width: 100%;
@@ -2991,4 +2991,48 @@ footer .logo img
     cursor: pointer;
     font-size: 0.8em;
     transition: all 1s;
+}
+
+.prikazmaili .thkopiraj
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.prikazmaili .thkopiraj span
+{
+    font-weight: 600;
+}
+
+@media screen and (max-width: 480px)
+{
+    .pregledglavno
+    {
+        flex-direction: column;
+        gap: 10em;
+        max-width: 45%;
+        scale: 2;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        height: 140vh;
+    }
+
+    .pregledglavno .prikazzaloge,
+    .pregledglavno .prikazmaili
+    {
+        font-size: 2em;
+    }
+
+    .pregledglavno .prikaznarocil h1
+    {
+        font-size: 5.5em;
+    }
+
+    .pregledglavno .prikaznarocil
+    {
+        max-height: 40em;
+    }
 }
