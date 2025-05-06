@@ -2551,10 +2551,18 @@ footer .logo img
         margin-top: 1em;
         margin-bottom: 1em;
     }
+    
+    .narocila .glavnidelform .vsebinaform
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 5em;
+    }
 
     .narocila .glavnidelform .vsebinaform input
     {
-        font-size: 2.8em;
+        font-size: 5em;
+        max-width: 90%;
     }
 
     .narocila .prikazizdelkov .prikazizdelkovgrid
@@ -3020,10 +3028,17 @@ footer .logo img
         height: 140vh;
     }
 
+
+    .pregledglavno .prikaznarocil
+    {
+       max-width: 100%;
+    }
+
     .pregledglavno .prikazzaloge,
     .pregledglavno .prikazmaili
     {
         font-size: 1.8em;
+        max-width: 95%;
     }
 
     .pregledglavno .prikaznarocil h1
