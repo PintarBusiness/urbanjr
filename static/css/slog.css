@@ -903,7 +903,7 @@ footer .logo img
 
     .menutelefon.active .crtica:nth-child(1)
     {
-        transform: translateY(1em) rotate(45deg);
+        transform: translateY(2.6em) rotate(45deg);
     }
 
     .menutelefon.active .crtica:nth-child(2)
@@ -913,7 +913,7 @@ footer .logo img
 
     .menutelefon.active .crtica:nth-child(3)
     {
-        transform: translateY(-1.9em) rotate(-45deg);
+        transform: translateY(-1em) rotate(-45deg);
     }
 
     .navmenu.active
