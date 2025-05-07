@@ -712,26 +712,57 @@ db_narocila = TinyDB("naročila.json")
 @app.route("/pregled")
 def pregled():
     try:
-        narocila = db_narocila.all()
+        # Preverimo naročila v bazi
+        try:
+            narocila = db_narocila.all()
+        except Exception as e:
+            print("Napaka pri branju naročil iz baze:", e)
+            narocila = []  # Če pride do napake, nastavimo prazen seznam
 
+        # Preverimo naročnike v bazi
         narocniki_text = ""
-        for entry in narocnikiDB.all():
-            narocniki_text += entry['mail'] +","
-        narocniki_text = narocniki_text[:-1]
+        try:
+            for entry in narocnikiDB.all():
+                narocniki_text += entry['mail'] + ","
+            narocniki_text = narocniki_text[:-1]
+        except Exception as e:
+            print("Napaka pri obdelavi naročnikov:", e)
+            narocniki_text = ""  # Če pride do napake, nastavimo prazen niz
 
+        # Funkcija za obdelavo datuma
         def parse_datum(n):
             try:
                 return datetime.strptime(n["datum"], "%d.%m.%Y ob %H:%M")
-            except:
-                return datetime.min  # če je kaj narobe z datumom
+            except Exception as e:
+                print(f"Napaka pri obdelavi datuma: {e}")
+                return datetime.min  # če je kaj narobe z datumom, vrnemo najmanjši datum
 
+        # Sortiramo naročila po datumu
         narocila = sorted(narocila, key=parse_datum, reverse=True)
 
+        # Omejimo število prikazanih naročil na zadnjih 30
         narocila = narocila[:30]
-        maili = narocnikiDB.all()
-        zaloga = pridobi_zalogo()
+
+        # Preverimo zalogo
+        zaloga = []
+        try:
+            zaloga = pridobi_zalogo()  # predpostavljam, da ta funkcija pravilno pridobi zalogo
+        except Exception as e:
+            print("Napaka pri pridobivanju zaloge:", e)
+
+        # Pridobimo vse mail naslovke iz narocnikiDB
+        maili = []
+        try:
+            maili = narocnikiDB.all()
+        except Exception as e:
+            print("Napaka pri pridobivanju mailov iz narocnikiDB:", e)
+
+        # Preverimo ali je admin_mode nastavljen
         admin_mode = session.get('admin_mode', False)
-        return render_template("pregled.html", narocila=narocila, zaloga=zaloga, maili=maili, narocniki_text=narocniki_text,admin_mode=admin_mode)
+
+        # Vrnemo stran s podatki
+        return render_template("pregled.html", narocila=narocila, zaloga=zaloga, maili=maili, narocniki_text=narocniki_text, admin_mode=admin_mode)
+
     except Exception as e:
         print("Napaka v /pregled:", e)
         traceback.print_exc()
