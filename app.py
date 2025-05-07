@@ -346,9 +346,7 @@ def znizaj(izdelek):
     session["kosarica"] = kosarica
     return redirect(url_for("kosarica"))
 
-# Za naročila v bazo
 
-db_narocila = TinyDB("naročila.json")
 
 # ---------- Za pošiljanje e-maila ob nakupu ----------
 import html
@@ -707,6 +705,9 @@ def kosarica():
 
 zalogaDB = TinyDB("zaloga.json")
 ZalogaQuery = Query()
+# Za naročila v bazo
+
+db_narocila = TinyDB("naročila.json")
 
 @app.route("/pregled")
 def pregled():
