@@ -350,7 +350,11 @@ def znizaj(izdelek):
 db_narocila = TinyDB("naročila.json")
 
 # ---------- Za pošiljanje e-maila ob nakupu ----------
-def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna_stevilka,nacin_dostave,izdelki,datum):
+import html
+
+def html_narocilo(ime, priimek, telefonska, sender_email, kraj, hisna_stevilka, postna_stevilka, nacin_dostave, izdelki, datum):
+    # Pretvorba izdelkov, da se uporabi HTML escape in nadomesti \n z <br>
+    izdelki_html = html.escape(izdelki).replace('\n', '<br>')
 
     html_narocilo = f"""
     <!DOCTYPE html>
@@ -359,7 +363,6 @@ def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <style>
             body {{
-
                 font-family: 'Arial', sans-serif;
                 line-height: 0.7;
                 color: #333;
@@ -389,25 +392,24 @@ def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna
                 color: #DBBB92;
                 font-size: 0.9em;
                 margin-left: 0.5em;
-                
             }}
-            table{{
-                width:90%;
-                margin:auto;
+            table {{
+                width: 90%;
+                margin: auto;
             }}
-            .prostor{{
-                width:45%;
+            .prostor {{
+                width: 45%;
             }}
-            .presledek{{
-                width:10%;
+            .presledek {{
+                width: 10%;
             }}
-            .imemail{{
+            .imemail {{
                 border-radius: 1em;
                 background-color: white;
                 border: 0.3em solid #DBBB92;
-                width: 100%;   
+                width: 100%;
             }}
-            .izdelki{{
+            .izdelki {{
                 font-size: 1.3em;
                 margin: 0.8em;
                 color: #DBBB92;
@@ -416,16 +418,14 @@ def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna
                 font-family: sans-serif;
                 font-size: 1.6em;
                 color: #B4B436;
-
             }}
-            .footer{{
-                width:100%;
+            .footer {{
+                width: 100%;
                 text-align: center;
                 font-size: 0.9em;
             }}
-            .pomemben_text{{
+            .pomemben_text {{
                 font-size: 2.8em;
-
             }}
         </style>
     </head>
@@ -435,79 +435,86 @@ def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna
         </div>
         <div class="content">
             <table>
-            <tr><td ><p><strong>Ime:</strong></p></td>
-            <td>&nbsp;&nbsp;</td>
-            <td ><p><strong>Priimek:</strong></p></td></tr>
-            <tr>
-                <td class="prostor">
-                    <div class="imemail">
-                        <p>{html.escape(ime)}</p>
-                    </div><br>
-                </td>
-                <td>&nbsp;&nbsp;</td>
-                <td class="prostor">
-                    <div class="imemail">
-                        <p>{html.escape(priimek)}</p>
-                    </div><br>
-                </td>
-            </tr>
-            <tr><td ><p><strong>Telefonska številka:</strong></p></td>
-            <td>&nbsp;&nbsp;</td>
-            <td ><p><strong>e-mail:</strong></p></td></tr>
-            <tr>
-                <td>
-                    <div class="imemail">
-                        <p>{html.escape(telefonska)}</p>
-                    </div><br>
-                </td>
-                <td class="presledek">&nbsp;&nbsp;</td>
-                <td>
-                    <div class="imemail">
-                        <p>{html.escape(sender_email)}</p>
-                    </div><br>
-                </td>
-            </tr>
-            <tr><td><p><strong>Kraj:</strong></p></td>
-            <td>&nbsp;&nbsp;</td>
-            <td><p><strong>Hišna številka:</strong></p></td></tr>
-            <tr>
-                <td>
-                    <div class="imemail">
-                        <p>{html.escape(kraj)}</p>
-                    </div><br>
-                </td>
-                <td>&nbsp;&nbsp;</td>
-                <td>
-                    <div class="imemail">
-                        <p>{html.escape(hisna_stevilka)}</p>
-                    </div><br>
-                </td>
-            </tr>
-            <tr><td><p><strong>Poštna številka:</strong></p></td>
-            <td>&nbsp;&nbsp;</td>
-            <td><p><strong>Način dostave:</strong></p></td></tr>
-            <tr>
-                <td>
-                    <div class="imemail">
-                        <p>{html.escape(postna_stevilka)}</p>
-                    </div><br>
-                </td>
-                <td>&nbsp;&nbsp;</td>
-                <td>
-                    <div class="imemail">
-                        <p>{html.escape(nacin_dostave)}</p>
-                    </div><br>
-                </td>
-            </tr>
-            <br>
-            <tr>
-             <td colspan="3">
-                <p><strong class="pomemben_text">Naročeni izdelki:</strong></p>
-                <div class="imemail">
-                        <div class="izdelki">{html.escape(izdelki).replace('\n', '<br>')}</div>
-                </div><br>
-             </td>
-            </tr>
+                <tr>
+                    <td><p><strong>Ime:</strong></p></td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td><p><strong>Priimek:</strong></p></td>
+                </tr>
+                <tr>
+                    <td class="prostor">
+                        <div class="imemail">
+                            <p>{html.escape(ime)}</p>
+                        </div><br>
+                    </td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td class="prostor">
+                        <div class="imemail">
+                            <p>{html.escape(priimek)}</p>
+                        </div><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p><strong>Telefonska številka:</strong></p></td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td><p><strong>e-mail:</strong></p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="imemail">
+                            <p>{html.escape(telefonska)}</p>
+                        </div><br>
+                    </td>
+                    <td class="presledek">&nbsp;&nbsp;</td>
+                    <td>
+                        <div class="imemail">
+                            <p>{html.escape(sender_email)}</p>
+                        </div><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p><strong>Kraj:</strong></p></td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td><p><strong>Hišna številka:</strong></p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="imemail">
+                            <p>{html.escape(kraj)}</p>
+                        </div><br>
+                    </td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td>
+                        <div class="imemail">
+                            <p>{html.escape(hisna_stevilka)}</p>
+                        </div><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p><strong>Poštna številka:</strong></p></td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td><p><strong>Način dostave:</strong></p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="imemail">
+                            <p>{html.escape(postna_stevilka)}</p>
+                        </div><br>
+                    </td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td>
+                        <div class="imemail">
+                            <p>{html.escape(nacin_dostave)}</p>
+                        </div><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <p><strong class="pomemben_text">Naročeni izdelki:</strong></p>
+                        <div class="imemail">
+                            <div class="izdelki">{izdelki_html}</div>
+                        </div><br>
+                    </td>
+                </tr>
             </table>  
         </div>
         <div class="footer">
@@ -517,6 +524,7 @@ def html_narocilo(ime,priimek,telefonska,sender_email,kraj,hisna_stevilka,postna
     </html>
     """
     return html_narocilo
+
 
 def narocilo_poslji_mail(narocilo):
     try:
