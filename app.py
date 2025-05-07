@@ -42,11 +42,11 @@ app = Flask(__name__)
 
 # ---------- Pridobitev podatkov iz .env ----------
 app.secret_key = os.getenv('SECRET_KEY', 'your_fallback_secret_key_here')
-MAIL_SERVER=os.getenv('MAIL_SERVER'),
-MAIL_PORT=int(os.getenv('MAIL_PORT')),
-MAIL_USE_TLS=os.getenv('MAIL_USE_TLS', 'True').lower() == 'true',
-MAIL_USERNAME=os.getenv('MAIL_USERNAME'),
-MAIL_PASSWORD=os.getenv('MAIL_PASSWORD')
+MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
+MAIL_PORT = int(os.getenv('MAIL_PORT', 587))
+MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'True').lower() == 'true'
+MAIL_USERNAME = os.getenv('MAIL_USERNAME', 'jure.pintar9@gmail.com')
+MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', 'wnia dkdk zpby hotv')
 
 #  ---------- Zagon potreben za pošiljanje mail ----------
 mail = Mail(app)
