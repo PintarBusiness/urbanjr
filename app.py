@@ -709,6 +709,8 @@ db_narocila = TinyDB("naročila.json")
 
 @app.route("/pregled")
 def pregled():
+    if not session.get('admin_mode', False):
+        return redirect("/")
     try:
         narocila = db_narocila.all()
 
