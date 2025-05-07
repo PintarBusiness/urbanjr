@@ -709,26 +709,30 @@ ZalogaQuery = Query()
 
 @app.route("/pregled")
 def pregled():
-    narocila = db_narocila.all()
+    try:
+        narocila = db_narocila.all()
 
-    narocniki_text = ""
-    for entry in narocnikiDB.all():
-        narocniki_text += entry['mail'] +","
-    narocniki_text = narocniki_text[:-1]
+        narocniki_text = ""
+        for entry in narocnikiDB.all():
+            narocniki_text += entry['mail'] +","
+        narocniki_text = narocniki_text[:-1]
 
-    def parse_datum(n):
-        try:
-            return datetime.strptime(n["datum"], "%d.%m.%Y ob %H:%M")
-        except:
-            return datetime.min  # če je kaj narobe z datumom
+        def parse_datum(n):
+            try:
+                return datetime.strptime(n["datum"], "%d.%m.%Y ob %H:%M")
+            except:
+                return datetime.min  # če je kaj narobe z datumom
 
-    narocila = sorted(narocila, key=parse_datum, reverse=True)
+        narocila = sorted(narocila, key=parse_datum, reverse=True)
 
-    narocila = narocila[:30]
-    maili = narocnikiDB.all()
-    zaloga = pridobi_zalogo()
-    admin_mode = session.get('admin_mode', False)
-    return render_template("pregled.html", narocila=narocila, zaloga=zaloga, maili=maili, narocniki_text=narocniki_text,admin_mode=admin_mode)
+        narocila = narocila[:30]
+        maili = narocnikiDB.all()
+        zaloga = pridobi_zalogo()
+        admin_mode = session.get('admin_mode', False)
+        return render_template("pregled.html", narocila=narocila, zaloga=zaloga, maili=maili, narocniki_text=narocniki_text,admin_mode=admin_mode)
+    except Exception as e:
+        print("Napaka v /pregled:", e)
+        return "Napaka na strežniku", 500
 
 @app.route("/nastavi_zalogo", methods=["POST"])
 def nastavi_zalogo():
