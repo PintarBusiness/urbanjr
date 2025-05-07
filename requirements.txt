@@ -4,8 +4,3 @@ tinydb
 python-dotenv
 gunicorn
 requests
-os
-html
-json
-smtplib
-re
