@@ -746,7 +746,13 @@ def pridobi_zalogo():
 
 # ---------- Kontakt pošiljanje na mail ----------
 
+
 def html_kontakt(name, sender_email, message): 
+    # Escapiranje podatkov in obdelava nove vrstice v sporočilu
+    escaped_name = html.escape(name)
+    escaped_sender_email = html.escape(sender_email)
+    escaped_message = html.escape(message).replace("\n", "<br>")  # Pretvori nove vrstice v <br> za HTML
+
     html_content = f"""
     <!DOCTYPE html>
     <html>
@@ -779,7 +785,7 @@ def html_kontakt(name, sender_email, message):
                 border: 0.15em solid #ddd;
                 margin-top: 1em;
                 border-radius: 2em;
-                width: 85%
+                width: 85%;
             }}
             .content p {{
                 line-height: 1.2;
@@ -802,20 +808,19 @@ def html_kontakt(name, sender_email, message):
                 white-space: pre-wrap;
                 word-wrap: break-word;
             }}
-            .imemail{{
+            .imemail {{
                 border-radius: 1em;
                 background-color: white;
                 border: 0.3em solid #DBBB92;
                 width: 30%;
                 min-width:20em;
-                
             }}
             strong {{
                 font-family: sans-serif;
                 font-size: 1.7em;
                 color: #B4B436;
             }}
-            .footer{{
+            .footer {{
                 width:100%;
                 text-align: center;
                 font-size: 0.9em;
@@ -829,15 +834,15 @@ def html_kontakt(name, sender_email, message):
         <div class="content">
             <p><strong>Ime:</strong></p>
             <div class="imemail">
-            <p>{html.escape(name)}</p>
+                <p>{escaped_name}</p>
             </div><br>
             <p><strong>e-mail:</strong></p>
             <div class="imemail">
-                <p>{html.escape(sender_email)}</p>
+                <p>{escaped_sender_email}</p>
             </div><br>
             <p><strong>Vprašanje:</strong></p>
             <div class="message">
-                {"\n"+message}
+                {escaped_message}
             </div>
         </div>
         <div class="footer">
