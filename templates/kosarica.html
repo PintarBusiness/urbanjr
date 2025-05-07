@@ -115,7 +115,7 @@
                 </div>
                 <div class="gp">
                     <button type="submit">ODDAJ NAROČILO</button>
-                    <a href="/pomoc">Potrebuje pomoč pri oddaji naročila?</a>
+                    <a href="/pomoc" target="_blank">Potrebuje pomoč pri oddaji naročila?</a>
                 </div>
                 {% else %}
                     <h1>KOŠARICA JE PRAZNA</h1>
@@ -152,9 +152,14 @@
 
             <input type="hidden" name="nacin_dostave" id="nacin_dostave" value="OSEBNI_PREVZEM">
             <div class="telgumbnarocilo">
-                <button type="submit">ODDAJ NAROČILO</button>
+                {% if izbrani %}
+                <button type="submit" id="buttonTelsubmit">ODDAJ NAROČILO</button>
+                {% else %}
+                <button type="button" id="buttonTelsubmit" style="display: none;">ODDAJ NAROČILO</button>
+                {% endif %}
                 <a href="/pomoc">Potrebuje pomoč pri oddaji naročila?</a>
-            </div>
+            </div>        
+
             {% if neizbrani %}
             <h1>DODAJTE VEČ IZDELKOV</h1>
             <div class="vecizdelkov">
@@ -205,9 +210,9 @@
                 <div class="stolpec tretji">
                     <h2>PRAVNI PODATKI</h2>
                     <ul>
-                        <li><a href="">Podjetje in kontaktni podatki</a></li>
-                        <li><a href="">Politika zasebnosti</a></li>
-                        <li><a href="">Pogoji poslovanja</a></li>
+                        <li><a href="/pravno#kopo">Podjetje in kontaktni podatki</a></li>
+                        <li><a href="/pravno#poza">Politika zasebnosti</a></li>
+                        <li><a href="/pravno#popo">Pogoji poslovanja</a></li>
                     </ul>
                 </div>
                 <div class="stolpec cetrti">

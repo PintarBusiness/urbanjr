@@ -115,6 +115,11 @@ def pomoc():
     admin_mode = session.get('admin_mode', False)
     return render_template("pomoc.html",admin_mode=admin_mode)
 
+@app.route("/pravno")
+def pravno():
+    admin_mode = session.get('admin_mode', False)
+    return render_template("pravno.html",admin_mode=admin_mode)
+
 # ---------- Prijava v admin ----------
 
 userDict = {}
@@ -226,7 +231,7 @@ izdelek_podatki = {
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Piščanci">
             </div>
             <div class="opiskoliko">
-                <p>V vsakem paketu je 10 jajc</p>
+                <p>V vsakem paketu je 1 piščanec</p>
             </div>
         </div>
         '''
@@ -242,7 +247,7 @@ izdelek_podatki = {
                 <img src="/static/images/trgovina/DSC08006-26.JPG" alt="Mleko">
             </div>
             <div class="opiskoliko">
-                <p>V vsakem paketu je 10 jajc</p>
+                <p>V vsakem paketu je 1 liter mleka</p>
             </div>
         </div>
         '''
@@ -258,7 +263,7 @@ izdelek_podatki = {
                 <img src="/static/images/trgovina/DSC07972-20.JPG" alt="Zelenjava">
             </div>
             <div class="opiskoliko">
-                <p>V vsakem paketu je 10 jajc</p>
+                <p>Paket mešane zelenjave</p>
             </div>
         </div>
         '''
@@ -274,7 +279,7 @@ izdelek_podatki = {
                 <img src="/static/images/trgovina/DSC07979-21.JPG" alt="Govedina">
             </div>
             <div class="opiskoliko">
-                <p>V vsakem paketu je 10 jajc</p>
+                <p>V vsakem paketu je 0.5 kg govedine</p>
             </div>
         </div>
         '''
