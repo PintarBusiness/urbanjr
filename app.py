@@ -125,8 +125,8 @@ def pravno():
 userDict = {}
 passwordDict = {}
 
-AdminName = app.secret_key = os.environ['ADMIN_NAME'] 
-AdminPassword = app.secret_key = os.environ['ADMIN_PASSWORD']
+AdminName = os.getenv('ADMIN_NAME', 'admin')
+AdminPassword = os.getenv('ADMIN_PASSWORD', 'securepassword')
 
 userDict[AdminName] = 1
 passwordDict[AdminPassword] = 1
