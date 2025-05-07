@@ -8,6 +8,7 @@ import os
 import html
 from datetime import datetime 
 import json
+import traceback
 
 # databaza
 from tinydb import TinyDB, Query
@@ -732,6 +733,7 @@ def pregled():
         return render_template("pregled.html", narocila=narocila, zaloga=zaloga, maili=maili, narocniki_text=narocniki_text,admin_mode=admin_mode)
     except Exception as e:
         print("Napaka v /pregled:", e)
+        traceback.print_exc()
         return "Napaka na strežniku", 500
 
 @app.route("/nastavi_zalogo", methods=["POST"])
