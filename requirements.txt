@@ -3,3 +3,9 @@ flask-mail
 tinydb
 python-dotenv
 gunicorn
+requests
+os
+html
+json
+smtplib
+re
