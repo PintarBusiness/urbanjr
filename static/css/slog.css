@@ -2007,6 +2007,7 @@ footer .logo img
     height: 50vh;
     margin-top: 4vh;
     gap: 2em;
+    max-width: 60%;
 }
 
 .prvastrankontakt form h1
@@ -2145,7 +2146,30 @@ footer .logo img
         height: 30vh;
         margin-bottom: 10vh;
         padding-top: 2em;
+        max-width: 80%;
         scale: 1.8;
+    }
+
+    .prvastrankontakt form input
+    {
+        font-size: 3em;
+    }
+
+    .prvastrankontakt form textarea
+    {
+        border: solid 0.4em #B4B436;
+        border-radius: 1em;
+    }
+
+    .prvastrankontakt form textarea::placeholder
+    {
+        font-size: 2em;
+        padding-left: 0.55em;
+    }
+
+    .prvastrankontakt form button
+    {
+        font-size: 2em;
     }
 
     .prvastrankontakt form h1
