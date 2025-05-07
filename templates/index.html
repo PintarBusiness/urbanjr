@@ -46,11 +46,21 @@
                 <div class="logo">
                     <a href=""><img src="../static/images/skupne/Logo/1Logo__URBAN JR_horizontalen.png" alt="Logo"></a>
                 </div>
-            
-                <div class="menutelefon" onclick="toggleMenu()">
-                    <div class="crtica"></div>
-                    <div class="crtica"></div>
-                    <div class="crtica"></div>
+                <div class="portelpok">
+                    <li class="telpokazi">
+                        <a href="/kosarica">
+                        <i class="fa-solid fa-cart-arrow-down"></i>
+                        {% if st_izdelkov > 0 %}
+                        <span class="kosaricastevec">{{ st_izdelkov }}</span>
+                        {% endif %}
+                        </a>
+                    </li>
+
+                    <div class="menutelefon" onclick="toggleMenu()">
+                        <div class="crtica"></div>
+                        <div class="crtica"></div>
+                        <div class="crtica"></div>
+                    </div>
                 </div>
             
                 <nav class="navmenu" id="navmenu">
@@ -61,7 +71,7 @@
                         <li><a href="/blog">Blog</a></li>
                         <li><a href="/kontakt">Kontakt</a></li>
                         <li id="lipregled" style="display:none;"><a href="/pregled">Pregled</a></li>
-                        <li>
+                        <li class="racpokazi">
                             <a href="/kosarica">
                             <i class="fa-solid fa-cart-arrow-down"></i>
                             {% if st_izdelkov > 0 %}

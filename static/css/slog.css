@@ -823,6 +823,10 @@ footer .logo img
 
 /* Tukaj je za search bar scripta*/
 
+.telpokazi
+{
+    display: none;
+}
 
 /* Postavitev za mobilni telefon - index*/
 
@@ -849,6 +853,39 @@ footer .logo img
         font-size: 4em;
     }
 
+    .portelpok
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10em;
+    }
+
+    .racpokazi
+    {
+        display: none;
+    }
+
+    .telpokazi
+    {
+        position: relative;
+        display: block;
+        font-size: 5em;
+    }
+
+    .telpokazi .kosaricastevec
+    {
+        font-size: 0.5em;
+    }
+
+    .telpokazi a
+    {
+        font-size: 2em;
+        color: #B4B436;
+    }
+
+    .tel
+
     .menutelefon
     {
         scale: 1.5;
@@ -858,7 +895,7 @@ footer .logo img
     {
         display: flex;
         width: 10em;
-        height: 0.5em;
+        height: 1em;
         margin-bottom: 2.5em;
         background-color: black;
         transition: 0.4s all;
