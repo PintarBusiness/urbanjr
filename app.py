@@ -41,7 +41,7 @@ app = Flask(__name__)
 
 
 # ---------- Pridobitev podatkov iz .env ----------
-app.secret_key = os.environ['SECRET_KEY'] 
+app.secret_key = os.getenv('SECRET_KEY', 'your_fallback_secret_key_here')
 MAIL_SERVER=os.getenv('MAIL_SERVER'),
 MAIL_PORT=int(os.getenv('MAIL_PORT')),
 MAIL_USE_TLS=os.getenv('MAIL_USE_TLS', 'True').lower() == 'true',
