@@ -70,9 +70,6 @@ def initialize_admin_mode():
         session['admin_mode'] = False
         session['last_log_link'] = "/"
 
-# ---------- Databaze ----------
-narocnikiDB = TinyDB('db.json')
-
 # ---------- Linki (poti) do html datotek ----------
 @app.route("/")
 def index():
@@ -158,6 +155,7 @@ def goBack():
     return jsonify({"redirect_to": session['last_log_link']})  
 
 # ---------- Dodajanje e-mail racuna v databazo TinyDB (za novice) ----------
+narocnikiDB = TinyDB('naročniki.json')
 
 @app.route("/poskusDodajanjaMail", methods=["POST"])
 def poskusDodajanjaMail():
@@ -712,57 +710,26 @@ db_narocila = TinyDB("naročila.json")
 @app.route("/pregled")
 def pregled():
     try:
-        # Preverimo naročila v bazi
-        try:
-            narocila = db_narocila.all()
-        except Exception as e:
-            print("Napaka pri branju naročil iz baze:", e)
-            narocila = []  # Če pride do napake, nastavimo prazen seznam
+        narocila = db_narocila.all()
 
-        # Preverimo naročnike v bazi
         narocniki_text = ""
-        try:
-            for entry in narocnikiDB.all():
-                narocniki_text += entry['mail'] + ","
-            narocniki_text = narocniki_text[:-1]
-        except Exception as e:
-            print("Napaka pri obdelavi naročnikov:", e)
-            narocniki_text = ""  # Če pride do napake, nastavimo prazen niz
+        for entry in narocnikiDB.all():
+            narocniki_text += entry['mail'] +","
+        narocniki_text = narocniki_text[:-1]
 
-        # Funkcija za obdelavo datuma
         def parse_datum(n):
             try:
                 return datetime.strptime(n["datum"], "%d.%m.%Y ob %H:%M")
-            except Exception as e:
-                print(f"Napaka pri obdelavi datuma: {e}")
-                return datetime.min  # če je kaj narobe z datumom, vrnemo najmanjši datum
+            except:
+                return datetime.min  # če je kaj narobe z datumom
 
-        # Sortiramo naročila po datumu
         narocila = sorted(narocila, key=parse_datum, reverse=True)
 
-        # Omejimo število prikazanih naročil na zadnjih 30
         narocila = narocila[:30]
-
-        # Preverimo zalogo
-        zaloga = []
-        try:
-            zaloga = pridobi_zalogo()  # predpostavljam, da ta funkcija pravilno pridobi zalogo
-        except Exception as e:
-            print("Napaka pri pridobivanju zaloge:", e)
-
-        # Pridobimo vse mail naslovke iz narocnikiDB
-        maili = []
-        try:
-            maili = narocnikiDB.all()
-        except Exception as e:
-            print("Napaka pri pridobivanju mailov iz narocnikiDB:", e)
-
-        # Preverimo ali je admin_mode nastavljen
+        maili = narocnikiDB.all()
+        zaloga = pridobi_zalogo()
         admin_mode = session.get('admin_mode', False)
-
-        # Vrnemo stran s podatki
-        return render_template("pregled.html", narocila=narocila, zaloga=zaloga, maili=maili, narocniki_text=narocniki_text, admin_mode=admin_mode)
-
+        return render_template("pregled.html", narocila=narocila, zaloga=zaloga, maili=maili, narocniki_text=narocniki_text,admin_mode=admin_mode)
     except Exception as e:
         print("Napaka v /pregled:", e)
         traceback.print_exc()
