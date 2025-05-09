@@ -126,6 +126,7 @@
                             <th>Dostava</th>
                             <th>Izdelki</th>
                             <th>Datum</th>
+                            <th>Cena</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -145,6 +146,7 @@
                                 </ul>
                             </td>
                             <td>{{ narocilo.datum }}</td>
+                            <td>{{ narocilo.skupna_cena }} €</td>
                         </tr>
                         {% endfor %}
                     </tbody>

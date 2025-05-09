@@ -123,6 +123,11 @@
                         </div>
                     {% endfor %}
                 </div>
+                {% if skupna_cena %}
+                    <div class="skupnacena">
+                        <h2>Skupna cena: {{ skupna_cena }} €</h2>
+                    </div>
+                {% endif %}
                 <div class="gp">
                     <button type="submit">ODDAJ NAROČILO</button>
                     <a href="/pomoc" target="_blank">Potrebuje pomoč pri oddaji naročila?</a>

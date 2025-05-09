@@ -217,7 +217,7 @@ izdelek_podatki = {
                 <p>V vsakem paketu je 10 jajc</p>
             </div>
             <div class="cena">
-                <p>5 €</p>
+                <p>3.5 €</p>
             </div>
         </div>
         '''
@@ -236,7 +236,7 @@ izdelek_podatki = {
                 <p>V vsakem paketu je 1 piščanec</p>
             </div>
             <div class="cena">
-                <p>5 €</p>
+                <p>14 €</p>
             </div>
         </div>
         '''
@@ -255,7 +255,7 @@ izdelek_podatki = {
                 <p>V vsakem paketu je 1 liter mleka</p>
             </div>
             <div class="cena">
-                <p>5 €</p>
+                <p>2 €</p>
             </div>
         </div>
         '''
@@ -293,7 +293,7 @@ izdelek_podatki = {
                 <p>V vsakem paketu je 0.5 kg govedine</p>
             </div>
             <div class="cena">
-                <p>5 €</p>
+                <p>20 €</p>
             </div>
         </div>
         '''
@@ -359,12 +359,25 @@ def znizaj(izdelek):
     session["kosarica"] = kosarica
     return redirect(url_for("kosarica"))
 
+def izracunaj_skupno_ceno(kosarica_ses):
+    skupna = 0.0
+    for ime, kolicina in kosarica_ses.items():
+        podatki = izdelek_podatki.get(ime.upper())
+        if podatki:
+            html = podatki["html"]
+            # Poišči prvo ceno v HTML
+            match = re.search(r'(\d+(?:\.\d+)?)\s*€', html)
+            if match:
+                cena = float(match.group(1))
+                skupna += cena * kolicina
+    return round(skupna, 2)
+
 
 
 # ---------- Za pošiljanje e-maila ob nakupu ----------
 import html
 
-def html_narocilo(ime, priimek, telefonska, sender_email, kraj, hisna_stevilka, postna_stevilka, nacin_dostave, izdelki, datum):
+def html_narocilo(ime, priimek, telefonska, sender_email, kraj, hisna_stevilka, postna_stevilka, nacin_dostave, izdelki, datum, skupna_cena):
     # Pretvorba izdelkov, da se uporabi HTML escape in nadomesti \n z <br>
     izdelki_html = html.escape(izdelki).replace('\n', '<br>')
 
@@ -527,6 +540,28 @@ def html_narocilo(ime, priimek, telefonska, sender_email, kraj, hisna_stevilka, 
                         </div><br>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <p><strong>Datum:</strong></p>
+                    </td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td>
+                        <p><strong>Skupna cena:</strong></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="imemail">
+                        <p>{html.escape(datum)}</p>
+                        </div><br>
+                    </td>
+                    <td>&nbsp;&nbsp;</td>
+                    <td>
+                        <div class="imemail">
+                            <div class="izdelki">{html.escape(str(skupna_cena))} €</div>
+                        </div><br>
+                    </td>
+                </tr>
             </table>  
         </div>
         <div class="footer">
@@ -585,7 +620,8 @@ def narocilo_poslji_mail(narocilo):
             safe_content(data['telefonska']), safe_content(data['eposta']),
             safe_content(data['kraj']), safe_content(data['hisna_stevilka']),
             safe_content(data['postna_stevilka']), safe_content(data['nacin_dostave']),
-            safe_content(strIzdelkov), safe_content(data['datum'])
+            safe_content(strIzdelkov), safe_content(data['datum']),
+            safe_content(data['skupna_cena'])
         )
         # navadni text
         narocilo_text_content = f"""Naročilo:
@@ -598,7 +634,8 @@ Hišna številka: {data['hisna_stevilka']}
 Poštna številka: {data['postna_stevilka']}
 Način dostave: {data['nacin_dostave']}
 Izdelki: {data['izdelki']}
-Datum: {data['datum']}"""
+Datum: {data['datum']}
+Skupna cena: {data['skupna_cena']} €"""
 
         # poti MIME za email
         part1 = MIMEText(narocilo_text_content, 'plain', 'utf-8')
@@ -626,53 +663,12 @@ Datum: {data['datum']}"""
         flash(error_msg, 'danger')
         print(f"Error details: {repr(e)}")
 
-# ---------- funkcija za oddajo naročila v košarici ----------
-@app.route("/oddaj_narocilo", methods=["POST"])
-def oddaj_narocilo():
-    admin_mode = session.get('admin_mode', False)
-    session["zaloga"] = pridobi_zalogo()
-    zahtevani_podatki = ["ime", "priimek", "telefonska", "e-pošta", "kraj", "hisnastevilka", "poštnaštevilka", "nacindostave"]
-    manjkajoci = [p for p in zahtevani_podatki if not request.form.get(p)]
-    if manjkajoci:
-        return redirect(url_for("kosarica"))
-
-    kosarica = session.get("kosarica", {})
-    zaloga = session.get("zaloga", {})
-
-    # Shrani naročilo v bazo
-    narocilo = {
-        "ime": request.form["ime"],
-        "priimek": request.form["priimek"],
-        "telefonska": request.form["telefonska"],
-        "eposta": request.form["e-pošta"],
-        "kraj": request.form["kraj"],
-        "hisna_stevilka": request.form["hisnastevilka"],
-        "postna_stevilka": request.form["poštnaštevilka"],
-        "nacin_dostave": request.form["nacindostave"],
-        "izdelki": kosarica,
-        "datum": datetime.now().strftime("%d.%m.%Y ob %H:%M")
-    }
-
-    db_narocila.insert(narocilo)
-    narocilo_poslji_mail(narocilo)
-
-    # Posodobi zalogo
-    for izdelek, kolicina in kosarica.items():
-        obstojece = zalogaDB.get(ZalogaQuery.izdelek == izdelek)
-        if obstojece:
-            nova_kolicina = max(0, obstojece["kolicina"] - kolicina)
-            zalogaDB.update({"kolicina": nova_kolicina}, ZalogaQuery.izdelek == izdelek)
-
-    session["zaloga"] = zaloga
-    session["kosarica"] = {}
-
-    return render_template("hvala.html", admin_mode=admin_mode)
-
 # ---------- Kosarica ----------
 @app.route("/kosarica")
 def kosarica():
     kosarica_ses = session.get("kosarica", {})
     admin_mode = session.get('admin_mode', False)
+    skupna_cena = izracunaj_skupno_ceno(kosarica_ses)
     trenutna_zaloga = pridobi_zalogo()  # <-- Ključno
 
     izbrani = []
@@ -712,7 +708,52 @@ def kosarica():
 
             neizbrani.append(html_zamenjan)
 
-    return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani, admin_mode=admin_mode, zaloga=trenutna_zaloga)
+    return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani, admin_mode=admin_mode, zaloga=trenutna_zaloga, skupna_cena=skupna_cena)
+
+# ---------- funkcija za oddajo naročila v košarici ----------
+@app.route("/oddaj_narocilo", methods=["POST"])
+def oddaj_narocilo():
+    admin_mode = session.get('admin_mode', False)
+    session["zaloga"] = pridobi_zalogo()
+    zahtevani_podatki = ["ime", "priimek", "telefonska", "e-pošta", "kraj", "hisnastevilka", "poštnaštevilka", "nacindostave"]
+    manjkajoci = [p for p in zahtevani_podatki if not request.form.get(p)]
+    if manjkajoci:
+        return redirect(url_for("kosarica"))
+
+    kosarica = session.get("kosarica", {})
+    skupna_cena = izracunaj_skupno_ceno(kosarica)
+    zaloga = session.get("zaloga", {})
+
+    # Shrani naročilo v bazo
+    narocilo = {
+        "ime": request.form["ime"],
+        "priimek": request.form["priimek"],
+        "telefonska": request.form["telefonska"],
+        "eposta": request.form["e-pošta"],
+        "kraj": request.form["kraj"],
+        "hisna_stevilka": request.form["hisnastevilka"],
+        "postna_stevilka": request.form["poštnaštevilka"],
+        "nacin_dostave": request.form["nacindostave"],
+        "izdelki": kosarica,
+        "datum": datetime.now().strftime("%d.%m.%Y ob %H:%M"),
+        "skupna_cena": skupna_cena
+    }
+
+    db_narocila.insert(narocilo)
+    narocilo_poslji_mail(narocilo)
+
+    # Posodobi zalogo
+    for izdelek, kolicina in kosarica.items():
+        obstojece = zalogaDB.get(ZalogaQuery.izdelek == izdelek)
+        if obstojece:
+            nova_kolicina = max(0, obstojece["kolicina"] - kolicina)
+            zalogaDB.update({"kolicina": nova_kolicina}, ZalogaQuery.izdelek == izdelek)
+
+    session["zaloga"] = zaloga
+    session["kosarica"] = {}
+
+    return render_template("hvala.html", admin_mode=admin_mode, skupna_cena=skupna_cena)
+
 
 # ---------- Delovanje pregled zaloge ----------
 
