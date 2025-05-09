@@ -216,6 +216,9 @@ izdelek_podatki = {
             <div class="opiskoliko">
                 <p>V vsakem paketu je 10 jajc</p>
             </div>
+            <div class="cena">
+                <p>5 €</p>
+            </div>
         </div>
         '''
     },
@@ -231,6 +234,9 @@ izdelek_podatki = {
             </div>
             <div class="opiskoliko">
                 <p>V vsakem paketu je 1 piščanec</p>
+            </div>
+            <div class="cena">
+                <p>5 €</p>
             </div>
         </div>
         '''
@@ -248,6 +254,9 @@ izdelek_podatki = {
             <div class="opiskoliko">
                 <p>V vsakem paketu je 1 liter mleka</p>
             </div>
+            <div class="cena">
+                <p>5 €</p>
+            </div>
         </div>
         '''
     },
@@ -264,6 +273,9 @@ izdelek_podatki = {
             <div class="opiskoliko">
                 <p>Paket mešane zelenjave</p>
             </div>
+            <div class="cena">
+                <p>5 €</p>
+            </div>
         </div>
         '''
     },
@@ -279,6 +291,9 @@ izdelek_podatki = {
             </div>
             <div class="opiskoliko">
                 <p>V vsakem paketu je 0.5 kg govedine</p>
+            </div>
+            <div class="cena">
+                <p>5 €</p>
             </div>
         </div>
         '''

@@ -2459,6 +2459,28 @@ footer .logo img
     color: white;
 }
 
+.cena
+{
+    position: absolute;
+    bottom: 2.5em;
+    left: 0;
+}
+
+.cena p
+{
+    z-index: 999;
+    margin: 1em;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.8em;
+    transition: all 1s ease;
+    width: fit-content;
+}
+
 .stevecgumb
 {
     text-decoration: none;
