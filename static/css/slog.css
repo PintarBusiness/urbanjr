@@ -2581,6 +2581,14 @@ footer .logo img
         font-size: 3em;
     }
 
+    .skupnacena h2
+    {
+        font-size: 5em;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .stevec
     {
         bottom: 1em;
@@ -2593,6 +2601,16 @@ footer .logo img
         font-size: 2.5em;
         bottom: 1em;
         left: 1.5em;
+    }
+
+    .narocila .cena
+    {
+        bottom: 5em;
+    }
+
+    .narocila .cena p
+    {
+        font-size: 3.5em;
     }
 
     .narocila .narocilo .prikazizdelkov .gp
