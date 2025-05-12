@@ -2711,9 +2711,6 @@ footer .logo img
     margin-bottom: 2em;
 }
 
-.pomocvsebina audio
-{
-}
 
 /* Za telefon Pomoč */
 
@@ -2924,75 +2921,28 @@ footer .logo img
 /* Za telefon admin login in logout */
 
 @media screen and (max-width: 480px){
-    .bodyAdmin{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+    .bodyAdmin .naslov
+    {
+        max-width: 80%;
+        border-radius: 5em;
+        padding: 10em;
     }
-    
-    .bodyAdmin form{
-        display: flex;
-        flex-direction: column;
-        
-        
-        
-    }
-    #prijavaAdmin, #odjavaAdmin{
-        background-color: rgb(255, 255, 255);
-        font-weight: bold;
-        font-size: 10.5em;
-        padding: 0.3em;
-        color: rgb(182, 182, 53);
-    
-    }
-    .bodyAdmin .naslov{
-        background-color: rgba(214, 235, 224, 0.5);
-        border: 0.2em solid gray;
-        border-radius: 0.5em;
-        padding: 2em;
-    }
-    
+
     .bodyAdmin h1
     {
-        font-weight: bold;
-        text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        font-size: 14em;
-        margin-bottom: 0.7em;
-        color: #B4B436;
+        font-size: 15em;
     }
-    
-    
-    .bodyAdmin label{
-        font-weight: bold;
-        letter-spacing: 0.07em;
-        text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        font-size: 7em;
-        color: #DBBB92;
-    }
-    
-    .gumbiAdmin{
-        padding: 0.2em;
-        margin-top: 0.6em;
-        font-size: 7em;
-        background-color: rgb(189, 188, 188);
-        
-    }
-    
-    .bodyAdmin .inputBoxAdmin{
-        margin-bottom: 1.1em;
-    }
-    
-    .okno_za_prodajo{
-         display: none;
-    }
-    
-    .bodyAdmin #errorBox
+
+    .inputBoxAdmin
     {
-        font-size: 4em;
-        font-weight: bold;
-        color: red;
+        font-size: 7em;
     }
+
+    .gumbiAdmin
+    {
+        font-size: 7em;
+    }
+
 }
 
 /* Pregled */
