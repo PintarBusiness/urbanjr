@@ -126,13 +126,6 @@
                 {% if skupna_cena %}
                     <div class="skupnacena">
                         <h2>Skupna cena: {{ skupna_cena }} €</h2>
-                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-                        <form method="POST" action="{{ url_for('oddaj_narocilo') }}">
-                            <!-- Ostala polja za naročilo -->
-                            <div class="g-recaptcha" data-sitekey="6LfRpDsrAAAAAAOjLp8wLGY1acyfZx4-73PCzoDi"></div>
-                            <button type="submit">Oddaj naročilo</button>
-                        </form>
                     </div>
                 {% endif %}
                 <div class="gp">

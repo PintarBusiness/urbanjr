@@ -711,47 +711,16 @@ def kosarica():
     return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani, admin_mode=admin_mode, zaloga=trenutna_zaloga, skupna_cena=skupna_cena)
 
 # ---------- funkcija za oddajo naročila v košarici ----------
-
 @app.route("/oddaj_narocilo", methods=["POST"])
 def oddaj_narocilo():
+    admin_mode = session.get('admin_mode', False)
+    session["zaloga"] = pridobi_zalogo()
     zahtevani_podatki = ["ime", "priimek", "telefonska", "e-pošta", "kraj", "hisnastevilka", "poštnaštevilka", "nacindostave"]
     manjkajoci = [p for p in zahtevani_podatki if not request.form.get(p)]
     if manjkajoci:
-        flash('Manjkajo podatki: ' + ', '.join(manjkajoci), 'danger')
         return redirect(url_for("kosarica"))
 
-    # Preveri reCAPTCHA
-    recaptcha_response = request.form.get('g-recaptcha-response')
-    if not recaptcha_response:
-        flash('Potrdite, da niste robot.', 'danger')
-        return redirect(url_for("kosarica"))
-
-    recaptcha_secret = os.getenv('RECAPTCHA_SECRET_KEY')
-    recaptcha_verify_url = "https://www.google.com/recaptcha/api/siteverify"
-
-    try:
-        response = requests.post(
-            recaptcha_verify_url,
-            data={'secret': recaptcha_secret, 'response': recaptcha_response},
-            timeout=5
-        )
-        result = response.json()
-        print("RECAPTCHA RESPONSE:", result)  # TEST debug
-
-        if not result.get('success'):
-            error_codes = result.get('error-codes', [])
-            flash(f'Preverite captcha. Napaka: {error_codes}', 'danger')
-            return redirect(url_for("kosarica"))
-    except Exception as e:
-        flash(f'Napaka pri preverjanju reCAPTCHA: {e}', 'danger')
-        return redirect(url_for("kosarica"))
-
-    # Preveri košarico
     kosarica = session.get("kosarica", {})
-    if not kosarica:
-        flash('Košarica je prazna.', 'danger')
-        return redirect(url_for("kosarica"))
-
     skupna_cena = izracunaj_skupno_ceno(kosarica)
     zaloga = session.get("zaloga", {})
 
@@ -784,6 +753,7 @@ def oddaj_narocilo():
     session["kosarica"] = {}
 
     return render_template("hvala.html", admin_mode=admin_mode, skupna_cena=skupna_cena)
+
 
 # ---------- Delovanje pregled zaloge ----------
 
