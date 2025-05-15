@@ -720,6 +720,21 @@ def oddaj_narocilo():
     if manjkajoci:
         return redirect(url_for("kosarica"))
 
+    recaptcha_response = request.form.get('g-recaptcha-response')
+    recaptcha_secret = os.getenv('RECAPTCHA_SECRET_KEY')
+    recaptcha_verify_url = "https://www.google.com/recaptcha/api/siteverify"
+
+    data = {
+        'secret': recaptcha_secret,
+        'response': recaptcha_response
+    }
+    response = requests.post(recaptcha_verify_url, data=data)
+    result = response.json()
+
+    if not result.get('success'):
+        flash('Preverite, da ste potrdili, da niste robot.', 'danger')
+        return redirect(url_for("kosarica"))
+
     kosarica = session.get("kosarica", {})
     skupna_cena = izracunaj_skupno_ceno(kosarica)
     zaloga = session.get("zaloga", {})
