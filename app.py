@@ -711,31 +711,49 @@ def kosarica():
     return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani, admin_mode=admin_mode, zaloga=trenutna_zaloga, skupna_cena=skupna_cena)
 
 # ---------- funkcija za oddajo naročila v košarici ----------
+
 @app.route("/oddaj_narocilo", methods=["POST"])
 def oddaj_narocilo():
     admin_mode = session.get('admin_mode', False)
     session["zaloga"] = pridobi_zalogo()
+
+    # Preveri obvezna polja
     zahtevani_podatki = ["ime", "priimek", "telefonska", "e-pošta", "kraj", "hisnastevilka", "poštnaštevilka", "nacindostave"]
     manjkajoci = [p for p in zahtevani_podatki if not request.form.get(p)]
     if manjkajoci:
+        flash('Manjkajo podatki: ' + ', '.join(manjkajoci), 'danger')
         return redirect(url_for("kosarica"))
 
+    # Preveri reCAPTCHA
     recaptcha_response = request.form.get('g-recaptcha-response')
+    if not recaptcha_response:
+        flash('Potrdite, da niste robot (reCAPTCHA).', 'danger')
+        return redirect(url_for("kosarica"))
+
     recaptcha_secret = os.getenv('RECAPTCHA_SECRET_KEY')
     recaptcha_verify_url = "https://www.google.com/recaptcha/api/siteverify"
 
-    data = {
-        'secret': recaptcha_secret,
-        'response': recaptcha_response
-    }
-    response = requests.post(recaptcha_verify_url, data=data)
-    result = response.json()
+    try:
+        data = {
+            'secret': recaptcha_secret,
+            'response': recaptcha_response
+        }
+        response = requests.post(recaptcha_verify_url, data=data, timeout=5)
+        result = response.json()
 
-    if not result.get('success'):
-        flash('Preverite, da ste potrdili, da niste robot.', 'danger')
+        if not result.get('success'):
+            flash('Preverite, da ste potrdili, da niste robot (reCAPTCHA).', 'danger')
+            return redirect(url_for("kosarica"))
+    except Exception as e:
+        flash(f'Napaka pri preverjanju reCAPTCHA: {str(e)}', 'danger')
         return redirect(url_for("kosarica"))
 
+    # Preveri košarico
     kosarica = session.get("kosarica", {})
+    if not kosarica:
+        flash('Košarica je prazna.', 'danger')
+        return redirect(url_for("kosarica"))
+
     skupna_cena = izracunaj_skupno_ceno(kosarica)
     zaloga = session.get("zaloga", {})
 
@@ -768,7 +786,6 @@ def oddaj_narocilo():
     session["kosarica"] = {}
 
     return render_template("hvala.html", admin_mode=admin_mode, skupna_cena=skupna_cena)
-
 
 # ---------- Delovanje pregled zaloge ----------
 
