@@ -87,7 +87,7 @@
         <div class="search-results" id="search-results"></div>
     </header>
 
-    <form id="myForm" action="{{ url_for('oddaj_narocilo') }}" method="POST" class="narocila">
+    <form id="myForm" action="/oddaj_narocilo" method="POST" class="narocila">
         <div class="narocilo">
             <div class="nacindostave">
                 <label>
@@ -127,7 +127,12 @@
                     <div class="skupnacena">
                         <h2>Skupna cena: {{ skupna_cena }} €</h2>
                         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-                        <div class="g-recaptcha" data-sitekey="6LfRpDsrAAAAAAOjLp8wLGY1acyfZx4-73PCzoDi"></div>
+
+                        <form method="POST" action="{{ url_for('oddaj_narocilo') }}">
+                            <!-- Ostala polja za naročilo -->
+                            <div class="g-recaptcha" data-sitekey="6LfRpDsrAAAAAAOjLp8wLGY1acyfZx4-73PCzoDi"></div>
+                            <button type="submit">Oddaj naročilo</button>
+                        </form>
                     </div>
                 {% endif %}
                 <div class="gp">
