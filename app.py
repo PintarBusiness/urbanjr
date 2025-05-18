@@ -19,6 +19,8 @@ from email.mime.text import MIMEText
 from email.header import Header
 from email.charset import Charset, QP
 import smtplib
+from fpdf import FPDF
+from email.mime.application import MIMEApplication
 
 #iskanje
 import re
@@ -656,6 +658,14 @@ Skupna cena: {data['skupna_cena']} €"""
                 raw_message = raw_message.encode('utf-8')
             server.sendmail(username, recipient, raw_message)
         flash('Sporočilo poslano! Hvala.', 'success')
+
+        # PDF račun priprava
+        pdf_pot = f"/tmp/racun-{data['ime']}-{data['priimek']}.pdf"
+        generiraj_racun_pdf(pdf_pot, data, strIzdelkov)
+
+        # Pošlji račun kupcu
+        poslji_racun_kupcu(data, strIzdelkov, pdf_pot)
+        
     except Exception as e:
         error_msg = f'Napaka pri pošiljanju: {str(e)}'
         if 'ascii' in str(e).lower():
@@ -663,6 +673,94 @@ Skupna cena: {data['skupna_cena']} €"""
         flash(error_msg, 'danger')
         print(f"Error details: {repr(e)}")
 
+# ---------- Pošiljanje računa kupcu ----------
+def generiraj_racun_pdf(pot, narocilo, izdelki_text):
+    pdf = FPDF()
+    pdf.add_page()
+
+    # Dodaj font, ki podpira šumnike in UTF-8 (pot prilagodi tvoji mapi)
+    pdf.add_font('DejaVu', '', 'fonts/DejaVuSans.ttf', uni=True)
+    pdf.set_font('DejaVu', '', 12)
+
+    # Glava računa
+    pdf.cell(200, 10, txt="RAČUN", ln=True, align='C')
+    pdf.ln(10)
+    pdf.cell(200, 10, txt="Podjetje: Urban JR", ln=True)
+    pdf.cell(200, 10, txt="E-naslov: urban@example.com", ln=True)
+    pdf.cell(200, 10, txt="Telefon: 040 123 456", ln=True)
+    pdf.ln(10)
+
+    # Podatki kupca
+    pdf.cell(200, 10, txt=f"Kupec: {narocilo['ime']} {narocilo['priimek']}", ln=True)
+    pdf.cell(200, 10, txt=f"Naslov: {narocilo['kraj']} {narocilo['hisna_stevilka']}, {narocilo['postna_stevilka']}", ln=True)
+    pdf.cell(200, 10, txt=f"Email: {narocilo['eposta']}", ln=True)
+    pdf.ln(10)
+
+    # Račun
+    pdf.cell(200, 10, txt=f"Datum: {narocilo['datum']}", ln=True)
+    pdf.cell(200, 10, txt=f"Št. računa: {datetime.datetime.now().strftime('%Y%m%d%H%M%S')}", ln=True)
+    pdf.ln(10)
+
+    # Izdelki
+    pdf.multi_cell(0, 10, txt=f"Izdelki:\n{izdelki_text}")
+    pdf.ln(10)
+
+    pdf.cell(200, 10, txt=f"Skupna cena: {narocilo['skupna_cena']} €", ln=True)
+    pdf.cell(200, 10, txt=f"Način dostave: {narocilo['nacin_dostave']}", ln=True)
+
+    pdf.output(pot)
+
+def poslji_racun_kupcu(narocilo, izdelki_text, racun_pdf_pot):
+    try:
+        smtp_server = "smtp.gmail.com"
+        smtp_port = 587
+        username = os.getenv('MAIL_USERNAME')
+        password = os.getenv('MAIL_PASSWORD')
+        prejemnik = narocilo['eposta']
+
+        print(f"[INFO] Pošiljam račun na: {prejemnik}")
+        print(f"[INFO] Uporabnik SMTP: {username}")
+        print(f"[INFO] PDF pot: {racun_pdf_pot}")
+        if not os.path.exists(racun_pdf_pot):
+            print("[NAPAKA] PDF datoteka ne obstaja.")
+            return
+
+        msg = MIMEMultipart()
+        msg['Subject'] = Header("Hvala za nakup - Vaš račun", 'utf-8')
+        msg['From'] = username
+        msg['To'] = prejemnik
+
+        # Telo sporočila
+        telo = f"""
+Pozdravljeni {narocilo['ime']} {narocilo['priimek']},
+
+zahvaljujemo se vam za nakup v spletni trgovini Urban JR.
+
+V prilogi vam pošiljamo račun za vaš nakup.
+
+Lep pozdrav,
+Urban JR
+"""
+
+        msg.attach(MIMEText(telo, 'plain', 'utf-8'))
+
+        # Priloga PDF
+        with open(racun_pdf_pot, "rb") as f:
+            del_ime = f"Racun-{narocilo['ime']}-{narocilo['priimek']}.pdf"
+            part = MIMEApplication(f.read(), _subtype='pdf')
+            part.add_header('Content-Disposition', 'attachment', filename=del_ime)
+            msg.attach(part)
+
+        # Pošiljanje
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.set_debuglevel(1)  # omogoči izpis vseh SMTP operacij
+            server.starttls()
+            server.login(username, password)
+            server.sendmail(username, prejemnik, msg.as_string())
+            print(f"[SUCCESS] Račun uspešno poslan na {prejemnik}")
+
+    except Exception as e:
+        print(f"[ERROR] Napaka pri pošiljanju računa: {e}")
 # ---------- Kosarica ----------
 @app.route("/kosarica")
 def kosarica():
