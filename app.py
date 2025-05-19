@@ -171,35 +171,23 @@ def poskusDodajanjaMail():
     else:
         return jsonify(success=False)
 
-# ---------- INSTAGRAM API  ----------
-igtoken = ""
-iguporabnik = ""
-igapi = ""
-
-def instagramapi():
-    objave = {
-        "fields": "id,caption,media_type,media_url,permalink",
-        "access_token": igtoken,
-        "limit": 6
-    }
-
-    odgovor = requests.get(igapi, params=objave)
-    return odgovor.json().get("data", [])
+# ---------- Pošiljanje novic  ----------
 
 @app.route("/blog")
-
 def blog():
-    poslji = instagramapi
-    admin_mode = session.get('admin_mode', False)
-    return render_template("blog.html", post=poslji,admin_mode=admin_mode)
+    admin_način = session.get('admin_način', False)
+    return render_template("blog.html", admin_način=admin_način)
 
-@app.route("/api/poslji")
-
-def apiposlji():
-    poslji = instagramapi
-    return jsonify(poslji)
-
-
+noviceDB = TinyDB('novice.json')
+@app.route("/dodajnovico")
+def dodajnovico():
+    naslov = request.form.get("naslov")
+    besedilo = request.form.get("besedilo")
+    slika = request.form.get("slika")
+    User = Query()
+    if len(noviceDB.search(User.naslov == naslov))==0:
+        noviceDB.insert({"naslov":naslov,"besedilo":besedilo,"slika":slika})
+    return jsonify(success=True)
 # ---------- Delovanje kosarice ----------
 
 izdelek_podatki = {
