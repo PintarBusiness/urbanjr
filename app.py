@@ -196,16 +196,30 @@ def dodajnovico():
         noviceDB.insert({
             "naslov": naslov,
             "besedilo": besedilo,
-            "slika": slika_ime
+            "slika": slika_ime,
+            "cas": datetime.utcnow().isoformat()
         })
 
     return jsonify(success=True)
+
+@app.route("/odstrani_novico", methods=["POST"])
+def odstrani_novico():
+    if not session.get('admin_mode'):
+        return redirect(url_for("blog"))
+
+    naslov = request.form.get("naslov")
+    User = Query()
+    noviceDB.remove(User.naslov == naslov)
+
+    return redirect(url_for("blog"))
 
 @app.route("/blog")
 def blog():
     admin_mode = session.get('admin_mode', False)
     vse_novice = noviceDB.all()
-    return render_template("blog.html", admin_mode=admin_mode, novice=vse_novice)
+    # sortiramo po času padajoče, najnovejša prva
+    vse_novice_sorted = sorted(vse_novice, key=lambda x: x.get("cas", ""), reverse=True)
+    return render_template("blog.html", admin_mode=admin_mode, novice=vse_novice_sorted)
 
 # ---------- Delovanje kosarice ----------
 

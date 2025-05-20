@@ -1868,9 +1868,275 @@ footer .logo img
 
 .prikaznovic
 {
-    
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2em;
+    padding: 2em;
+    max-width: 75em;
+    margin: 0 auto;
 }
 
+.novica
+{
+    background-color: #f8f8f8;
+    border-radius: 1em;
+    overflow: hidden;
+    box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.1);
+}
+
+.novica img
+{
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.novica h1
+{
+    font-family: Poppins-Bold;
+    color: black;
+    font-size: 3em;
+}
+
+.novica h2,
+.novica h3
+{
+    color: #B4B436;
+    font-family: Poppins-Bold;
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+.novica p
+{
+    font-size: 1.3em;
+    display: -webkit-box;
+    -webkit-line-clamp: 12;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.novica.glavna
+{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    padding: 2em;
+    align-items: flex-start;
+}
+
+.novica.glavna img
+{
+    width: 40%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1em;
+}
+
+.novica.glavna .vsebina
+{
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.novica.manjsa
+{
+    background-color: #f8f8f8;
+    border-radius: 1em;
+    box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    gap: 1em;
+}
+
+.novica.manjsa img
+{
+    width: 100%;
+    height: 12em;
+    object-fit: cover;
+    border-radius: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.novica.manjsa .vsebina
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0;
+    height: unset;
+}
+
+.novica.manjsa h2
+{
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+    color: #B4B436;
+    font-family: Poppins-Bold;
+}
+
+.novica.manjsa p {
+    margin: 0;
+    font-size: 1em;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gumb-odstrani
+{
+    margin-top: 2em;
+    display: block;
+    cursor: pointer;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition: all 1s ease;
+    width: fit-content;
+    border: none;
+    top: -3em;
+    right: 0;
+    z-index: 6;
+}
+
+.gumb-odstrani:hover
+{
+    background-color: #DBBB92;
+}
+
+@media (min-width: 64em)
+{
+    .prikaznovic
+    {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .novica.glavna
+    {
+        grid-column: span 3;
+    }
+
+    .novica.manjsa
+    {
+        grid-column: span 1;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    padding: 2em;
+}
+
+.modal-vsebina {
+    max-width: 110em;
+    width: 100%;
+    background: #fff;
+    border-radius: 1em;
+    overflow: auto;
+    position: relative;
+}
+
+.modal-zapri
+{
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: #B4B436;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 2em;
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+    line-height: 1em;
+    z-index: 4;
+}
+
+.modal-zapri:hover
+{
+    background-color: #DBBB92;
+}
+
+.modal-glavna {
+    padding: 2em;
+    display: flex;
+    gap: 2em;
+    height: 50em;
+}
+
+.modal-glavna img {
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 1em;
+    height: 100%;
+}
+
+.modal-glavna .vsebina {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.novica.manjsa {
+    cursor: pointer;
+    position: relative;
+}
+
+.novica.manjsa form,
+.novica.manjsa button {
+    pointer-events: auto;
+    z-index: 3;
+}
+
+.novica.glavna
+{
+    cursor: pointer;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+body.modal-open .novica.manjsa,
+body.modal-open .novica.glavna {
+  cursor: unset;
+  pointer-events: none;
+}
+
+body.modal-open #novica-modal,
+body.modal-open #novica-modal * {
+  pointer-events: auto;
+  cursor: unset;
+}
+
+body.modal-open #novica-modal .modal-zapri {
+  pointer-events: auto;
+  cursor: pointer;
+}
 
 
 /* Prva stran - Kontakt */

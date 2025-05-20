@@ -99,16 +99,102 @@
 
     <div class="prikaznovic">
         {% for novica in novice %}
-            <div class="novica">
-                <h2>{{ novica.naslov }}</h2>
-                <p>{{ novica.besedilo }}</p>
-                {% if novica.slika %}
-                    <img src="{{ url_for('static', filename='images/novice/' ~ novica.slika) }}" alt="Slika novice" width="300">
-                {% endif %}
-                <hr>
-            </div>
+            {% if loop.index == 1 %}
+                <div class="novica glavna">
+                    {% if novica.slika %}
+                        <img src="{{ url_for('static', filename='images/novice/' ~ novica.slika) }}" alt="Slika novice">
+                    {% endif %}
+                    <div class="vsebina">
+                        <h1>AKTUALNO</h1>
+                        <h2>{{ novica.naslov }}</h2>
+                        <p>{{ novica.besedilo }}</p>
+                        {% if admin_mode %}
+                            <form action="{{ url_for('odstrani_novico') }}" method="post">
+                                <input type="hidden" name="naslov" value="{{ novica.naslov }}">
+                                <button type="submit" class="gumb-odstrani">ODSTRANI</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="novica manjsa">
+                    {% if novica.slika %}
+                        <img src="{{ url_for('static', filename='images/novice/' ~ novica.slika) }}" alt="Slika novice">
+                    {% endif %}
+                    <div class="vsebina">
+                        <div class="novicatexta">
+                            <h2>{{ novica.naslov }}</h2>
+                            <p>{{ novica.besedilo }}</p>
+                        </div>
+                        {% if admin_mode %}
+                            <form action="{{ url_for('odstrani_novico') }}" method="post">
+                                <input type="hidden" name="naslov" value="{{ novica.naslov }}">
+                                <button type="submit" class="gumb-odstrani">ODSTRANI</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
+
+    <div id="novica-modal" class="modal">
+        <div class="modal-vsebina">
+            <button class="modal-zapri">&times;</button>
+            <div class="novica glavna modal-glavna">
+                <img src="" alt="Slika novice">
+                <div class="vsebina">
+                    <h2></h2>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById('novica-modal');
+  const modalImg = modal.querySelector('img');
+  const modalTitle = modal.querySelector('h2');
+  const modalText = modal.querySelector('p');
+  const closeBtn = modal.querySelector('.modal-zapri');
+
+  function openModal(novica) {
+    const img = novica.querySelector('img');
+    const title = novica.querySelector('h2').innerText;
+    const text = novica.querySelector('p').innerText;
+
+    modalImg.src = img ? img.src : '';
+    modalTitle.innerText = title;
+    modalText.innerText = text;
+
+    modal.style.display = 'flex';
+    document.body.classList.add('modal-open');
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+  }
+
+  document.querySelectorAll('.novica.manjsa').forEach(novica => {
+    novica.addEventListener('click', () => openModal(novica));
+  });
+
+  const glavnaNovica = document.querySelector('.novica.glavna');
+  if (glavnaNovica) {
+    glavnaNovica.addEventListener('click', () => openModal(glavnaNovica));
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+});
+    </script>
 
 
     <div class="petastrandrugiindex">
