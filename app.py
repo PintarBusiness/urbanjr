@@ -173,21 +173,40 @@ def poskusDodajanjaMail():
 
 # ---------- Pošiljanje novic  ----------
 
-@app.route("/blog")
-def blog():
-    admin_način = session.get('admin_način', False)
-    return render_template("blog.html", admin_način=admin_način)
-
 noviceDB = TinyDB('novice.json')
-@app.route("/dodajnovico")
+
+# Pot za slike
+UPLOAD_FOLDER = os.path.join("static", "images", "novice")
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+@app.route("/dodajnovico", methods=["POST"])
 def dodajnovico():
     naslov = request.form.get("naslov")
     besedilo = request.form.get("besedilo")
-    slika = request.form.get("slika")
+    slika_file = request.files.get("slika")
+
+    slika_ime = ""
+    if slika_file:
+        slika_ime = slika_file.filename
+        slika_path = os.path.join(UPLOAD_FOLDER, slika_ime)
+        slika_file.save(slika_path)
+
     User = Query()
-    if len(noviceDB.search(User.naslov == naslov))==0:
-        noviceDB.insert({"naslov":naslov,"besedilo":besedilo,"slika":slika})
+    if len(noviceDB.search(User.naslov == naslov)) == 0:
+        noviceDB.insert({
+            "naslov": naslov,
+            "besedilo": besedilo,
+            "slika": slika_ime
+        })
+
     return jsonify(success=True)
+
+@app.route("/blog")
+def blog():
+    admin_mode = session.get('admin_mode', False)
+    vse_novice = noviceDB.all()
+    return render_template("blog.html", admin_mode=admin_mode, novice=vse_novice)
+
 # ---------- Delovanje kosarice ----------
 
 izdelek_podatki = {

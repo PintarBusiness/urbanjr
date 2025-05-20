@@ -98,7 +98,16 @@
     </div>
 
     <div class="prikaznovic">
-        
+        {% for novica in novice %}
+            <div class="novica">
+                <h2>{{ novica.naslov }}</h2>
+                <p>{{ novica.besedilo }}</p>
+                {% if novica.slika %}
+                    <img src="{{ url_for('static', filename='images/novice/' ~ novica.slika) }}" alt="Slika novice" width="300">
+                {% endif %}
+                <hr>
+            </div>
+        {% endfor %}
     </div>
 
 
