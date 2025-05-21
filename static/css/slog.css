@@ -3354,12 +3354,116 @@ body.modal-open #novica-modal .modal-zapri {
     border: none;
     border-radius: 0.5em;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 1s ease;
 }
 
 .pregledglavno .prikazzaloge button:hover
 {
-    background-color: #9b9b2d;
+    background-color: #DBBB92;
+}
+
+.podonov
+{
+    display: flex;
+    padding: 0 2em;
+}
+
+.dodajanjenovic
+{
+    flex: 1;
+    background-color: #ffffff;
+    padding: 1.5em;
+    border-radius: 0.75em;
+    box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.1);
+    height: auto;
+    max-height: 35em;
+    width: 100%;
+    max-width: 100%;
+}
+
+.dodajanjenovic h1
+{
+    font-size: 3em;
+    color: #B4B436;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 1em;
+}
+
+.dodajanjenovic form
+{
+    display: flex;
+    gap: 2em;
+}
+
+.dodajanjenovic .besedilono
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3em;
+}
+
+.dodajanjenovic form input
+{
+    padding: 0.5em;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.375em;
+    width: 100%;
+}
+
+.dodajanjenovic form textarea
+{
+    padding: 0.5em;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.375em;
+    width: 100%;
+}
+
+.dodajanjenovic .slikaposljino input[type="file"]
+{
+    display: block;
+    max-width: 60%;
+}
+
+.dodajanjenovic .slikaposljino input[type="file"]::file-selector-button
+{
+    display: block;
+    padding: 0.5em 1.25em;
+    background-color: #B4B436;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    transition: background-color 1s ease;
+}
+
+.dodajanjenovic form button
+{
+    margin-top: 1.5em;
+    padding: 0.75em 1.5em;
+    background-color: #B4B436;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    transition: background-color 1s ease;
+}
+
+.dodajanjenovic form button:hover
+{
+    background-color: #DBBB92;
 }
 
 .buttonCopyMails
