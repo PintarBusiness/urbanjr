@@ -146,6 +146,11 @@ header ul li:not(:last-child) a:hover::after
     font-size: 1.3em;
     color: white;
 }
+.gumbmic img
+{
+    width: 30%;
+    height: 30%;
+}
 
 .nadozadjemindex
 {
