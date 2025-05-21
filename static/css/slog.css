@@ -3388,6 +3388,7 @@ body.modal-open #novica-modal .modal-zapri {
     font-weight: bold;
     font-family: 'Poppins', sans-serif;
     margin-bottom: 1em;
+    font-family: Poppins-Bold;
 }
 
 .dodajanjenovic form
@@ -3526,6 +3527,16 @@ body.modal-open #novica-modal .modal-zapri {
     .pregledglavno .prikaznarocil
     {
         max-height: 40em;
+    }
+
+    .dodajanjenovic h1
+    {
+        font-size: 10em;
+    }
+
+    .besedilono
+    {
+        
     }
 }
 
