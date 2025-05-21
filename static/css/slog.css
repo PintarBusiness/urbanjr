@@ -2139,6 +2139,140 @@ body.modal-open #novica-modal .modal-zapri {
 }
 
 
+@media (max-width: 768px) {
+
+    .prikaznovic
+    {
+        grid-template-columns: 1fr;
+        padding: 1em 0;
+        width: 80%;
+        margin: 0 auto;
+        font-size: 200%;
+        margin-top: 5em;
+    }
+
+    .novica
+    {
+        width: 100%;
+    }
+
+    .novica.glavna
+    {
+        flex-direction: column;
+        padding: 1em;
+    }
+
+    .novica.glavna img
+    {
+        width: 100%;
+        height: auto;
+    }
+
+    .novica.glavna .vsebina
+    {
+        width: 100%;
+    }
+
+    .novica.glavna p
+    {
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;
+    }
+
+    .novica h1
+    {
+        font-size: 5em;
+    }
+
+    .novica h2, .novica.manjsa h2
+    {
+        font-size: 3em;
+    }
+
+    .novica p, .novica.manjsa p
+    {
+        font-size: 2em;
+    }
+
+    .novica.manjsa
+    {
+        padding: 1em;
+        width: 100%;
+    }
+
+    .novica.manjsa img
+    {
+        height: auto;
+    }
+
+    .gumb-odstrani
+    {
+        width: 100%;
+        padding: 1em;
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .modal-vsebina
+    {
+        scale: 1.4;
+        top: 10%;
+        right: 1%;
+    }
+
+    .modal h2
+    {
+        font-size: 5em;
+    }
+
+    .modal p
+    {
+        font-size: 3em;
+        height: 20vh;
+        overflow-y: auto;
+    }
+
+    .modal .vsebina
+    {
+        height: fit-content;
+    }
+
+    .modal-glavna
+    {
+      flex-direction: column;
+      height: auto;
+      padding: 1em;
+    }
+
+    .modal-glavna img
+    {
+        width: 100%;
+        height: auto;
+    }
+
+    .modal-vsebina
+    {
+        width: 80%;
+        max-height: 90vh;
+        margin: 0 auto;
+        width: 80%;
+        max-height: 95vh;
+        overflow-y: auto;
+        margin: 0 auto;
+    }
+
+    .modal-zapri
+    {
+        top: 0.5em;
+        right: 0.5em;
+        font-size: 5em;
+        width: 1.3em;
+        height: 1.3em;
+    }
+}
+
+
 /* Prva stran - Kontakt */
 
 .prvastrankontakt
@@ -3373,8 +3507,8 @@ body.modal-open #novica-modal .modal-zapri {
     flex: 1;
     background-color: #ffffff;
     padding: 1.5em;
-    border-radius: 0.75em;
-    box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.1);
+    border-radius: 2em;
+    box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.2);
     height: auto;
     max-height: 35em;
     width: 100%;
@@ -3529,14 +3663,45 @@ body.modal-open #novica-modal .modal-zapri {
         max-height: 40em;
     }
 
+    .podonov
+    {
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .dodajanjenovic
+    {
+        width: 80%;
+        max-height: fit-content;
+        padding-left: 5em;
+    }
+
+    .dodajanjenovic form
+    {
+        flex-direction: column;
+    }
+
     .dodajanjenovic h1
     {
         font-size: 10em;
+        margin-top: 1em;
     }
 
-    .besedilono
+    .besedilono p, .slikaposljino p
     {
-        
+        font-size: 5em;
+    }
+
+    .dodajanjenovic input[type="text"], .dodajanjenovic textarea
+    {
+        max-width: 90%;
+    }
+
+    .dodajanjenovic .slikaposljino button
+    {
+        font-size: 5em;
+        margin-bottom: 1em;
     }
 }
 
