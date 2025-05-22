@@ -3675,6 +3675,7 @@ body.modal-open #novica-modal .modal-zapri {
         width: 80%;
         max-height: fit-content;
         padding-left: 5em;
+        z-index: 1;
     }
 
     .dodajanjenovic form
