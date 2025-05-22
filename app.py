@@ -26,7 +26,8 @@ import re
 #tajnost
 from dotenv import load_dotenv
 
-
+#prepoznava govora
+from google.cloud import speech
 
 
 # ---------- NALOZI  ----------
@@ -1017,7 +1018,26 @@ Sporočilo:
 
     return redirect(url_for('kontakt'))
 
+# ---------- prepoznavanje govora ----------
+@app.route('/speech-to-text', methods=['POST'])
+def speech_to_text():
+    audio_file = request.files['audio']
+    audio_content = audio_file.read()
+    
+    client = speech.SpeechClient()
+    audio = speech.RecognitionAudio(content=audio_content)
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=16000,
+        language_code="sl-SI",
+    )
 
+    response = client.recognize(config=config, audio=audio)
+    
+    if response.results:
+        transcript = response.results[0].alternatives[0].transcript
+        return jsonify({'transcript': transcript})
+    return jsonify({'error': 'Ni bilo mogoče razumeti govora.'}), 400
 
 
 app.run(debug = True, port=8800)
