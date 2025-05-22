@@ -117,7 +117,7 @@ header ul li:not(:last-child) a:hover::after
     all: unset;
     padding: 0.5em 1em;
     border-radius: 2em;
-    font-size: 1.3em;
+    font-size: 1.1em;
     width: 100%;
     color: white;
 }
@@ -146,11 +146,12 @@ header ul li:not(:last-child) a:hover::after
     font-size: 1.3em;
     color: white;
 }
-.gumbmic img
+.gumbmic i
 {
-    width: 30%;
-    height: 30%;
+    font-size: 1.3em;
+
 }
+
 
 .nadozadjemindex
 {
