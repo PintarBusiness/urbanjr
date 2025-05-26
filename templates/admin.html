@@ -26,28 +26,26 @@
         font-family: Amatic;
         src: url("{{ url_for('static', filename='fonts/amatic-bold.ttf') }}");
     }
-    html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    
+
+    html, body
+    {
+        margin: 0;
+        padding: 0;
+        height: 100%;
     }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <body>
     <div class="bodyAdmin" style="background-image: url('static/images/index/DSC08271-58.JPG');background-size: cover;background-position: center;background-repeat: no-repeat;">
         <div class="naslov">
-            <h1>Prijavite se</h1>
+            <h1>PRIJAVITE SE</h1>
             <form action="/action_page.php">
-                <label for="fname">Uporabniški račun:</label>
-                <input type="text" id="fname" class="inputBoxAdmin" name="fname" placeholder="ime...">
-                <label for="fname">Geslo:</label>
-                <input type="password" id="lname" class="inputBoxAdmin" name="lname" placeholder="geslo...">
-                <!-- <label id="rememberBox"><input type="checkbox" name="remember"> Zapomni se me</label><br><br><br> -->
+                <input type="text" id="fname" class="inputBoxAdmin" name="fname" placeholder="Uporabniško ime...">
+                <input type="password" id="lname" class="inputBoxAdmin" name="lname" placeholder="Geslo...">
                 <div id="errorBox"></div>
-                <button id="loginNazaj" class="gumbiAdmin" onclick="goBack()" type="button">Pojdi nazaj</button>
                 <button id="prijavaAdmin" class="gumbiAdmin" onclick="loginTry()" type="button">Prijavi se</button>
-              </form>
+                <button id="loginNazaj" class="gumbiAdmin" onclick="goBack()" type="button">Pojdi nazaj</button>
+            </form>
         </div>
     </div>
 </body>

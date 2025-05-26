@@ -1832,7 +1832,6 @@ footer .logo img
 
 .bodyAdmin .naslov
 {
-    border: 0.2em solid gray;
     border-radius: 0.5em;
     padding: 2em;
 }
@@ -1867,6 +1866,411 @@ footer .logo img
     background-position-y: 70%;
 }
 
+.prikaznovic
+{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2em;
+    padding: 2em;
+    max-width: 75em;
+    margin: 0 auto;
+}
+
+.novica
+{
+    background-color: #f8f8f8;
+    border-radius: 1em;
+    overflow: hidden;
+    box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.1);
+}
+
+.novica img
+{
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.novica h1
+{
+    font-family: Poppins-Bold;
+    color: black;
+    font-size: 3em;
+}
+
+.novica h2,
+.novica h3
+{
+    color: #B4B436;
+    font-family: Poppins-Bold;
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+.novica p
+{
+    font-size: 1.3em;
+    display: -webkit-box;
+    -webkit-line-clamp: 12;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.novica.glavna
+{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    padding: 2em;
+    align-items: flex-start;
+}
+
+.novica.glavna img
+{
+    width: 40%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1em;
+}
+
+.novica.glavna .vsebina
+{
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.novica.manjsa
+{
+    background-color: #f8f8f8;
+    border-radius: 1em;
+    box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    gap: 1em;
+}
+
+.novica.manjsa img
+{
+    width: 100%;
+    height: 12em;
+    object-fit: cover;
+    border-radius: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.novica.manjsa .vsebina
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0;
+    height: unset;
+}
+
+.novica.manjsa h2
+{
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+    color: #B4B436;
+    font-family: Poppins-Bold;
+}
+
+.novica.manjsa p {
+    margin: 0;
+    font-size: 1em;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gumb-odstrani
+{
+    margin-top: 2em;
+    display: block;
+    cursor: pointer;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition: all 1s ease;
+    width: fit-content;
+    border: none;
+    top: -3em;
+    right: 0;
+    z-index: 6;
+}
+
+.gumb-odstrani:hover
+{
+    background-color: #DBBB92;
+}
+
+@media (min-width: 64em)
+{
+    .prikaznovic
+    {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .novica.glavna
+    {
+        grid-column: span 3;
+    }
+
+    .novica.manjsa
+    {
+        grid-column: span 1;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    padding: 2em;
+}
+
+.modal-vsebina {
+    max-width: 110em;
+    width: 100%;
+    background: #fff;
+    border-radius: 1em;
+    overflow: auto;
+    position: relative;
+}
+
+.modal-zapri
+{
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: #B4B436;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 2em;
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+    line-height: 1em;
+    z-index: 4;
+}
+
+.modal-zapri:hover
+{
+    background-color: #DBBB92;
+}
+
+.modal-glavna {
+    padding: 2em;
+    display: flex;
+    gap: 2em;
+    height: 50em;
+}
+
+.modal-glavna img {
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 1em;
+    height: 100%;
+}
+
+.modal-glavna .vsebina {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.novica.manjsa {
+    cursor: pointer;
+    position: relative;
+}
+
+.novica.manjsa form,
+.novica.manjsa button {
+    pointer-events: auto;
+    z-index: 3;
+}
+
+.novica.glavna
+{
+    cursor: pointer;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+body.modal-open .novica.manjsa,
+body.modal-open .novica.glavna {
+  cursor: unset;
+  pointer-events: none;
+}
+
+body.modal-open #novica-modal,
+body.modal-open #novica-modal * {
+  pointer-events: auto;
+  cursor: unset;
+}
+
+body.modal-open #novica-modal .modal-zapri {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+
+    .prikaznovic
+    {
+        grid-template-columns: 1fr;
+        padding: 1em 0;
+        width: 80%;
+        margin: 0 auto;
+        font-size: 200%;
+        margin-top: 5em;
+    }
+
+    .novica
+    {
+        width: 100%;
+    }
+
+    .novica.glavna
+    {
+        flex-direction: column;
+        padding: 1em;
+    }
+
+    .novica.glavna img
+    {
+        width: 100%;
+        height: auto;
+    }
+
+    .novica.glavna .vsebina
+    {
+        width: 100%;
+    }
+
+    .novica.glavna p
+    {
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;
+    }
+
+    .novica h1
+    {
+        font-size: 5em;
+    }
+
+    .novica h2, .novica.manjsa h2
+    {
+        font-size: 3em;
+    }
+
+    .novica p, .novica.manjsa p
+    {
+        font-size: 2em;
+    }
+
+    .novica.manjsa
+    {
+        padding: 1em;
+        width: 100%;
+    }
+
+    .novica.manjsa img
+    {
+        height: auto;
+    }
+
+    .gumb-odstrani
+    {
+        width: 100%;
+        padding: 1em;
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .modal-vsebina
+    {
+        scale: 1.4;
+        top: 10%;
+        right: 1%;
+    }
+
+    .modal h2
+    {
+        font-size: 5em;
+    }
+
+    .modal p
+    {
+        font-size: 3em;
+        height: 20vh;
+        overflow-y: auto;
+    }
+
+    .modal .vsebina
+    {
+        height: fit-content;
+    }
+
+    .modal-glavna
+    {
+      flex-direction: column;
+      height: auto;
+      padding: 1em;
+    }
+
+    .modal-glavna img
+    {
+        width: 100%;
+        height: auto;
+    }
+
+    .modal-vsebina
+    {
+        width: 80%;
+        max-height: 90vh;
+        margin: 0 auto;
+        width: 80%;
+        max-height: 95vh;
+        overflow-y: auto;
+        margin: 0 auto;
+    }
+
+    .modal-zapri
+    {
+        top: 0.5em;
+        right: 0.5em;
+        font-size: 5em;
+        width: 1.3em;
+        height: 1.3em;
+    }
+}
 
 
 /* Prva stran - Kontakt */
@@ -2431,6 +2835,17 @@ footer .logo img
     position: relative;
 }
 
+.skupnacena
+{
+    margin-top: 2em;
+}
+
+.skupnacena h2
+{
+    padding-bottom: 0.5em;
+    border-bottom: solid 0.2em #B4B436;
+}
+
 .stevec
 {
     position: absolute;
@@ -2457,6 +2872,28 @@ footer .logo img
 {
     font-size: 1.1em;
     color: white;
+}
+
+.cena
+{
+    position: absolute;
+    bottom: 2.5em;
+    left: 0;
+}
+
+.cena p
+{
+    z-index: 999;
+    margin: 1em;
+    padding: 0.7em 2em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.2em;
+    transition: all 1s ease;
+    width: fit-content;
 }
 
 .stevecgumb
@@ -2548,6 +2985,14 @@ footer .logo img
         font-size: 3em;
     }
 
+    .skupnacena h2
+    {
+        font-size: 5em;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .stevec
     {
         bottom: 1em;
@@ -2560,6 +3005,16 @@ footer .logo img
         font-size: 2.5em;
         bottom: 1em;
         left: 1.5em;
+    }
+
+    .narocila .cena
+    {
+        bottom: 5em;
+    }
+
+    .narocila .cena p
+    {
+        font-size: 3.5em;
     }
 
     .narocila .narocilo .prikazizdelkov .gp
@@ -2661,9 +3116,6 @@ footer .logo img
     margin-bottom: 2em;
 }
 
-.pomocvsebina audio
-{
-}
 
 /* Za telefon Pomoč */
 
@@ -2760,148 +3212,142 @@ footer .logo img
 /* prijava za admin login in logout */
 
 
-.bodyAdmin{
+.bodyAdmin
+{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-.bodyAdmin form{
-    display: flex;
-    flex-direction: column;
-    
-    
-    
-}
-#prijavaAdmin, #odjavaAdmin{
     background-color: white;
-    font-weight: bold;
-    font-size: 2em;
-    padding: 0.24em;
-    color: rgb(182, 182, 53);
-
-}
-.bodyAdmin .naslov{
-    background-color: rgba(214, 235, 224, 0.5);
-    border: 0.2em solid gray;
-    border-radius: 0.5em;
     padding: 2em;
+}
+
+.bodyAdmin .naslov
+{
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0 0.4em 1.2em rgba(0, 0, 0, 0.15);
+    padding: 3em;
+    max-width: 31.25em;
+    width: 90%;
 }
 
 .bodyAdmin h1
 {
     font-weight: bold;
-    text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    font-size: 4em;
-    margin-bottom: 0.7em;
+    font-family: Poppins-Bold;
+    font-size: 3.2em;
+    margin-bottom: 1.2em;
     color: #B4B436;
+    text-align: center;
 }
 
-
-.bodyAdmin label{
-    font-weight: bold;
-    letter-spacing: 0.07em;
-    text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    font-size: 1.9em;
-    color: #DBBB92;
-}
-
-.gumbiAdmin{
-    padding: 0.2em;
-    margin-top: 0.6em;
-    font-size: 1.8em;
-    background-color: rgb(189, 188, 188);
-    
-}
-
-.bodyAdmin .inputBoxAdmin{
-    margin-bottom: 1.1em;
-}
-
-.okno_za_prodajo{
-     display: none;
-}
-
-.bodyAdmin #errorBox
+.bodyAdmin form
 {
-    font-size: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.bodyAdmin label
+{
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #333;
+    margin-top: 0.6em;
+}
+
+.inputBoxAdmin
+{
+    padding: 0.8em;
+    font-size: 1.2em;
+    margin-bottom: 1.2em;
+    border-radius: 0.4em;
+    border: 1px solid #ccc;
+}
+
+.gumbiAdmin
+{
+    padding: 0.7em;
+    font-size: 1.3em;
+    margin-top: 0.9em;
+    border: none;
+    border-radius: 0.4em;
+    background-color: #B4B436;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.gumbiAdmin:hover
+{
+    background-color: #DBBB92;
+}
+
+#prijavaAdmin, #loginNazaj
+{
+    width: 100%;
+}
+
+#prijavaAdmin
+{
+    padding: 1em;
+}
+
+#logoutNazaj
+{
+    background-color: #7e7e7e;
+}
+
+#logoutNazaj:hover
+{
+    background-color: #DBBB92;
+}
+
+#loginNazaj
+{
+    background-color: #7e7e7e;
+}
+
+#loginNazaj:hover
+{
+    background-color: #DBBB92;
+}
+
+#errorBox
+{
+    font-size: 1.1em;
     font-weight: bold;
     color: red;
+    margin-bottom: 0.6em;
 }
 
 
 /* Za telefon admin login in logout */
+
 @media screen and (max-width: 480px){
-    .bodyAdmin{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+    .bodyAdmin .naslov
+    {
+        max-width: 80%;
+        border-radius: 5em;
+        padding: 10em;
     }
-    
-    .bodyAdmin form{
-        display: flex;
-        flex-direction: column;
-        
-        
-        
-    }
-    #prijavaAdmin, #odjavaAdmin{
-        background-color: rgb(255, 255, 255);
-        font-weight: bold;
-        font-size: 10.5em;
-        padding: 0.3em;
-        color: rgb(182, 182, 53);
-    
-    }
-    .bodyAdmin .naslov{
-        background-color: rgba(214, 235, 224, 0.5);
-        border: 0.2em solid gray;
-        border-radius: 0.5em;
-        padding: 2em;
-    }
-    
+
     .bodyAdmin h1
     {
-        font-weight: bold;
-        text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        font-size: 14em;
-        margin-bottom: 0.7em;
-        color: #B4B436;
+        font-size: 15em;
     }
-    
-    
-    .bodyAdmin label{
-        font-weight: bold;
-        letter-spacing: 0.07em;
-        text-shadow: -1px -1px 0 #2e2c2c, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        font-size: 7em;
-        color: #DBBB92;
-    }
-    
-    .gumbiAdmin{
-        padding: 0.2em;
-        margin-top: 0.6em;
-        font-size: 7em;
-        background-color: rgb(189, 188, 188);
-        
-    }
-    
-    .bodyAdmin .inputBoxAdmin{
-        margin-bottom: 1.1em;
-    }
-    
-    .okno_za_prodajo{
-         display: none;
-    }
-    
-    .bodyAdmin #errorBox
+
+    .inputBoxAdmin
     {
-        font-size: 4em;
-        font-weight: bold;
-        color: red;
+        font-size: 7em;
     }
+
+    .gumbiAdmin
+    {
+        font-size: 7em;
+    }
+
 }
 
 /* Pregled */
@@ -3042,12 +3488,117 @@ footer .logo img
     border: none;
     border-radius: 0.5em;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 1s ease;
 }
 
 .pregledglavno .prikazzaloge button:hover
 {
-    background-color: #9b9b2d;
+    background-color: #DBBB92;
+}
+
+.podonov
+{
+    display: flex;
+    padding: 0 2em;
+}
+
+.dodajanjenovic
+{
+    flex: 1;
+    background-color: #ffffff;
+    padding: 1.5em;
+    border-radius: 2em;
+    box-shadow: 0 0.25em 0.75em rgba(0, 0, 0, 0.2);
+    height: auto;
+    max-height: 35em;
+    width: 100%;
+    max-width: 100%;
+}
+
+.dodajanjenovic h1
+{
+    font-size: 3em;
+    color: #B4B436;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 1em;
+    font-family: Poppins-Bold;
+}
+
+.dodajanjenovic form
+{
+    display: flex;
+    gap: 2em;
+}
+
+.dodajanjenovic .besedilono
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3em;
+}
+
+.dodajanjenovic form input
+{
+    padding: 0.5em;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.375em;
+    width: 100%;
+}
+
+.dodajanjenovic form textarea
+{
+    padding: 0.5em;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.375em;
+    width: 100%;
+}
+
+.dodajanjenovic .slikaposljino input[type="file"]
+{
+    display: block;
+    max-width: 60%;
+}
+
+.dodajanjenovic .slikaposljino input[type="file"]::file-selector-button
+{
+    display: block;
+    padding: 0.5em 1.25em;
+    background-color: #B4B436;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    transition: background-color 1s ease;
+}
+
+.dodajanjenovic form button
+{
+    margin-top: 1.5em;
+    padding: 0.75em 1.5em;
+    background-color: #B4B436;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    transition: background-color 1s ease;
+}
+
+.dodajanjenovic form button:hover
+{
+    background-color: #DBBB92;
 }
 
 .buttonCopyMails
@@ -3110,6 +3661,48 @@ footer .logo img
     .pregledglavno .prikaznarocil
     {
         max-height: 40em;
+    }
+
+    .podonov
+    {
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .dodajanjenovic
+    {
+        width: 80%;
+        max-height: fit-content;
+        padding-left: 5em;
+        z-index: 1;
+    }
+
+    .dodajanjenovic form
+    {
+        flex-direction: column;
+    }
+
+    .dodajanjenovic h1
+    {
+        font-size: 10em;
+        margin-top: 1em;
+    }
+
+    .besedilono p, .slikaposljino p
+    {
+        font-size: 5em;
+    }
+
+    .dodajanjenovic input[type="text"], .dodajanjenovic textarea
+    {
+        max-width: 90%;
+    }
+
+    .dodajanjenovic .slikaposljino button
+    {
+        font-size: 5em;
+        margin-bottom: 1em;
     }
 }
 

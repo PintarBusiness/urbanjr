@@ -126,6 +126,7 @@
                             <th>Dostava</th>
                             <th>Izdelki</th>
                             <th>Datum</th>
+                            <th>Cena</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -145,6 +146,7 @@
                                 </ul>
                             </td>
                             <td>{{ narocilo.datum }}</td>
+                            <td>{{ narocilo.skupna_cena }} €</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -176,6 +178,66 @@
             </table>
         </div>
     </div>
+    <div class="podonov">
+        <div class="dodajanjenovic">
+            <h1>DODAJTE NOVICO</h1>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="besedilono">
+                    <p>
+                        <label>Naslov:<br>
+                            <input id="naslovNovica" type="text" name="naslov">
+                        </label>
+                    </p>
+                    <p>
+                        <label>Besedilo:<br>
+                            <textarea id="besediloNovica" name="besedilo"></textarea>
+                        </label>
+                    </p>
+                </div>
+                <div class="slikaposljino">
+                    <p>
+                        <label>Slika:<br>
+                            <input id="slikaNovica" type="file" name="slika">
+                        </label>
+                    </p>
+                    <button onclick="poskusDodajanjanovice(event)">Objavi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- poskus dodajanja novice -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function poskusDodajanjanovice(event) {
+            event.preventDefault();
+
+            var naslov = document.getElementById("naslovNovica").value;
+            var besedilo = document.getElementById("besediloNovica").value;
+            var slika = document.getElementById("slikaNovica").files[0];
+
+            var formData = new FormData();
+            formData.append("naslov", naslov);
+            formData.append("besedilo", besedilo);
+            formData.append("slika", slika);
+
+            $.ajax({
+                url: "/dodajnovico",
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(result) {
+                    if (result.success == true) {
+                        window.location.href = "/blog";
+                    }
+                }
+            });
+        }
+    </script>
+
+    <!-- poskus dodajanja novice -->
 
     <div class="petastrandrugiindex">
         <div class="poravnava">
@@ -234,7 +296,7 @@
             <a href="#" onclick="AdminClick()">Admin</a>
         </div>
     </div>
-
+    
 <!-- pregled se pokaže če si admin   -->
 <script>
     window.onload = function() {
