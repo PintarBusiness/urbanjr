@@ -83,7 +83,8 @@
                             </li>
                             <div class="search" id="search">
                                 <input type="text" placeholder="Poiščite na strani..." id="search-input">
-                                <button class="gumbsearch" id="gumbsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                <button class="gumbmic" id="micButton"><i class="fa-solid fa-microphone"></i></button>
+                                <button class="gumbsearch" id="gumbsearch" onclick="SearchClick()"><i class="fa-solid fa-magnifying-glass"></i></button>
                             </div>
                         </ul>
                     </nav>
@@ -226,6 +227,80 @@ function poskusDodajanjaMail() {
     }
     </script>
     <!--/* Tukaj je za telefonprikaz meni */ -->
+
+    <!--/* mikrofon delovanje prepoznava govora */ -->
+<script>
+    const micButton = document.getElementById('micButton');
+    const Input = document.getElementById('search-input');
+    micButton.style.transition = 'background-color 0.3s ease';
+    
+    try {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'sl-SI';
+            recognition.interimResults = true;
+            recognition.continuous = false;
+            
+            micButton.addEventListener('click', () => {
+                if (micButton.classList.contains('listening')) {
+                    recognition.stop();
+                    micButton.classList.remove('listening');
+                    micButton.style.backgroundColor = '';
+                    return;
+                }
+                
+                recognition.start();
+                micButton.classList.add('listening');
+                micButton.style.backgroundColor = '#ffffff';
+            });
+
+            recognition.onresult = (e) => {
+                const transcript = Array.from(e.results)
+                    .map(result => result[0])
+                    .map(result => result.transcript)
+                    .join('');
+                
+                Input.value = transcript;
+                
+                if (e.results[0].isFinal) {
+                    micButton.classList.remove('listening');
+                    micButton.style.backgroundColor = ''; 
+                }
+            };
+
+            recognition.onerror = () => {
+                micButton.classList.remove('listening');
+                micButton.style.backgroundColor = ''; 
+            };
+            
+            recognition.onend = () => {
+                micButton.classList.remove('listening');
+                micButton.style.backgroundColor = ''; 
+            };
+        }
+    } catch (e) {
+        console.log("Speech recognition not available");
+    }
+</script>
+
+<!--/* Tukaj je za search button na search baru skripta */ -->
+<script>
+    function SearchClick() {
+        let izdelki = ["Jajca", "Piščanci", "Mleko", "Zelenjava", "Govedina"];
+        const searchInput = document.getElementById('search-input');
+        const searchValue = searchInput.value.trim().toLowerCase();
+        
+
+        const matchFound = izdelki.some(item => 
+            item.toLowerCase() === searchValue
+        );
+        
+        if (matchFound) {
+            window.location.href = '/trgovina';
+        }
+    }
+</script>
 
     <!--/* Tukaj je za search bar scripta */ -->
     <script>
