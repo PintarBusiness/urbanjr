@@ -943,6 +943,6 @@ Sporočilo:
 
 
 
-app.run(debug = True, port=8800)
+app.run(debug = True, port=5000)
 
 
