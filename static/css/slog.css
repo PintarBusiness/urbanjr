@@ -149,7 +149,7 @@ header ul li:not(:last-child) a:hover::after
 .gumbmic i
 {
     font-size: 1.3em;
-
+    color: white;
 }
 
 
@@ -1724,9 +1724,16 @@ footer .logo img
     background-position-y: 70%;
 }
 
+.prvastrantrgovina .vsebina
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .prvastrantrgovina .vsebina .slike
 {
-    margin-top: -5em;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 3em;
@@ -1805,6 +1812,66 @@ footer .logo img
     background-color: #DBBB92;
 }
 
+.tedenska .tedenjajca
+{
+    width: 73em;
+    margin-left: 24em;
+    overflow: hidden;
+    height: 40em;
+    border-radius: 2em;
+    position: relative;
+}
+
+.tedenska .tedenjajca img
+{
+    transform: translateY(-30em);
+}
+
+.tedenska .tedenjajca .tedenbesediloz
+{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2em 2em 0 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.tedenska .tedenjajca .tedenbesediloz h1
+{
+    margin: 1em;
+    font-size: 1.3em;
+    font-family: Poppins-Bold;
+    color: white;
+}
+
+.tedenska .tedenjajca .tedenbesediloz a
+{
+    z-index: 999;
+    margin: 1em;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition: all 1s ease;
+    width: fit-content;
+}
+
+.tedenska .tedenjajca .tedenbesediloz a:hover
+{
+    background-color: #DBBB92;
+}
+
+.tedenska .tedenjajca .cena
+{
+    bottom: 6em;
+}
+
 /* Za telefon Trgovina*/
 
 @media screen and (max-width: 480px)
@@ -1817,13 +1884,28 @@ footer .logo img
 
     .prvastrantrgovina .vsebina .slike
     {
-        margin-top: -35em;
+        margin-top: 10em;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         scale: 3.5;
     }
+
+    .tedenska .tedenjajca
+    {
+        width: 75%;
+        height: 30em;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 3.5em;
+    }
+    
+    .tedenska .tedenjajca .cena
+    {
+        bottom: 10em;
+    }
+
 }
 
 /* prijava za admin */
