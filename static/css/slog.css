@@ -1824,7 +1824,11 @@ footer .logo img
 
 .tedenska .tedenjajca img
 {
-    transform: translateY(-30em);
+    width: 100%;
+    width: 73em;
+
+    overflow: hidden;
+    height: 40em;
 }
 
 .tedenska .tedenjajca .tedenbesediloz
