@@ -319,7 +319,35 @@ izdelek_podatki = {
             </div>
         </div>
         '''
-    }
+    },
+    "JAJCA_TEDEN": {
+    "html": '''
+    <div class="sliketext tedenslikatext">
+        <div class="text">
+            <h1>JAJCA TEDENSKA</h1>
+            <a href="/odstrani_iz_kosarice/JAJCA_TEDEN" class="gumbnarocila"><span>ODSTRANI IZDELEK</span></a>
+        </div>
+        <div class="slika">
+            <img src="/static/images/skupne/DSC07944-14.JPG" alt="Tedenska jajca">
+        </div>
+        <div class="opiskoliko">
+            <p>Vsak teden prejmete 10 do 40 jajc (z možnostjo popusta pri večjih količinah) 1 paket (10 jajc) je 3 eur</p>
+        </div>
+        <div class="cena">
+            <p>3 € / paket</p>
+        </div>
+        <div class="kolicinateden">
+            <p>Izberite koliko jajc tedensko želite prejemati</p>
+            <select id="jajca_kolicina" name="kolicina">
+            <option value="10" {% if session.get('kolicina_jajca_teden', '10') == '10' %}selected{% endif %}>10</option>
+            <option value="20" {% if session.get('kolicina_jajca_teden') == '20' %}selected{% endif %}>20</option>
+            <option value="30" {% if session.get('kolicina_jajca_teden') == '30' %}selected{% endif %}>30</option>
+            <option value="40" {% if session.get('kolicina_jajca_teden') == '40' %}selected{% endif %}>40</option>
+        </select>
+        </div>
+    </div>
+    '''
+}
 }
 
 @app.context_processor
@@ -332,10 +360,16 @@ def kosarica_stevec():
 
 @app.route("/dodaj_v_kosarico/<izdelek>")
 def dodaj_v_kosarico(izdelek):
+
     kosarica = session.get("kosarica", {})
     izdelek_upper = izdelek.upper()
 
-    # Pridobi pravo zalogo iz baze
+    if izdelek_upper == "JAJCA_TEDEN":
+        kosarica[izdelek_upper] = kosarica.get(izdelek_upper, 0) + 1
+        session["kosarica"] = kosarica
+        return redirect(request.referrer)
+
+    # Običajen postopek za ostale izdelke
     trenutna_zaloga = pridobi_zalogo()
     na_voljo = trenutna_zaloga.get(izdelek_upper, 0)
     v_kosarici = kosarica.get(izdelek_upper, 0)
@@ -381,18 +415,31 @@ def znizaj(izdelek):
     session["kosarica"] = kosarica
     return redirect(url_for("kosarica"))
 
+@app.route('/nastavi_kolicino_jajca', methods=['POST'])
+def nastavi_kolicino_jajca():
+    kolicina = request.form.get('kolicina')
+    if kolicina in ['10', '20', '30', '40']:
+        session['kolicina_jajca_teden'] = kolicina
+    return ('', 204)
+
 def izracunaj_skupno_ceno(kosarica_ses):
     skupna = 0.0
+    kolicina_jajca = session.get("kolicina_jajca_teden", "10")
+    faktor = int(kolicina_jajca) // 10  # 10->1, 20->2, 30->3, 40->4
+
     for ime, kolicina in kosarica_ses.items():
         podatki = izdelek_podatki.get(ime.upper())
         if podatki:
             html = podatki["html"]
-            # Poišči prvo ceno v HTML
             match = re.search(r'(\d+(?:\.\d+)?)\s*€', html)
             if match:
                 cena = float(match.group(1))
-                skupna += cena * kolicina
+                if ime.upper() == "JAJCA_TEDEN":
+                    skupna += cena * faktor
+                else:
+                    skupna += cena * kolicina
     return round(skupna, 2)
+
 
 
 
@@ -594,8 +641,8 @@ def html_narocilo(ime, priimek, telefonska, sender_email, kraj, hisna_stevilka, 
     """
     return html_narocilo
 
-
 def narocilo_poslji_mail(narocilo):
+    kolicinajajcateden = session.get('kolicina_jajca_teden', 'ni izbrano')
     try:
         # slovenski znaki
         charset = Charset('utf-8')
@@ -631,9 +678,21 @@ def narocilo_poslji_mail(narocilo):
                 return html.escape(ensure_unicode(s))
             except:
                 return str(s) 
-        strIzdelkov = ""
-        for key, value in json.loads(data["izdelki"].replace("'",'"')).items():
-            strIzdelkov += f"{value}X {key} \n"
+        
+        izdelki = json.loads(data["izdelki"].replace("'",'"'))
+
+        # Ustvari nov slovar za unikate
+        unikatni_izdelki = {}
+
+        for key, value in izdelki.items():
+            key_upper = key.upper()
+            if key_upper == "JAJCA_TEDEN":
+                unikatni_izdelki[key_upper] = f"Jajca na teden x{kolicinajajcateden}"
+            else:
+                if key_upper not in unikatni_izdelki:
+                    unikatni_izdelki[key_upper] = f"{value}x {key}"
+
+        strIzdelkov = "\n".join(unikatni_izdelki.values())
         print(strIzdelkov)
 
         # klic izdelava html
@@ -655,7 +714,7 @@ Kraj: {data['kraj']}
 Hišna številka: {data['hisna_stevilka']}
 Poštna številka: {data['postna_stevilka']}
 Način dostave: {data['nacin_dostave']}
-Izdelki: {data['izdelki']}
+Izdelki: {strIzdelkov.strip()}
 Datum: {data['datum']}
 Skupna cena: {data['skupna_cena']} €"""
 
@@ -688,35 +747,43 @@ Skupna cena: {data['skupna_cena']} €"""
 # ---------- Kosarica ----------
 @app.route("/kosarica")
 def kosarica():
+    if 'kolicina_jajca_teden' not in session:
+        session['kolicina_jajca_teden'] = '10'
     kosarica_ses = session.get("kosarica", {})
     admin_mode = session.get('admin_mode', False)
     skupna_cena = izracunaj_skupno_ceno(kosarica_ses)
-    trenutna_zaloga = pridobi_zalogo()  # <-- Ključno
+    trenutna_zaloga = pridobi_zalogo()
 
     izbrani = []
     neizbrani = []
 
     for ime, podatki in izdelek_podatki.items():
         html = podatki["html"]
+
         if ime in kosarica_ses:
+            # ➤ Če je izdelek v košarici (vključno z "JAJCA_TEDEN"), ga dodaj v izbrane
             kolicina = kosarica_ses[ime]
             zaloga_kolicina = trenutna_zaloga.get(ime, 0)
 
-            # Gumb za +
             if kolicina >= zaloga_kolicina:
                 povecaj_gumb = f'<span class="stevecgumb onemogoceno">+</span>'
             else:
                 povecaj_gumb = f'<a href="/povecaj/{ime}" class="stevecgumb">+</a>'
 
-            html += f'''
-                <div class="stevec">
-                    <a href="/znizaj/{ime}" class="stevecgumb">-</a>
-                    <span class="steveckolicina">{kolicina}</span>
-                    {povecaj_gumb}
-                </div>
+            if ime != "JAJCA_TEDEN":
+                html += f'''
+                    <div class="stevec">
+                        <a href="/znizaj/{ime}" class="stevecgumb">-</a>
+                        <span class="steveckolicina">{kolicina}</span>
+                        {povecaj_gumb}
+                    </div>
             '''
             izbrani.append(html)
         else:
+            # ➤ Če NI v košarici in je "JAJCA_TEDEN", ga preskoči – ne gre v neizbrane
+            if ime == "JAJCA_TEDEN":
+                continue
+
             zaloga_kolicina = trenutna_zaloga.get(ime, 0)
 
             if zaloga_kolicina > 0:
@@ -730,7 +797,14 @@ def kosarica():
 
             neizbrani.append(html_zamenjan)
 
-    return render_template("kosarica.html", izbrani=izbrani, neizbrani=neizbrani, admin_mode=admin_mode, zaloga=trenutna_zaloga, skupna_cena=skupna_cena)
+    return render_template(
+        "kosarica.html",
+        izbrani=izbrani,
+        neizbrani=neizbrani,
+        admin_mode=admin_mode,
+        zaloga=trenutna_zaloga,
+        skupna_cena=skupna_cena
+    )
 
 # ---------- funkcija za oddajo naročila v košarici ----------
 @app.route("/oddaj_narocilo", methods=["POST"])
@@ -743,10 +817,20 @@ def oddaj_narocilo():
         return redirect(url_for("kosarica"))
 
     kosarica = session.get("kosarica", {})
+    
+    # Pridobi količino jajc na teden iz forme (ali session)
+    kolicina_jajca_teden = request.form.get('kolicina', session.get('kolicina_jajca_teden', '10'))
+    try:
+        kolicina_jajca_teden = int(kolicina_jajca_teden)
+    except:
+        kolicina_jajca_teden = 10
+    
+    # Dodaj količino jajc kot poseben izdelek v kosarico
+    kosarica['jajca_teden'] = kolicina_jajca_teden
+    
     skupna_cena = izracunaj_skupno_ceno(kosarica)
     zaloga = session.get("zaloga", {})
 
-    # Shrani naročilo v bazo
     narocilo = {
         "ime": request.form["ime"],
         "priimek": request.form["priimek"],
@@ -764,7 +848,7 @@ def oddaj_narocilo():
     db_narocila.insert(narocilo)
     narocilo_poslji_mail(narocilo)
 
-    # Posodobi zalogo
+    # Posodobi zalogo, če je treba (po potrebi lahko prilagodi za jajca)
     for izdelek, kolicina in kosarica.items():
         obstojece = zalogaDB.get(ZalogaQuery.izdelek == izdelek)
         if obstojece:
@@ -775,7 +859,6 @@ def oddaj_narocilo():
     session["kosarica"] = {}
 
     return render_template("hvala.html", admin_mode=admin_mode, skupna_cena=skupna_cena)
-
 
 # ---------- Delovanje pregled zaloge ----------
 

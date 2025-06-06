@@ -254,6 +254,46 @@
             <a href="#" onclick="AdminClick()">Admin</a>
         </div>
     </div>
+
+<!-- za tedensko nakup za izbiranje in pravilno prikazovanje cene   -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('jajca_kolicina');
+    if (!select) return;
+
+    // 1. Ob nalaganju strani nastavi izbrano vrednost iz sessionStorage
+    const saved = sessionStorage.getItem('kolicina_jajca_teden');
+    if (saved) {
+        select.value = saved;
+    }
+
+    // 2. Po spremembi shrani v sessionStorage in pošlji na strežnik
+    select.addEventListener('change', function() {
+        sessionStorage.setItem('kolicina_jajca_teden', this.value);
+
+        fetch('/nastavi_kolicino_jajca', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: 'kolicina=' + encodeURIComponent(this.value)
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload(); // Po uspešnem POST osveži stran
+            } else {
+                alert('Napaka pri nastavitvi količine.');
+            }
+        })
+        .catch(() => {
+            alert('Napaka pri povezavi na strežnik.');
+        });
+    });
+});
+</script>
+
+
 <!-- pregled se pokaže če si admin   -->
 <script>
     window.onload = function() {

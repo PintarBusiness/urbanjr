@@ -2923,6 +2923,42 @@ body.modal-open #novica-modal .modal-zapri {
     position: relative;
 }
 
+.tedenslikatext .cena
+{
+    position: absolute;
+    bottom: 9em;
+}
+
+.kolicinateden
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    position: absolute;
+    left: 1em;
+    bottom: 5em;
+    background-color: #B4B436;
+    padding: 0.5em 2em;
+    border-radius: 2em;
+}
+
+.kolicinateden p
+{
+    font-size: 1.1em;
+    color: white;
+}
+
+.kolicinateden select
+{
+    padding: 0.5em;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.375em;
+    width: 5em;
+}
+
 .skupnacena
 {
     margin-top: 2em;
