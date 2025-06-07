@@ -261,13 +261,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const select = document.getElementById('jajca_kolicina');
     if (!select) return;
 
-    // 1. Ob nalaganju strani nastavi izbrano vrednost iz sessionStorage
+    // Dobimo vrednost iz Flask sessiona, če obstaja
+    // Če ni nastavljeno ali je 0 ali prazno, ne nastavi default 10 ampak 0 ali prazno
+    const flaskKolicinaRaw = '{{ session.get("kolicina_jajca_teden", "") }}';
+    const flaskKolicina = parseInt(flaskKolicinaRaw, 10);
+    
+    // Preverimo ali je veljavno število in večje od 0
+    const validFlaskKolicina = (!isNaN(flaskKolicina) && flaskKolicina > 0) ? flaskKolicina : null;
+
+    // Preberemo iz sessionStorage
     const saved = sessionStorage.getItem('kolicina_jajca_teden');
-    if (saved) {
-        select.value = saved;
+
+    // Če ni shranjena vrednost in imamo veljavno flask količino, jo nastavimo
+    if (!saved && validFlaskKolicina !== null) {
+        sessionStorage.setItem('kolicina_jajca_teden', validFlaskKolicina);
     }
 
-    // 2. Po spremembi shrani v sessionStorage in pošlji na strežnik
+    // Nastavimo select.value, najprej iz sessionStorage, drugače 0 ali prazno
+    select.value = sessionStorage.getItem('kolicina_jajca_teden') || '0';
+
     select.addEventListener('change', function() {
         sessionStorage.setItem('kolicina_jajca_teden', this.value);
 
@@ -281,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => {
             if (response.ok) {
-                location.reload(); // Po uspešnem POST osveži stran
+                location.reload();
             } else {
                 alert('Napaka pri nastavitvi količine.');
             }
@@ -291,6 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
 </script>
 
 
@@ -419,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <!--/* Tukaj je za search button na search baru skripta */ -->
 <script>
     function SearchClick() {
-        let izdelki = ["Jajca", "Piščanci", "Mleko", "Zelenjava", "Govedina"];
+        let izdelki = ["Jajca", "Nesnice", "Mleko", "Zelenjava", "Govedina"];
         const searchInput = document.getElementById('search-input');
         const searchValue = searchInput.value.trim().toLowerCase();
         

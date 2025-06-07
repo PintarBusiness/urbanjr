@@ -124,25 +124,25 @@
                     </div>
                 </div>
     
-                <!-- PIŠČANCI -->
+                <!-- NESNICE -->
                 <div class="sliketext">
                     <div class="text">
-                        <h1>PIŠČANCI</h1>
-                        {% set zaloga_piscanci = zaloga.get('PIŠČANCI', 0) - session.get('kosarica', {}).get('PIŠČANCI', 0) %}
+                        <h1>NESNICE</h1>
+                        {% set zaloga_piscanci = zaloga.get('NESNICE', 0) - session.get('kosarica', {}).get('NESNICE', 0) %}
                         {% if zaloga_piscanci > 0 %}
-                            <a href="/dodaj_v_kosarico/PIŠČANCI" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                            <a href="/dodaj_v_kosarico/NESNICE" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
                         {% else %}
                             <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
                         {% endif %}
                     </div>
                     <div class="slika">
-                        <img src="static/images/trgovina/DSC07979-21.JPG" alt="Piščanci">
+                        <img src="static/images/trgovina/DSC07979-21.JPG" alt="Nesnice">
                     </div>
                     <div class="opiskolikot">
                         <p>V vsakem paketu je 1 piščanec</p>
                     </div>
                     <div class="cena">
-                        <p>14 €</p>
+                        <p>3.5 €</p>
                     </div>
                 </div>
     
@@ -190,13 +190,13 @@
                     </div>
                 </div>
     
-                <!-- GOVEDINA -->
+                <!-- JAGNJETINA -->
                 <div class="sliketext">
                     <div class="text">
-                        <h1>GOVEDINA</h1>
-                        {% set zaloga_govedina = zaloga.get('GOVEDINA', 0) - session.get('kosarica', {}).get('GOVEDINA', 0) %}
-                        {% if zaloga_govedina > 0 %}
-                            <a href="/dodaj_v_kosarico/GOVEDINA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        <h1>JAGNJETINA</h1>
+                        {% set zaloga_jagnjetina = zaloga.get('JAGNJETINA', 0) - session.get('kosarica', {}).get('GOVEDINA', 0) %}
+                        {% if zaloga_jagnjetina > 0 %}
+                            <a href="/dodaj_v_kosarico/JAGNJETINA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
                         {% else %}
                             <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
                         {% endif %}
@@ -414,7 +414,7 @@
 <!--/* Tukaj je za search button na search baru skripta */ -->
 <script>
     function SearchClick() {
-        let izdelki = ["Jajca", "Piščanci", "Mleko", "Zelenjava", "Govedina"];
+        let izdelki = ["Jajca", "Nesnice", "Mleko", "Zelenjava", "Govedina"];
         const searchInput = document.getElementById('search-input');
         const searchValue = searchInput.value.trim().toLowerCase();
         
