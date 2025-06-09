@@ -2858,6 +2858,7 @@ body.modal-open #novica-modal .modal-zapri {
 
 .nacindostave label .prevzem
 {
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 1em;
@@ -2865,6 +2866,12 @@ body.modal-open #novica-modal .modal-zapri {
     border-radius: 1em;
     cursor: pointer;
     transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.nacindostave label .prevzem .ninavoljo
+{
+    position: absolute;
+    background-color: #B4B436;
 }
 
 .nacindostave input[type="radio"]
