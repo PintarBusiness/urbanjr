@@ -1160,6 +1160,11 @@ footer .logo img
         margin-left: 2em;
     }
 
+    .tretjastranprviindex .naslovi .naslov:nth-child(4) a
+    {
+        margin-left: 2em;
+    }
+
     .tretjastranprviindex .naslovi .naslov:nth-child(5) a
     {
         margin-left: 2em;
