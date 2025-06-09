@@ -1146,12 +1146,23 @@ footer .logo img
         margin-top: 20em;
         margin-bottom: 10em;
         justify-content: center;
-        gap: 10em;
+        gap: 20em;
+        margin-left: 15em;
     }
 
     .tretjastranprviindex .naslovi .naslov a
     {
         font-size: 5em;
+    }
+
+    .tretjastranprviindex .naslovi .naslov:nth-child(3) a
+    {
+        margin-left: 2em;
+    }
+
+    .tretjastranprviindex .naslovi .naslov:nth-child(5) a
+    {
+        margin-left: 2em;
     }
 
     .tretjastranprviindex .crta .ikone
@@ -1168,6 +1179,32 @@ footer .logo img
     .tretjastranprviindex .crta .ikone .ikona a:hover
     {
         scale: 4;
+    }
+
+    .overlay-content
+    {
+        border-radius: 2em;
+    }
+
+    .overlay-content h1
+    {
+        font-size: 10em;
+    }
+
+    .overlay-content p
+    {
+        font-size: 5em;
+    }
+
+    .close-btn
+    {
+        font-size: 5em;
+    }
+
+    .gumbizdelkivtrgovina
+    {
+        font-size: 4em;
+        margin-bottom: 0.5em;
     }
 
     .tretjastrandrugiindex
