@@ -132,9 +132,10 @@
     <div class="tretjastranprviindex">
         <div class="naslovi">
             <div class="naslov"><a href="/trgovina">JAJCA</a></div>
-            <div class="naslov"><a href="/trgovina">PIŠČANCI</a></div>
+            <div class="naslov"><a href="/trgovina">NESNICE</a></div>
             <div class="naslov"><a href="/trgovina">MLEKO</a></div>
             <div class="naslov"><a href="/trgovina">ZELENJAVA</a></div>
+            <div class="naslov"><a href="/trgovina">JAGNJETINA</a></div>
         </div>
         <div class="crta">
             <div class="ikone">
@@ -142,9 +143,92 @@
                 <div class="ikona"><a href="/trgovina"><i class="fa-solid fa-drumstick-bite"></i></a></div>
                 <div class="ikona"><a href="/trgovina"><i class="fa-solid fa-glass-water"></i></a></div>
                 <div class="ikona"><a href="/trgovina"><i class="fa-solid fa-seedling"></i></a></div>
+                <div class="ikona"><a href="/trgovina"><i class="fa-solid fa-bacon"></i></a></div>
             </div>
         </div>
     </div>
+
+    <div id="overlay" class="overlay">
+        <div class="overlay-content">
+            <span class="close-btn" onclick="closeOverlay()">&times;</span>
+            <h1 id="overlay-title"></h1>
+            <p id="overlay-description"></p>
+            <a class="gumbizdelkivtrgovina" href="/trgovina">NAROČITE IZDELEK</a>
+        </div>
+    </div>
+
+<!-- Javascript za odprtje izdelkov opis -->
+    <script>
+  const productInfo = {
+    "JAJCA": {
+      title: "JAJCA",
+      description: "Naša sveža jajca iz proste reje prihajajo z lokalne kmetije, kjer so kokoši hranjene z naravno krmo brez dodatkov in antibiotikov. Jajca so vsak dan sveže pobrana, z bogatim okusom in čvrstim rumenjakom."
+    },
+    "NESNICE": {
+      title: "NESNICE",
+      description: "Naše nesnice so vzrejene z največjo skrbnostjo v naravnem okolju. Zagotavljamo kakovostne pogoje za življenje, kar se odraža v zdravih in kakovostnih izdelkih."
+    },
+    "MLEKO": {
+      title: "MLEKO",
+      description: "Domače mleko z naše kmetije je polno okusa, sveže molženo in ustekleničeno. Brez umetnih dodatkov, naravno in hranljivo za vsak dan."
+    },
+    "ZELENJAVA": {
+      title: "ZELENJAVA",
+      description: "Ekološko pridelana zelenjava z domačega vrta. Brez pesticidov, polna vitaminov in pridelana s spoštovanjem do narave."
+    },
+    "JAGNJETINA": {
+      title: "JAGNJETINA",
+      description: "Naša jagnjetina prihaja iz slovenskih planin, kjer se živali pasejo prosto. Meso je mehko, aromatično in pripravljeno po tradicionalnih receptih."
+    }
+  };
+
+  const overlay = document.getElementById('overlay');
+  const overlayTitle = document.getElementById('overlay-title');
+  const overlayDescription = document.getElementById('overlay-description');
+
+  const labels = Array.from(document.querySelectorAll('.naslovi .naslov a')).map(a => a.textContent.trim().toUpperCase());
+
+  document.querySelectorAll('.naslovi .naslov a').forEach((link, i) => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      showOverlay(labels[i]);
+    });
+  });
+
+  document.querySelectorAll('.ikone .ikona a').forEach((icon, i) => {
+    icon.addEventListener('click', function(e) {
+      e.preventDefault();
+      showOverlay(labels[i]);
+    });
+  });
+
+  function showOverlay(key) {
+    const info = productInfo[key];
+    if (info) {
+      overlayTitle.textContent = info.title;
+      overlayDescription.textContent = info.description;
+      overlay.style.display = 'flex';
+    }
+  }
+
+  function closeOverlay() {
+    overlay.style.display = 'none';
+  }
+
+  window.addEventListener('click', function(e) {
+    const content = document.querySelector('.overlay-content');
+    if (e.target === overlay) {
+      closeOverlay();
+    }
+  });
+
+  window.addEventListener('keydown', function(e) {
+    if (e.key === "Escape") {
+      closeOverlay();
+    }
+  });
+</script>
+<!-- Javascript za odprtje izdelkov opis -->
 
     <div class="tretjastrandrugiindex">
         <div class="temnoindex">

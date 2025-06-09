@@ -416,13 +416,21 @@ header ul li:not(:last-child) a:hover::after
     margin-bottom: 3em;
 }
 
+.tretjastranprviindex .naslovi .naslov
+{
+    width: 7em;
+}
+
 .tretjastranprviindex .naslovi .naslov a
 {
-    margin-left: 1.1em;
-    margin-right: 0.4em;
     font-family: Poppins-Bold;
     color: black;
     text-decoration: none;
+}
+
+.tretjastranprviindex .naslovi .naslov a:nth-child(1)
+{
+    margin-left: 0.8em;
 }
 
 .tretjastranprviindex .crta .ikone 
@@ -451,6 +459,90 @@ header ul li:not(:last-child) a:hover::after
 .tretjastranprviindex .crta .ikone .ikona a:hover
 {
     scale: 1.1;
+}
+
+.overlay
+{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+.overlay-content
+{
+    background: white;
+    padding: 2em;
+    border-radius: 1em;
+    width: 80%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    text-align: center;
+}
+
+.overlay-content h1
+{
+    font-family: Poppins-Bold;
+    font-size: 3em;
+    color: #B4B436;
+}
+
+.overlay-content p
+{
+    font-size: 1.3em;
+    margin-top: 1em;
+}
+
+.close-btn
+{
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: #B4B436;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5em;
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+.close-btn:hover
+{
+    background-color: #DBBB92;
+}
+
+.gumbizdelkivtrgovina
+{
+    margin-top: 2em;
+    padding: 1em 2.3em;
+    background-color: #B4B436;
+    border-radius: 3em;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    transition: all 1s ease;
+    width: fit-content;
+}
+
+.gumbizdelkivtrgovina:hover
+{
+    background-color: #DBBB92;
 }
 
 
