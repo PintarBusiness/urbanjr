@@ -1,1 +1,1 @@
-{"_default": {"1": {"izdelek": "JAJCA", "kolicina": 19}, "2": {"izdelek": "MLEKO", "kolicina": 75}, "3": {"izdelek": "ZELENJAVA", "kolicina": 96}, "5": {"izdelek": "NESNICE", "kolicina": 8}, "8": {"izdelek": "JAJCA_TEDEN", "kolicina": 0}, "9": {"izdelek": "JAGNJETINA", "kolicina": 7}}}
+{"_default": {"1": {"izdelek": "JAJCA", "kolicina": 19}, "2": {"izdelek": "MLEKO", "kolicina": 75}, "5": {"izdelek": "NESNICE", "kolicina": 8}, "8": {"izdelek": "JAJCA_TEDEN", "kolicina": 0}, "10": {"izdelek": "KROMPIR", "kolicina": 9}, "9": {"izdelek": "JAGNJETINA", "kolicina": 5}}}

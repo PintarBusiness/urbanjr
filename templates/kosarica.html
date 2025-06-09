@@ -261,27 +261,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const select = document.getElementById('jajca_kolicina');
     if (!select) return;
 
-    // Dobimo vrednost iz Flask sessiona, če obstaja
-    // Če ni nastavljeno ali je 0 ali prazno, ne nastavi default 10 ampak 0 ali prazno
+    // Preveri ali obstaja količina iz Flask seje
     const flaskKolicinaRaw = '{{ session.get("kolicina_jajca_teden", "") }}';
     const flaskKolicina = parseInt(flaskKolicinaRaw, 10);
-    
-    // Preverimo ali je veljavno število in večje od 0
     const validFlaskKolicina = (!isNaN(flaskKolicina) && flaskKolicina > 0) ? flaskKolicina : null;
 
-    // Preberemo iz sessionStorage
-    const saved = sessionStorage.getItem('kolicina_jajca_teden');
-
-    // Če ni shranjena vrednost in imamo veljavno flask količino, jo nastavimo
-    if (!saved && validFlaskKolicina !== null) {
-        sessionStorage.setItem('kolicina_jajca_teden', validFlaskKolicina);
+    // Poskusi prebrati iz sessionStorage
+    let saved = sessionStorage.getItem('kolicina_jajca_teden');
+    if (saved === null || saved === "0") {
+        // Če ni shranjene vrednosti ali je bila prej 0, nastavimo na 10
+        sessionStorage.setItem('kolicina_jajca_teden', '10');
+        saved = '10';
     }
 
-    // Nastavimo select.value, najprej iz sessionStorage, drugače 0 ali prazno
-    select.value = sessionStorage.getItem('kolicina_jajca_teden') || '0';
+    // Če obstaja vrednost iz Flask, prepiši sessionStorage
+    if (validFlaskKolicina !== null) {
+        sessionStorage.setItem('kolicina_jajca_teden', validFlaskKolicina);
+        saved = validFlaskKolicina;
+    }
+
+    // Nastavi izbran value
+    select.value = saved;
 
     select.addEventListener('change', function() {
-        sessionStorage.setItem('kolicina_jajca_teden', this.value);
+        const novaVrednost = this.value;
+
+        sessionStorage.setItem('kolicina_jajca_teden', novaVrednost);
 
         fetch('/nastavi_kolicino_jajca', {
             method: 'POST',
@@ -289,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'X-Requested-With': 'XMLHttpRequest'
             },
-            body: 'kolicina=' + encodeURIComponent(this.value)
+            body: 'kolicina=' + encodeURIComponent(novaVrednost)
         })
         .then(response => {
             if (response.ok) {
@@ -303,7 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
 </script>
 
 

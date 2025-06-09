@@ -139,7 +139,7 @@
                         <img src="static/images/trgovina/DSC07979-21.JPG" alt="Nesnice">
                     </div>
                     <div class="opiskolikot">
-                        <p>V vsakem paketu je 1 piščanec</p>
+                        <p>V vsakem paketu je 1 kokoš nesnica stara 1 leto</p>
                     </div>
                     <div class="cena">
                         <p>3.5 €</p>
@@ -168,22 +168,22 @@
                     </div>
                 </div>
     
-                <!-- ZELENJAVA -->
+                <!-- KROMPIR -->
                 <div class="sliketext">
                     <div class="text">
-                        <h1>ZELENJAVA</h1>
-                        {% set zaloga_zelenjava = zaloga.get('ZELENJAVA', 0) - session.get('kosarica', {}).get('ZELENJAVA', 0) %}
-                        {% if zaloga_zelenjava > 0 %}
-                            <a href="/dodaj_v_kosarico/ZELENJAVA" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
+                        <h1>KROMPIR</h1>
+                        {% set zaloga_krompir = zaloga.get('KROMPIR', 0) - session.get('kosarica', {}).get('KROMPIR', 0) %}
+                        {% if zaloga_krompir > 0 %}
+                            <a href="/dodaj_v_kosarico/KROMPIR" class="gumbnarocila"><span>DODAJ V KOŠARICO</span></a>
                         {% else %}
                             <span class="gumbnarocila onemogoceno">NI NA VOLJO</span>
                         {% endif %}
                     </div>
                     <div class="slika">
-                        <img src="static/images/trgovina/DSC07972-20.JPG" alt="Zelenjava">
+                        <img src="static/images/trgovina/DSC07972-20.JPG" alt="Krompir">
                     </div>
                     <div class="opiskolikot">
-                        <p>Paket mešane zelenjave</p>
+                        <p>V vsakem paketu je 1kg krompirja</p>
                     </div>
                     <div class="cena">
                         <p>5 €</p>
@@ -205,7 +205,7 @@
                         <img src="static/images/trgovina/DSC07979-21.JPG" alt="Govedina">
                     </div>
                     <div class="opiskolikot">
-                        <p>V vsakem paketu je 0.5 kg govedine</p>
+                        <p>V vsakem paketu je 0.5 kg jagnjetine</p>
                     </div>
                     <div class="cena">
                         <p>20 €</p>
@@ -414,7 +414,7 @@
 <!--/* Tukaj je za search button na search baru skripta */ -->
 <script>
     function SearchClick() {
-        let izdelki = ["Jajca", "Nesnice", "Mleko", "Zelenjava", "Govedina"];
+        let izdelki = ["Jajca", "Nesnice", "Mleko", "Krompir", "Jagnjetina"];
         const searchInput = document.getElementById('search-input');
         const searchValue = searchInput.value.trim().toLowerCase();
         
@@ -431,7 +431,7 @@
 
 <!--/* Tukaj je za search bar scripta */ -->
 <script>
-    let izdelki = ["Jajca", "Piščanec", "Mleko", "Zelenjava", "Govedina"];
+    let izdelki = ["Jajca", "Piščanec", "Mleko", "Krompir", "Jagnjetina"];
     
     const searchInput = document.getElementById('search-input');
     const searchResultsContainer = document.getElementById('search-results');
